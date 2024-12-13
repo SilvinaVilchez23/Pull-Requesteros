@@ -54,7 +54,7 @@ _ al menos una relacion en cada entidad
 .Id {int}
 .id_adoptante {int}
 .Id animal{int}
-.Fecha de interes {date}
+.Fecha de adopcion {date}
 .Estado (Estado del interés (pendiente){varchar}
 .FOREIGN KEY (animal_id) REFERENCES animales(id) ON DELETE CASCADE,
 .FOREIGN KEY (adoptante_id) REFERENCES adoptantes(id) ON DELETE CASCADE
@@ -66,11 +66,11 @@ Resumen de Relaciones:
 *refugios/transito : tiene relacion con animales. un refugio puede contener muchos animales (relacion uno-a-muchos) pero cada animal pertenece solo a un refugio. 
 Refugio tiene salida hacia animales mediante refugio_id.
 
-*animales : tiene relacion con refugios/transito y con adoptante. muchos animales puede pertenecer a un unico refugio/transito, Relación muchos a uno. Un animal puede ser de interes de muchos posibles_adoptantes , relacion de muchos-a-muchos (se hace un tabla de relacion aparte, llamada "adopciones")
+*animales : tiene relacion con refugios/transito y con adoptante. muchos animales puede pertenecer a un unico refugio/transito, Relación muchos a uno. Muchos animales pueden pertenecer a un unico adoptante, relacion de Muchos a uno (se hace un tabla de relacion aparte, llamada "adopciones")
 Entrada desde refugio mediante refugio_id.
 Salida hacia adoptante mediante adoptante_id.
 
-*adoptante: tiene relacion con animales, un adoptante puede adoptar varios animales, y cada animal puede ser de interes de adopcion por muchos posbiles_adoptantes, la relacion es de muchos a muchos 
+*adoptante: tiene relacion con animales, un adoptante puede adoptar varios animales, y cada animal puede ser de adoptado por un adoptante, la relacion es de uno a uno 
 tiene entrada desde animales mediante adoptante_id.
 Un adoptante puede adoptar muchos animales (relación uno a muchos desde adoptantes hacia animales).
 Un animal solo puede ser adoptado por un único adoptante (por lo que en la tabla animales se agrega una clave foránea que apunta a adoptantes).
