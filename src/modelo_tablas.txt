@@ -4,10 +4,13 @@ _ 3 entidades (al menos)
 _ 5 campos si o si (excluyendo id)
 _ al menos una relacion en cada entidad
 
- Entidades: animales, adoptante, Refugios/transito.    Relaciones:
+
+    Entidades: animales, adoptante, Refugios/transito.
+    Relaciones:
         Cada animal pertenece a un refugio.
-        Un posible_adoptante puede adoptar uno o mas animales.
-        Un adoptante puede adoptar uno o mas animales.    Ejemplo de páginas:
+        Un adoptante puede adoptar uno o mas animales.
+        Un animal puede ser de interes para muchos adoptantes
+    Ejemplo de páginas:
         Página de listado de mascotas disponibles.
         Página de detalles de una mascota.
         Pagina de solicitud de adopcion (con la informacion de los requisitos)
@@ -51,14 +54,17 @@ _ al menos una relacion en cada entidad
 .FOREIGN KEY (adoptante_id) REFERENCES adoptantes(id) ON DELETE SET NULL
 
 
+
 Resumen de Relaciones:
 
 *refugios/transito : tiene relacion con animales. un refugio puede contener muchos animales (relacion uno-a-muchos) pero cada animal pertenece solo a un refugio. 
 Refugio tiene salida hacia animales mediante refugio_id.
 
+
 *animales : tiene relacion con refugios/transito y con adoptante. muchos animales puede pertenecer a un unico refugio/transito, Relación muchos a uno. Muchos animales pueden pertenecer a un unico adoptante, relacion de Muchos a uno.
 Entrada desde refugio mediante refugio_id.
 Salida hacia adoptante mediante adoptante_id.
+
 
 *adoptante: tiene relacion con animales, un adoptante puede adoptar varios animales, y cada animal puede ser de adoptado por un solo adoptante, relación uno a muchos desde adoptantes hacia animales. 
 tiene entrada desde animales mediante adoptante_id.
