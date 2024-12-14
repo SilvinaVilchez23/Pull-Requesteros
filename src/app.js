@@ -96,3 +96,85 @@ app.put('/api/v1/animales/:id', (req,res) => {
 
 })
 
+//Prueba, despues se elimina
+let adoptantes = [{
+  id: 1,
+  nombre: "silvina",
+  apellido: "vilchez",
+  edad: 22,
+  direccion: "ggfnfngf",
+  mail: "trhrthtrhtr",
+  telefono: 123456
+}, {
+  id: 2,
+  nombre: "daiana",
+  apellido: "bfbfg",
+  edad: 90,
+  direccion: "fbfgbfgnf",
+  mail: "dbfgbfb",
+  telefono: 98765
+
+}]
+
+//Para mostrar todos los adoptantes 
+app.get('/api/v1/adoptantes', (req,res) => {
+  res.json(adoptantes)
+})
+
+//Para buscar un adoptante en especifico
+app.get('/api/v1/adoptantes/:id', (req,res) => {
+  const adoptante = adoptantes.find((Element) => Element.id == req.params.id)
+  
+  if (adoptante === undefined) {
+    res.sendStatus(404)
+    return
+  }
+
+  res.json(adoptante)
+})
+
+//Para crear un adoptante
+app.post('/api/v1/adoptantes', (req,res) => {
+  const adoptante = {
+    id: animales.length +1,
+    nombre: req.body.nombre,
+    apellido: req.body.apellido,
+    edad : req.body.edad,
+    direccion: req.body.direccion,
+    mail: req.body.mail,
+    telefono: req.body.telefono
+  }
+  adoptantes.push(adoptante)
+  res.status(201).send(adoptante)
+})
+
+//Para eliminar un adoptante
+app.delete('/api/v1/adoptantes/:id', (req,res) => {
+  const adoptante = adoptantes.find((Element) => Element.id == req.params.id)
+  if (adoptante === undefined) {
+    res.sendStatus(404)
+    return
+  }
+
+  adoptantes = adoptantes.filter((Element) => Element.id != req.params.id)
+  res.send(adoptante)
+})
+
+//Para actualizar/editar un adoptante
+app.put('/api/v1/adoptantes/:id', (req,res) => {
+  let adoptante_index = adoptantes.findIndex((Element) => Element.id == req.params.id)
+  if (adoptante_index === -1) {
+    res.sendStatus(404)
+    return
+  }
+
+  adoptantes[adoptante_index].nombre = req.body.nombre ?? adoptantes[adoptante_index].nombre
+  adoptantes[adoptante_index].apellido = req.body.apellido ?? adoptantes[adoptante_index].apellido
+  adoptantes[adoptante_index].edad = req.body.edad ?? adoptantes[adoptante_index].edad
+  adoptantes[adoptante_index].direccion = req.body.direccion ?? adoptantes[adoptante_index].direccion
+  adoptantes[adoptante_index].mail = req.body.mail ?? adoptantes[adoptante_index].mail
+  adoptantes[adoptante_index].telefono = req.body.telefono ?? adoptantes[adoptante_index].telefono
+
+  res.send(adoptantes[adoptante_index])
+
+})
