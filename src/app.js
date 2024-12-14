@@ -11,7 +11,8 @@ let animales = [{
   especie: "gato",
   edad: 5,
   raza: "mestizo",
-  refugio_id: undefined
+  refugio_id: undefined,
+  adoptante_id: undefined
 }, {
   id: 2,
   nombre: "pepo",
@@ -19,12 +20,13 @@ let animales = [{
   especie: "gato",
   edad: 4,
   raza: "mestizo",
-  refugio_id: undefined
+  refugio_id: undefined,
+  adoptante_id: undefined
 
 }]
 
 app.get('/', (req, res) => {
-  res.send('Adopciones')
+  res.send('Adopciones de perros y gatos')
 })
 
 app.use(express.json())
@@ -59,7 +61,8 @@ app.post('/api/v1/animales', (req,res) => {
     especie : req.body.especie,
     edad: req.body.edad,
     raza: req.body.raza,
-    refugio_id: req.body.refugio_id
+    refugio_id: req.body.refugio_id,
+    adoptante_id: req.params.adoptante_id
   }
   animales.push(animal)
   res.status(201).send(animal)
@@ -91,6 +94,7 @@ app.put('/api/v1/animales/:id', (req,res) => {
   animales[animal_index].edad = req.body.edad ?? animales[animal_index].edad
   animales[animal_index].raza = req.body.raza ?? animales[animal_index].raza
   animales[animal_index].refugio_id = req.body.refugio_id ?? animales[animal_index].refugio_id
+  animales[animal_index].adoptante_id = req.body.adoptante_id ?? animales[animal_index].adoptante_id
 
   res.send(animales[animal_index])
 
