@@ -178,3 +178,91 @@ app.put('/api/v1/adoptantes/:id', (req,res) => {
   res.send(adoptantes[adoptante_index])
 
 })
+
+
+
+//Prueba, despues se elimina
+let refugios_transitos = [{
+  id: 1,
+  nombre: "refugio dfbdbd",
+  direccion: "ggfnfngf",
+  capacidad_maxima: 7,
+  telefono: 123456,
+  tipo: "refugio",
+  mail: "trhrthtrhtr"
+}, {
+  id: 2,
+  nombre: "silvinaV",
+  direccion: "ggfnfngf",
+  capacidad_maxima: 1,
+  telefono: 123456,
+  tipo: "transito",
+  mail: "trhrthtrhtr"
+}]
+
+//Para mostrar todos los refugios_transitos 
+app.get('/api/v1/refugios_transitos', (req,res) => {
+  res.json(refugios_transitos)
+})
+
+//Para buscar un refugio_transito en especifico
+app.get('/api/v1/refugios_transitos/:id', (req,res) => {
+  const refugio_transito = refugios_transitos.find((Element) => Element.id == req.params.id)
+  
+  if (refugio_transito === undefined) {
+    res.sendStatus(404)
+    return
+  }
+
+  res.json(refugio_transito)
+})
+
+//Para crear un refugio_transito
+app.post('/api/v1/refugios_transitos', (req,res) => {
+  const refugio_transito = {
+    id: refugios_transitos.length +1,
+    nombre: req.body.nombre,
+    direccion: req.body.direccion,
+    capacidad_maxima: req.body.capacidad_maxima,
+    telefono: req.body.telefono,
+    tipo: req.params.tipo,
+    mail: req.body.mail
+
+  }
+  refugios_transitos.push(refugio_transito)
+  res.status(201).send(refugio_transito)
+})
+
+//Para eliminar un refugio_transito
+app.delete('/api/v1/refugios_transitos/:id', (req,res) => {
+  const refugio_transito = refugios_transitos.find((Element) => Element.id == req.params.id)
+  if (refugio_transito === undefined) {
+    res.sendStatus(404)
+    return
+  }
+
+  refugios_transitos = refugios_transitos.filter((Element) => Element.id != req.params.id)
+  res.send(refugio_transito)
+})
+
+//Para actualizar/editar un refugio_transito
+app.put('/api/v1/refugios_transitos/:id', (req,res) => {
+  let refugio_transito_index = refugios_transitos.findIndex((Element) => Element.id == req.params.id)
+  if (refugio_transito_index === -1) {
+    res.sendStatus(404)
+    return
+  }
+
+  refugios_transitos[refugio_transito_index].nombre = req.body.nombre ?? refugios_transitos[refugio_transito_index].nombre
+  refugios_transitos[refugio_transito_index].direccion = req.body.direccion ?? refugios_transitos[refugio_transito_index].direccion
+  refugios_transitos[refugio_transito_index].capacidad_maxima = req.body.capacidad_maxima ?? refugios_transitos[refugio_transito_index].capacidad_maxima
+  refugios_transitos[refugio_transito_index].telefono = req.body.telefono ?? refugios_transitos[refugio_transito_index].telefono
+  refugios_transitos[refugio_transito_index].tipo = req.body.tipo ?? refugios_transitos[refugio_transito_index].tipo
+  refugios_transitos[refugio_transito_index].mail = req.body.mail ?? refugios_transitos[refugio_transito_index].mail
+
+  res.send(refugios_transitos[refugio_transito_index])
+
+})
+
+
+
