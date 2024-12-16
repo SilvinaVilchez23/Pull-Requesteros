@@ -1,4 +1,4 @@
-# Portal Adopcion Mascotas:
+# Portal Adopción de Mascotas
 
 El siguiente proyecto es un servidor para gestionar la adopción de animales como perros y gatos. 
 
@@ -14,6 +14,26 @@ El siguiente proyecto es un servidor para gestionar la adopción de animales com
 - **Base de Datos**: PostgreSQL con Prisma ORM
 - **Docker**: Contenedores para el backend y el frontend
 - **Control de versiones**: Git
+
+
+## Funcionamineto
+
+Capturas de pantalla del proyecto.
+
+### Página de inicio
+A continuación, se muestra la página principal del sitio donde los usuarios pueden ver los animales disponibles para adopción.
+
+//agregar imagen//
+
+### Carateristicas de un animal
+Esta es la página que muestra los detalles de un animal específico, como su nombre, especie, edad, etc.
+
+//agregar imagen//
+
+### Formulario de solicitud de adopción
+Aquí está el formulario para que los usuarios puedan solicitar la adopción de un animal.
+
+//agregar imagen//
 
 
 ## Requisitos
