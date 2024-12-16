@@ -27,6 +27,10 @@ app.get('/api/v1/animales/:id', async (req,res) => {
   const animal = await prisma.animal.findUnique({
     where: {
       id:parseInt(req.params.id)
+    },
+    include: {
+      animal_en_refugio_transito:true,
+      animal_adoptado:true
     }
   })
   
@@ -119,6 +123,9 @@ app.get('/api/v1/adoptantes/:id', async (req,res) => {
   const adoptante = await prisma.adoptante.findUnique({
     where: {
       id:parseInt(req.params.id)
+    }, 
+    include: {
+      animal_adoptado:true
     }
   })
   
@@ -218,6 +225,9 @@ app.get('/api/v1/refugios_transitos/:id', async (req,res) => {
   const refugio_transito = await prisma.refugio_transito.findUnique({
     where: {
       id:parseInt(req.params.id)
+    },
+    include: {
+      animal_en_refugio_transito:true
     }
   })
   
