@@ -5,9 +5,8 @@ const port = 3000
 
 const prisma = new PrismaClient()
 
-
 app.get('/', (req, res) => {
-  res.send('Adopciones')
+  res.send('Adopciones de perros y gatos')
 })
 
 app.use(express.json())
@@ -50,6 +49,7 @@ app.post('/api/v1/animales', async (req,res) => {
       raza: req.body.raza,
     }
   })
+
   res.status(201).send(animal)
 
 })
@@ -101,6 +101,7 @@ app.put('/api/v1/animales/:id', async (req,res) => {
       raza: req.body.raza
     }
   })
+
 
   res.send(animal)
 
