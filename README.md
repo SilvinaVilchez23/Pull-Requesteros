@@ -53,3 +53,8 @@ Antes de ejecutar este proyecto, asegúrate de tener instalados los siguientes p
 Clona el repositorio del proyecto:
 ```bash
 git clone https://github.com/usuario/portal-adopcion-mascotas.git
+```
+
+## Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](./LICENSE) para más detalles.
