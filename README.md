@@ -16,7 +16,7 @@ El siguiente proyecto es un servidor para gestionar la adopción de animales com
 - **Control de versiones**: Git
 
 
-## Funcionamineto
+## Funcionamiento
 
 Capturas de pantalla del proyecto.
 
