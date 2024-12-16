@@ -52,7 +52,7 @@ Antes de ejecutar este proyecto, asegúrate de tener instalados los siguientes p
 ### 1. Clonar el repositorio
 Clona el repositorio del proyecto:
 ```bash
-git clone https://github.com/usuario/portal-adopcion-mascotas.git
+git clone hhttps://github.com/SilvinaVilchez23/Pull-Requesteros.git
 ```
 
 ## Licencia
