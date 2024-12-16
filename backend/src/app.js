@@ -17,14 +17,14 @@ app.listen(port, () => {
 
 //Para mostrar todos los animales 
 app.get('/api/v1/animales', async (req,res) => {
-  const animales = await prisma.animal.findMany()
+  const animales = await prisma.animales.findMany()
   res.json(animales)
 
 })
 
 //Para buscar un animal en especifico
 app.get('/api/v1/animales/:id', async (req,res) => {
-  const animal = await prisma.animal.findUnique({
+  const animal = await prisma.animales.findUnique({
     where: {
       id:parseInt(req.params.id)
     }
@@ -40,7 +40,7 @@ app.get('/api/v1/animales/:id', async (req,res) => {
 
 //Para crear un animal
 app.post('/api/v1/animales', async (req,res) => {
-  const animal = await prisma.animal.create({
+  const animal = await prisma.animales.create({
     data: {
       nombre: req.body.nombre,
       sexo: req.body.sexo,
@@ -56,7 +56,7 @@ app.post('/api/v1/animales', async (req,res) => {
 
 //Para eliminar un animal
 app.delete('/api/v1/animales/:id', async (req,res) => {
-  const animal = await prisma.animal.findUnique({
+  const animal = await prisma.animales.findUnique({
     where: {
       id:parseInt(req.params.id)
     }
@@ -78,7 +78,7 @@ app.delete('/api/v1/animales/:id', async (req,res) => {
 
 //Para actualizar/editar un animal
 app.put('/api/v1/animales/:id', async (req,res) => {
-  let animal = await prisma.animal.findUnique({
+  let animal = await prisma.animales.findUnique({
     where: {
       id: parseInt(req.params.id)
     }
@@ -89,7 +89,7 @@ app.put('/api/v1/animales/:id', async (req,res) => {
     return
   }
 
-  animal = await prisma.animal.update({
+  animal = await prisma.animales.update({
     where: {
       id: animal.id
     }, 
