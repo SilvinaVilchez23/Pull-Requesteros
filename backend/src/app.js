@@ -30,7 +30,7 @@ app.get('/api/v1/animales/:id', async (req,res) => {
     },
     include: {
       animal_en_refugio_transito:true,
-      animal_adoptado:true
+      animal_adoptados:true
     }
   })
   
@@ -125,7 +125,7 @@ app.get('/api/v1/adoptantes/:id', async (req,res) => {
       id:parseInt(req.params.id)
     }, 
     include: {
-      animal_adoptado:true
+      animal_adoptados:true
     }
   })
   
