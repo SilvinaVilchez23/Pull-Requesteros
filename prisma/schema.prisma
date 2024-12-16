@@ -22,8 +22,11 @@ model Animal {
   edad    Int
   raza    String
 
-  animales_en_refugio_transito  animales_en_refugio_transito[]
-  animales_adoptados  animales_adoptados[]
+  
+
+  animal_en_refugio_transito animal_en_refugio_transito[]
+
+  animal_adoptado animal_adoptado[]
 }
 
 //Tabla de entidad "Adoptante"
@@ -36,7 +39,8 @@ model Adoptante {
   email     String @unique
   telefono  Int    @unique
 
-  animales_adoptados animales_adoptados[]
+
+  animal_adoptado animal_adoptado[]
 }
 
 //Tabla de entidad "refugio_transito"
@@ -48,11 +52,12 @@ model refugio_transito {
   telefono         Int    @unique
   tipo             String
 
-  animales_en_refugio_transito animales_en_refugio_transito[]
+
+  animal_en_refugio_transito animal_en_refugio_transito[]
 }
 
 //Tabla de relaciones entre el refugio/transito y el animal
-model animales_en_refugio_transito {
+model animal_en_refugio_transito {
   id               Int              @id @default(autoincrement())
   refugio_transito refugio_transito @relation(fields: [refugio_id], references: [id])
   refugio_id       Int
@@ -61,7 +66,7 @@ model animales_en_refugio_transito {
 }
 
 //Tabla de relaciones entre el adoptante y el animal 
-model animales_adoptados {
+model animal_adoptado {
   id           Int       @id @default(autoincrement())
   adoptante    Adoptante @relation(fields: [adoptante_id], references: [id])
   adoptante_id Int
