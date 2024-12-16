@@ -15,56 +15,56 @@ datasource db {
 
 //Tabla de entidad "Animales"
 model Animales {
-  id Int @id @default(autoincrement())
-  nombre String
-  sexo String
+  id      Int    @id @default(autoincrement())
+  nombre  String
+  sexo    String
   especie String
-  edad Int
-  raza String
+  edad    Int
+  raza    String
 
   animales_en_refugio_transito animales_en_refugio_transito[]
-  animales_adoptados animales_adoptados[]
+  animales_adoptados           animales_adoptados[]
 }
 
 //Tabla de entidad "Adoptante"
 model Adoptante {
-  id Int @id @default(autoincrement())
-  nombre String
-  apellido String
-  edad Int
+  id        Int    @id @default(autoincrement())
+  nombre    String
+  apellido  String
+  edad      Int
   direccion String
-  email String @unique
-  telefono Int @unique
+  email     String @unique
+  telefono  Int    @unique
 
   animales_adoptados animales_adoptados[]
 }
 
 //Tabla de entidad "refugio_transito"
 model refugio_transito {
-  id Int @id @default(autoincrement())
-  nombre String @unique
-  direccion String
+  id               Int    @id @default(autoincrement())
+  nombre           String @unique
+  direccion        String
   capacidad_maxima Int
-  telefono Int @unique
-  tipo String
+  telefono         Int    @unique
+  tipo             String
 
   animales_en_refugio_transito animales_en_refugio_transito[]
 }
 
 //Tabla de relaciones entre el refugio/transito y el animal
 model animales_en_refugio_transito {
-  id Int @id @default(autoincrement())
+  id               Int              @id @default(autoincrement())
   refugio_transito refugio_transito @relation(fields: [refugio_id], references: [id])
-  refugio_id Int
-  animales Animales @relation(fields: [animal_id], references: [id])
-  animal_id Int
+  refugio_id       Int
+  animales         Animales         @relation(fields: [animal_id], references: [id])
+  animal_id        Int
 }
 
 //Tabla de relaciones entre el adoptante y el animal 
 model animales_adoptados {
-  id Int @id @default(autoincrement())
-  adoptante Adoptante @relation(fields: [adoptante_id], references: [id])
+  id           Int       @id @default(autoincrement())
+  adoptante    Adoptante @relation(fields: [adoptante_id], references: [id])
   adoptante_id Int
-  animales Animales @relation(fields: [animal_id], references: [id])
-  animal_id Int 
+  animales     Animales  @relation(fields: [animal_id], references: [id])
+  animal_id    Int
 }
