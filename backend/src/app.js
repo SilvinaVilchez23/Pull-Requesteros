@@ -99,8 +99,8 @@ app.put('/api/v1/animales/:id', async (req,res) => {
     }, 
     data: {
       nombre: req.body.nombre,
-      sexo: req.body.sexo,
       especie: req.body.especie,
+      tipo: req.body.tipo,
       edad: req.body.edad,
       raza: req.body.raza
     }
