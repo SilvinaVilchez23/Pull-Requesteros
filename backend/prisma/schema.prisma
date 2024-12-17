@@ -14,7 +14,7 @@ datasource db {
 }
 
 //Tabla de entidad "Animales"
-model Animales {
+model animales {
   id Int @id @default(autoincrement())
   nombre String
   sexo String
@@ -27,7 +27,7 @@ model Animales {
 }
 
 //Tabla de entidad "Adoptante"
-model Adoptante {
+model adoptante {
   id Int @id @default(autoincrement())
   nombre String
   apellido String
@@ -56,15 +56,15 @@ model animales_en_refugio_transito {
   id Int @id @default(autoincrement())
   refugio_transito refugio_transito @relation(fields: [refugio_id], references: [id])
   refugio_id Int
-  animales Animales @relation(fields: [animal_id], references: [id])
+  animales animales @relation(fields: [animal_id], references: [id])
   animal_id Int
 }
 
 //Tabla de relaciones entre el adoptante y el animal 
 model animales_adoptados {
   id Int @id @default(autoincrement())
-  adoptante Adoptante @relation(fields: [adoptante_id], references: [id])
+  adoptante adoptante @relation(fields: [adoptante_id], references: [id])
   adoptante_id Int
-  animales Animales @relation(fields: [animal_id], references: [id])
+  animales animales @relation(fields: [animal_id], references: [id])
   animal_id Int 
 }
