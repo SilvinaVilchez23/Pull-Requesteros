@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Proyecto Pull Requesteros &#x1F3E1</title>
+  <meta name="description" content="This is my first HTML">
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="author" content="Pull Requesteros">
+  <meta viewport="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
+
+<body>
+  <div class="container is-fluid">
+    <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="index.html" target="_blank">
+
+
+          Pull Requesteros Adopciones
+          <img src="veterinario.png" alt="Perrito y gatito">
+
+
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="animales.html">
+            <p>Adopta <img src="huella.png" alt="huella"></p>
+            
+          </a>
+          <a class="navbar-item" href="perros.html">
+            <p>Cargar un animal en adopcion <img src="huella.png" alt="huella"></p>
+          </a>
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              <p>Más <img src="huella.png" alt="huella"></p>
+            </a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item">
+                Preguntas frecuentes
+              </a>
+              <a class="navbar-item">
+                Formulario de pre-adopcion
+              </a>
+              <a class="navbar-item">
+                Sobre nosotros
+              </a>
+              </div>
+            </div>
+            </div>
+          </div>
+        </nav>
+        <h1>Animales</h1>
+        <table class="table">
+          <thead>
+
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Especie</th>
+              <th>Tipo</th>
+              <th>Edad</th>
+              <th>Raza</th>
+            </tr>
+          </thead>
+          <tbody id="animales-data">            
+          </tbody>
+        </table>
+      </div>
+    </body>
+    <script>
+      fetch('http://127.0.0.1:3000/api/v1/animales')
+      .then(Response => Response.json())
+      .then(animales => {
+        console.log(animales);
+
+        let tabla = document.getElementById('animales-data')
+        animales.forEach(animales => {
+
+          let tr = document.createElement('tr');
+          let id = document.createElement('th');
+          id.textContent = animales.id;
+          let nombre = document.createElement('th');
+          nombre.textContent = animales.nombre;
+          let especie = document.createElement('th');
+          especie.textContent = animales.especie;
+          let tipo = document.createElement('th');
+          tipo.textContent = animales.tipo;
+          let edad = document.createElement('th');
+          edad.textContent = animales.edad;
+          let raza = document.createElement('th');
+          raza.textContent = animales.raza;
+          tr.appendChild(id);
+          tr.appendChild(nombre);
+          tr.appendChild(especie);
+          tr.appendChild(tipo);
+          tr.appendChild(edad);
+          tr.appendChild(raza);
+          tabla.appendChild(tr);
+        });
+      })
+      
+    </script>
+
+</html>
+    
