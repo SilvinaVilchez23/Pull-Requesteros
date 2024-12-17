@@ -47,8 +47,8 @@ app.post('/api/v1/animales', async (req,res) => {
   const animal = await prisma.animal.create({
     data: {
       nombre: req.body.nombre,
-      sexo: req.body.sexo,
       especie: req.body.especie,
+      tipo: req.body.tipo,
       edad: req.body.edad,
       raza: req.body.raza,
     }
