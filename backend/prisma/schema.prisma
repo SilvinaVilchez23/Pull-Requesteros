@@ -17,12 +17,10 @@ datasource db {
 model Animal {
   id      Int    @id @default(autoincrement())
   nombre  String
-  sexo    String
   especie String
+  tipo    String
   edad    Int
   raza    String
-
-
 
   animal_en_refugio_transito animal_en_refugio_transito[]
 
@@ -39,7 +37,6 @@ model Adoptante {
   email     String @unique
   telefono  Int    @unique
 
-
   animal_adoptados animal_adoptados[]
 }
 
@@ -52,7 +49,6 @@ model refugio_transito {
   telefono         Int    @unique
   tipo             String
 
-
   animal_en_refugio_transito animal_en_refugio_transito[]
 }
 
@@ -61,7 +57,7 @@ model animal_en_refugio_transito {
   id               Int              @id @default(autoincrement())
   refugio_transito refugio_transito @relation(fields: [refugio_id], references: [id])
   refugio_id       Int
-  animales         Animal         @relation(fields: [animal_id], references: [id])
+  animales         Animal           @relation(fields: [animal_id], references: [id])
   animal_id        Int
 }
 
@@ -70,6 +66,6 @@ model animal_adoptados {
   id           Int       @id @default(autoincrement())
   adoptante    Adoptante @relation(fields: [adoptante_id], references: [id])
   adoptante_id Int
-  animales     Animal  @relation(fields: [animal_id], references: [id])
+  animales     Animal    @relation(fields: [animal_id], references: [id])
   animal_id    Int
 }
