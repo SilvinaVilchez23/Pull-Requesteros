@@ -1,9 +1,12 @@
 const {PrismaClient} = require('@prisma/client')
+var cors = require('cors')
 const express = require('express')
 const app = express()
 const port = 3000
 
 const prisma = new PrismaClient()
+
+app.use(cors())
 
 app.get('/', (req, res) => {
   res.send('Adopciones de perros y gatos')
@@ -30,11 +33,8 @@ app.get('/api/v1/animales/:id', async (req,res) => {
     },
     include: {
       animal_en_refugio_transito:true,
-<<<<<<< HEAD:src/app.js
-      animal_adoptado:true
-=======
       animal_adoptados:true
->>>>>>> main:backend/src/app.js
+
     }
   })
   
@@ -129,11 +129,8 @@ app.get('/api/v1/adoptantes/:id', async (req,res) => {
       id:parseInt(req.params.id)
     }, 
     include: {
-<<<<<<< HEAD:src/app.js
-      animal_adoptado:true
-=======
       animal_adoptados:true
->>>>>>> main:backend/src/app.js
+
     }
   })
   
