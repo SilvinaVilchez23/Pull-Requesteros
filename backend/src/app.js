@@ -1,20 +1,66 @@
+<<<<<<< HEAD
 const {PrismaClient} = require('@prisma/client')
 var cors = require('cors')
 const express = require('express')
 const app = express()
 const port = 3000
+=======
+const express = require('express');
+const path = require('path');
+const cors = require('cors');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+>>>>>>> main
 
-const prisma = new PrismaClient()
+// Importar las rutas de API
+const animalesRoutes = require('./routes/animales');
+const refugiosRoutes = require('./routes/refugios');
+const adopteRoutes = require('./routes/adopte');
 
+<<<<<<< HEAD
 app.use(cors())
 
+=======
+const app = express();
+const port = 3000;
+
+// Middleware
+app.use(express.json());
+app.use(cors());  // Asegúrate de tener CORS habilitado si el frontend está en otro dominio o puerto
+
+// Middleware para servir archivos estáticos desde la carpeta "public" dentro de frontend
+app.use(express.static(path.join(__dirname, '../frontend/public')));
+
+// Servir archivos estáticos (archivos HTML y otros recursos)
+app.use(express.static(path.join(__dirname, '../../frontend')));
+
+// Rutas de la API
+app.use('/api/v1/animales', animalesRoutes);
+app.use('/api/v1/refugios', refugiosRoutes);
+app.use('/api/v1/adopte', adopteRoutes);
+
+// Rutas para los archivos HTML de frontend
+app.get('/animales', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../frontend/animales.html'));
+});
+
+app.get('/refugios', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../frontend/refugios.html'));
+});
+
+app.get('/adopte', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../frontend/adopte.html'));
+});
+
+// Ruta por defecto (inicio) - puede ser opcional si tienes un index.html
+>>>>>>> main
 app.get('/', (req, res) => {
-  res.send('Adopciones de perros y gatos')
-})
+    res.sendFile(path.join(__dirname, '../../frontend/index.html'));
+});
 
-app.use(express.json())
-
+// Iniciar el servidor
 app.listen(port, () => {
+<<<<<<< HEAD
   console.log(`Example app listening on port ${port}`)
 })
 
@@ -159,157 +205,16 @@ app.post('/api/v1/adoptantes', async (req,res) => {
   res.status(201).send(adoptante)
 
 })
+=======
+    console.log(`Servidor escuchando en http://localhost:${port}`);
+});
 
 
 
-//Para eliminar un adoptante
-app.delete('/api/v1/adoptantes/:id', async (req,res) => {
-  const adoptante = await prisma.adoptante.findUnique({
-    where: {
-      id:parseInt(req.params.id)
-    }
-  })
-
-  if (adoptante === null) {
-    res.sendStatus(404)
-    return
-  }
-
-  await prisma.adoptante.delete({
-    where: { 
-      id: parseInt(req.params.id)
-    }
-  })
-
-  res.send(adoptante)
-})
-
-//Para actualizar/editar un adoptante
-app.put('/api/v1/adoptantes/:id', async (req,res) => {
-  let adoptante = await prisma.adoptante.findUnique({
-    where: {
-      id: parseInt(req.params.id)
-    }
-  })
-
-  if (adoptante === null) {
-    res.sendStatus(404)
-    return
-  }
-
-  adoptante = await prisma.adoptante.update({
-    where: {
-      id: adoptante.id
-    }, 
-    data: {
-      nombre: req.body.nombre,
-      apellido: req.body.apellido,
-      edad: req.body.edad,
-      direccion: req.body.direccion,
-      email: req.body.email,
-      telefono: req.body.telefono
-    }
-  })
-
-  res.send(adoptante)
-
-})
-
-//--------------------------------------------------------------------------------------------------------
+>>>>>>> main
 
 
-//Para mostrar todos los refugios_transitos 
-app.get('/api/v1/refugios_transitos', async (req,res) => {
-  const refugios_transitos = await prisma.refugio_transito.findMany()
-  res.json(refugios_transitos)
 
-})
-
-//Para buscar un refugio_transito en especifico
-app.get('/api/v1/refugios_transitos/:id', async (req,res) => {
-  const refugio_transito = await prisma.refugio_transito.findUnique({
-    where: {
-      id:parseInt(req.params.id)
-    },
-    include: {
-      animal_en_refugio_transito:true
-    }
-  })
-  
-  if (refugio_transito === null) {
-    res.sendStatus(404)
-    return
-  }
-
-  res.json(refugio_transito)
-})
-
-//Para crear un refugio_transito
-app.post('/api/v1/refugios_transitos', async (req,res) => {
-  const refugio_transito = await prisma.refugio_transito.create({
-    data: {
-      nombre: req.body.nombre,
-      direccion: req.body.direccion,
-      capacidad_maxima: req.body.capacidad_maxima,
-      telefono: req.body.telefono,
-      tipo: req.body.tipo
-    }
-  })
-  res.status(201).send(refugio_transito)
-
-})
-
-//Para eliminar un refugio_transito
-app.delete('/api/v1/refugios_transitos/:id', async (req,res) => {
-  const refugio_transito = await prisma.refugio_transito.findUnique({
-    where: {
-      id:parseInt(req.params.id)
-    }
-  })
-
-  if (refugio_transito === null) {
-    res.sendStatus(404)
-    return
-  }
-
-  await prisma.refugio_transito.delete({
-    where: { 
-      id: parseInt(req.params.id)
-    }
-  })
-
-  res.send(refugio_transito)
-})
-
-//Para actualizar/editar un refugio_transito
-app.put('/api/v1/refugios_transitos/:id', async (req,res) => {
-  let refugio_transito = await prisma.refugio_transito.findUnique({
-    where: {
-      id: parseInt(req.params.id)
-    }
-  })
-
-  if (refugio_transito === null) {
-    res.sendStatus(404)
-    return
-  }
-
-  refugio_transito = await prisma.refugio_transito.update({
-    where: {
-      id: refugio_transito.id
-    }, 
-    data: {
-      nombre: req.body.nombre,
-      direccion: req.body.direccion,
-      capacidad_maxima: req.body.capacidad_maxima,
-      telefono: req.body.telefono,
-      tipo: req.body.tipo
-    }
-  })
-
-  res.send(refugio_transito)
-
-})
 
 
 
