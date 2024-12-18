@@ -34,11 +34,10 @@ router.post('/', async (req, res) => {
   const animal = await prisma.animal.create({
     data: {
       nombre: req.body.nombre,
-      sexo: req.body.especie,
       tipo: req.body.tipo,
       edad: req.body.edad,
       raza: req.body.raza,
-      imagenUrl: req.body.imagenUrl,
+      sexo: req.body.sexo,
     },
   });
 
