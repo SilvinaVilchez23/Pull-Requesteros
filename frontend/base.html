@@ -14,13 +14,13 @@
 
 
 
-<body>
+<body class="has-background-white">
 
     <main>
       <!-- Menu -->
       <header>
         <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-          <div class="navbar-start">
+          <div class="navbar-end">
             <a class="navbar-item" href="index.html">
               Pull Requesteros Adopciones
               <img src="public/veterinario.png" alt="Perrito y gatito">
@@ -35,8 +35,8 @@
           </div>
   
           <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-end">
-              <a class="navbar-item" href="adopte.html">
+            <div class="navbar-start">
+              <a class="navbar-item" href="animales.html">
                 <p>Adopta <img src="public/huella.png" alt="huella"></p>
               </a>
               <a class="navbar-item" href="perros.html">
@@ -68,79 +68,19 @@
 
 
 
+
     
-    <body class="has-background-white">
-
-      <img src="https://i.imgur.com/jptS5Xq.jpeg" alt="Placeholder Image" style="width: 30%; height: auto;" margin="0">
-    </div>
-
-        
-    <table class="table">
-      <thead>
-
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Tipo</th>
-          <th>Edad</th>
-          <th>Raza</th>
-          <th>Sexo</th>
-          <th>Imagen</th>
-        </tr>
-      </thead>
-      <tbody id="animales-data">            
-      </tbody>
-    </table>
-
-  </div>
-      
-      <script>
-        fetch('http://127.0.0.1:3000/api/v1/animales')
-        .then(Response => Response.json())
-        .then(animales => {
-          console.log(animales);
-  
-          let tabla = document.getElementById('animales-data')
-          animales.forEach(animales => {
-  
-            let tr = document.createElement('tr');
-            let id = document.createElement('th');
-            id.textContent = animales.id;
-            let nombre = document.createElement('th');
-            nombre.textContent = animales.nombre;
-            let tipo = document.createElement('th');
-            tipo.textContent = animales.tipo;
-            let edad = document.createElement('th');
-            edad.textContent = animales.edad;
-            let raza = document.createElement('th');
-            raza.textContent = animales.raza;
-            let sexo = document.createElement('th');
-            sexo.textContent = animales.sexo;
-            let imagenCell = document.createElement('th');
-            let imagen = document.createElement('img');
-            imagen.src = animales.imagenUrl;
-            imagen.style.width = '100px'; // Adjust the width as needed
-            imagen.style.height = 'auto';
-            imagenCell.appendChild(imagen);
-            tr.appendChild(id);
-            tr.appendChild(nombre);
-            tr.appendChild(tipo);
-            tr.appendChild(edad);
-            tr.appendChild(raza);
-            tr.appendChild(sexo);
-            tr.appendChild(imagenCell);
-            
-            tabla.appendChild(tr);
-          });
-        })
-        
-      </script>
-    </body>
+    <!-- Imagen perrito -->
+    <img src="https://i.imgur.com/jptS5Xq.jpeg" alt="Placeholder Image" style="width: 30%; height: auto;" margin="0">
     
-        <!-- informacion -->
-        <footer class="footer has-background-dark has-text-white">
-    
-          <div class="content has-text-centered">
+
+
+
+
+    <!-- informacion -->
+    <footer class="footer has-background-dark has-text-white">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <div class="content has-text-centered">
             <p>
               <strong>Pull Requesteros Adopciones</strong> -  En Pull Requesteros nos comprometemos a facilitar la adopción responsable 
               de mascotas, ayudando a aquellos animales que buscan un hogar a encontrar a 
@@ -157,9 +97,12 @@
     
             <a class="footerMail" href="mailto:PetTracker@gmail.com"
             >PullRequesteros@gmail.com</a
-            >
+            > <a href="https://www.instagram.com/pullrequesterosadopciones" target="_blank">
+              <i class="fab fa-instagram"></i> Síguenos en Instagram
+            </a>
             | Teléfono: 0800-777-2354
-          </p>
-          </div>
-        </footer>
+            </p>
+        </div>
+    </footer>
 </body>
+</html>
