@@ -74,6 +74,7 @@
           <th>Tipo</th>
           <th>Edad</th>
           <th>Raza</th>
+          <th>Borrar</th>
         </tr>
       </thead>
       <tbody id="animales-data">            
@@ -125,10 +126,14 @@
             .then(Response => Response.json())
             .then(animales => {
                 console.log(animales);
+
+                let index = 1;
                 let tabla = document.getElementById('animales-data')
                 animales.forEach(animales => {
                     let tr = document.createElement('tr');
-                    let id = document.createElement('th');
+                    // let indexEl = document.createElement('th');
+                    // indexEl.textContent = index++;
+                    let id = document.createElement('td');
                     id.textContent = animales.id;
                     let nombre = document.createElement('th');
                     nombre.textContent = animales.nombre;
@@ -140,8 +145,14 @@
                     edad.textContent = animales.edad;
                     let raza = document.createElement('th');
                     raza.textContent = animales.raza;
-                    
-                               
+
+                    let borrar = document.createElement('td');
+                    let boton = document.createElement('boton');
+                    boton.textContent = "Borrar";
+                    boton.className = 'button is-danger is samll';
+                    boton.onclick = function()  { borrarAnimal(animales.id);};
+            
+                    // tr.appendChild(indexEl)
                     tr.appendChild(id);
                     tr.appendChild(nombre);
                     tr.appendChild(sexo);
@@ -149,8 +160,14 @@
                     tr.appendChild(edad);
                     tr.appendChild(raza);
                     tabla.appendChild(tr);
+                    borrar.appendChild(boton);
+
                 });
-            })
+            });
+
+            borrarAnimal = function(id) {
+              alert("Borrando animal" + id);
+            }
 
 
 
