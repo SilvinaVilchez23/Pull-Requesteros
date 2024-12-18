@@ -15,12 +15,13 @@ datasource db {
 
 //Tabla de entidad "Animales"
 model Animal {
-  id      Int    @id @default(autoincrement())
-  nombre  String
-  especie String
-  tipo    String
-  edad    Int
-  raza    String
+  id        Int    @id @default(autoincrement())
+  nombre    String
+  sexo      String
+  tipo      String
+  edad      Int
+  raza      String
+  imagenUrl String
 
   animal_en_refugio_transito animal_en_refugio_transito[]
 
