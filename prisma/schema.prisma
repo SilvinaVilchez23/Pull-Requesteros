@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//Tabla de entidad "Animales"
+model Animal {
+  id      Int    @id @default(autoincrement())
+  nombre  String
+  sexo    String
+  especie String
+  edad    Int
+  raza    String
+
+  
+
+  animal_en_refugio_transito animal_en_refugio_transito[]
+
+  animal_adoptado animal_adoptado[]
+}
+
+//Tabla de entidad "Adoptante"
+model Adoptante {
+  id        Int    @id @default(autoincrement())
+  nombre    String
+  apellido  String
+  edad      Int
+  direccion String
+  email     String @unique
+  telefono  Int    @unique
+
+
+  animal_adoptado animal_adoptado[]
+}
+
+//Tabla de entidad "refugio_transito"
+model refugio_transito {
+  id               Int    @id @default(autoincrement())
+  nombre           String @unique
+  direccion        String
+  capacidad_maxima Int
+  telefono         Int    @unique
+  tipo             String
+
+
+  animal_en_refugio_transito animal_en_refugio_transito[]
+}
+
+//Tabla de relaciones entre el refugio/transito y el animal
+model animal_en_refugio_transito {
+  id               Int              @id @default(autoincrement())
+  refugio_transito refugio_transito @relation(fields: [refugio_id], references: [id])
+  refugio_id       Int
+  animales         Animal         @relation(fields: [animal_id], references: [id])
+  animal_id        Int
+}
+
+//Tabla de relaciones entre el adoptante y el animal 
+model animal_adoptado {
+  id           Int       @id @default(autoincrement())
+  adoptante    Adoptante @relation(fields: [adoptante_id], references: [id])
+  adoptante_id Int
+  animales     Animal  @relation(fields: [animal_id], references: [id])
+  animal_id    Int
+}
