@@ -81,10 +81,11 @@
         <tr>
           <th>ID</th>
           <th>Nombre</th>
-          <th>Especie</th>
           <th>Tipo</th>
           <th>Edad</th>
           <th>Raza</th>
+          <th>Sexo</th>
+          <th>Imagen</th>
         </tr>
       </thead>
       <tbody id="animales-data">            
@@ -107,20 +108,28 @@
             id.textContent = animales.id;
             let nombre = document.createElement('th');
             nombre.textContent = animales.nombre;
-            let especie = document.createElement('th');
-            especie.textContent = animales.especie;
             let tipo = document.createElement('th');
             tipo.textContent = animales.tipo;
             let edad = document.createElement('th');
             edad.textContent = animales.edad;
             let raza = document.createElement('th');
             raza.textContent = animales.raza;
+            let sexo = document.createElement('th');
+            sexo.textContent = animales.sexo;
+            let imagenCell = document.createElement('th');
+            let imagen = document.createElement('img');
+            imagen.src = animales.imagenUrl;
+            imagen.style.width = '100px'; // Adjust the width as needed
+            imagen.style.height = 'auto';
+            imagenCell.appendChild(imagen);
             tr.appendChild(id);
             tr.appendChild(nombre);
-            tr.appendChild(especie);
             tr.appendChild(tipo);
             tr.appendChild(edad);
             tr.appendChild(raza);
+            tr.appendChild(sexo);
+            tr.appendChild(imagenCell);
+            
             tabla.appendChild(tr);
           });
         })
