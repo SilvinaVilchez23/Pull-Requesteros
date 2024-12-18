@@ -185,6 +185,10 @@
       }
     }
 
+    function registrarAnimal(refugioId) {
+      window.location.href = `perros.html?refugioId=${refugioId}`;
+    }
+
     // Función para obtener datos de la API y mostrarlos
     async function obtenerRefugios() {
       try {
@@ -192,7 +196,7 @@
       const refugios = await response.json();
 
       const contenedor = document.getElementById('tarjetas');
-
+      
       refugios.forEach(refugio => {
         const card = document.createElement('div');
         card.className = 'card';
@@ -206,8 +210,8 @@
           <p><strong>Ubicación:</strong> ${refugio.direccion}</p>
           <p><strong>Capacidad:</strong> ${refugio.capacidad_maxima} animales</p>
           <p><strong>Contacto:</strong> ${refugio.telefono}</p>
-          <button class="button is-link" onclick="mostrarDetalles(${refugio.id})">Registrar Perro</button>
-         </div>`;
+          <button class="button is-link" onclick="registrarAnimal(${refugio.id})">Registrar Animal</button>
+        </div>`;
 
         contenedor.appendChild(card);
       });
