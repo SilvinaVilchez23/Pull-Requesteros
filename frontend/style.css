@@ -117,3 +117,17 @@ header {
     font-size: 1.1rem;
     text-align: center;
 }
+
+/* Asegúrate de que el <a> no tenga márgenes ni relleno */
+.navbar-item {
+  display: inline-block; /* Esto asegura que el <a> se comporte como un bloque en línea */
+  padding: 0;            /* Eliminar el relleno alrededor del <a> */
+  margin: 0;             /* Eliminar los márgenes alrededor del <a> */
+}
+
+/* Controla el tamaño de la imagen */
+.navbar-item img {
+  width: 100%;    /* Cambia el tamaño al 100% del contenedor padre (si quieres que la imagen sea responsiva) */
+  height: auto;   /* Mantén la proporción de la imagen */
+  display: block; /* Eliminar el espacio en blanco debajo de la imagen (evita el comportamiento en línea de las imágenes) */
+}

@@ -1,55 +1,447 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pull Requesteros</title>
-    <link rel="icon" type="image/png" href="public/logo2.png" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+  
+<!-- Barra -->
+<head>
+  <title>Proyecto Pull Requesteros &#x1F3E1</title>
+  <meta name="description" content="This is my first HTML">
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="author" content="Pull Requesteros">
+  <meta viewport="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="public/veterinario.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
+
+
+<body class="has-background-white">
+
+  <main>
+    <!-- Menu -->
     <header>
-      <nav class="navbar fontEpilogue">
-        <div class="navegadorMenu">
-          <a class="navLink" href="index.html"  onclick="mostrarContenido('inicio')">Inicio</a>
-          <a class="navLink" href="animales.html" >Animales</a>
-          <a class="navLink" href="adopte.html" >Adopte</a>
-          <a class="navLink" href="refugios.html" >Refugios</a>
+      <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+        <div class="navbar-start">
+          <a class="navbar-item" href="index.html">
+            Pull Requesteros Adopciones
+            <img src="public/veterinario.png" alt="Perrito y gatito">
+          </a>
+
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-end">
+            <a class="navbar-item" href="animales.html">
+              <p>Adopta <img src="public/huella.png" alt="huella"></p>
+            </a>
+            <a class="navbar-item" href="perros.html">
+              <p>Cargar un animal en adopcion <img src="public/huella.png" alt="huella"></p>
+            </a>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                <p>Más <img src="public/huella.png" alt="huella"></p>
+              </a>
+              <div class="navbar-dropdown is-right">
+                <a class="navbar-item">
+                  Preguntas frecuentes
+                </a>
+                <a class="navbar-item">
+                  Formulario de pre-adopcion
+                </a>
+                <a class="navbar-item">
+                  Sobre nosotros
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </nav>
     </header>
 
-    <h1>¡Bienvenido a la prueba!</h1>
+
+
+    <!-- imagen con fondo -->
+    <div class="image-container" style="position: relative; width: 100%; height: 50vh; background-image: url('public/fondo.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+      <!-- Titulo/Sub -->
+      <h1 style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 100px; text-align: center; font-family: 'Black 900 Italic';">
+        Pagina adoptar
+      </h1>
+      
+
+      <span class="subheading" style="position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 24px; text-align: center;">
+        "Adopte de forma responsable"
+      </span>
+      
+    </div>
+    <div class="column" style="background-color: #e4e4e4dd; color: rgb(141, 141, 141); font-size: 30px; text-align: left; position: relative; top: 0px;">
+      Clientes satisfechos
+    </div>
+
+   
+
+    </div>
+
+  </main>
+
+  <style>
+    /* Estilo para el contenedor de las tarjetas */
+    .columns {
+      display: flex;
+      flex-wrap: wrap;  /* Permite que las tarjetas se distribuyan en varias filas */
+      gap: 20px;  /* Espacio entre las tarjetas */
+      justify-content: center;  /* Centra las tarjetas horizontalmente */
+      align-items: flex-start;
+      margin: 20px;  /* Margen exterior */
+    }
+
+    /* Estilo para cada tarjeta */
+    .card {
+      width: 350px;  /* Ajusta el tamaño de las tarjetas */
+      height: 500px;
+      background-color: #383838;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;  /* Para que las imágenes no sobresalgan */
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Estilo para la imagen de la tarjeta */
+    .card-image {
+      width: 100%;
+      height: 350px;  /* Tamaño de la imagen */
+      overflow: hidden;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;  /* Asegura que la imagen cubra todo el espacio */
+    }
+
+    /* Estilo para el contenido de la tarjeta */
+    .card-content {
+      padding: 15px;
+      flex-grow: 1;  /* Hace que el contenido ocupe el espacio restante */
+    }
+
+    .card-content .title {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .card-content .subtitle {
+      font-size: 1.1rem;
+      color: #888;
+    }
+  </style>
+
+  <div class="columns">
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-4by3" style="width: 100%; height: auto;">
+          <img
+            src="https://i.imgur.com/PEmnH48.jpeg"
+            alt="Placeholder image"
+          />
+        </figure>
+      </div>
+      <div class="card-content" >
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img
+                src="https://i.imgur.com/jptS5Xq.jpeg"
+                alt="Placeholder image"
+              />
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4">John Smith</p>
+            <p class="subtitle is-6">@johnsmith</p>
+          </div>
+        </div>
     
+        <div class="content">
+          Lorem ipsum dolor sit amet, consectetur. <a>@bulmaio</a>. <a href="#">#css</a>
+          <a href="#">#responsive</a>
+          <br />
+          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-4by3" style="width: 100%; height: auto;">
+          <img
+            src="https://i.imgur.com/3KKeS6B.jpeg"
+            alt="Placeholder image"
+          />
+        </figure>
+      </div>
+      <div class="card-content" >
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img
+                src="https://i.imgur.com/QNskOgj.jpeg"
+                alt="Placeholder image"
+              />
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4">John Smith</p>
+            <p class="subtitle is-6">@johnsmith</p>
+          </div>
+        </div>
     
-    <footer class="footer fontEpilogue">
+        <div class="content">
+          Lorem ipsum dolor sit amet, consectetur. <a>@bulmaio</a>. <a href="#">#css</a>
+          <a href="#">#responsive</a>
+          <br />
+          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-4by3" style="width: 100%; height: auto;">
+          <img
+            src="https://i.imgur.com/QNskOgj.jpeg"
+            alt="Placeholder image"
+          />
+        </figure>
+      </div>
+      <div class="card-content" >
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img
+                src="https://i.imgur.com/rx8SM0H.jpeg"
+                alt="Placeholder image"
+              />
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4">John Smith</p>
+            <p class="subtitle is-6">@johnsmith</p>
+          </div>
+        </div>
     
-      <h1 class="footerTitle">Mascotas</h1>
-     <div class="footerInfo">
-      <p>
-        En Pull Requesteros nos comprometemos a facilitar la adopción responsable 
-        de mascotas, ayudando a aquellos animales que buscan un hogar a encontrar a 
-        sus nuevos dueños. Creemos en la importancia de ofrecer una segunda oportunidad 
-        a aquellos peludos que lo necesitan, y trabajamos para hacer de la adopción un 
-        proceso accesible, seguro y confiable.
-        Nuestra misión es conectar a las personas con refugios de animales y fomentar la 
-        adopción responsable, creando una comunidad solidaria en la que las mascotas puedan 
-        encontrar el hogar que merecen. A través de nuestra plataforma, buscamos ofrecer una
-        manera sencilla y directa para que los interesados en adoptar se pongan en contacto 
-        con refugios y organizaciones que cuidan a los animales. ¡Un hogar para cada mascota y 
-        una familia para cada amigo peludo!
-      </p>
-     </div>
-     <h1 class="footerTitle">¡Contáctanos!</h1>
-     <p class="footerMailTel">
-      <a class="footerMail" href="mailto:PetTracker@gmail.com"
+        <div class="content">
+          Lorem ipsum dolor sit amet, consectetur. <a>@bulmaio</a>. <a href="#">#css</a>
+          <a href="#">#responsive</a>
+          <br />
+          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-4by3" style="width: 100%; height: auto;">
+          <img
+            src="https://i.imgur.com/rx8SM0H.jpeg"
+            alt="Placeholder image"
+          />
+        </figure>
+      </div>
+      <div class="card-content" >
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img
+                src="https://i.imgur.com/jptS5Xq.jpeg"
+                alt="Placeholder image"
+              />
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4">John Smith</p>
+            <p class="subtitle is-6">@johnsmith</p>
+          </div>
+        </div>
+    
+        <div class="content">
+          Lorem ipsum dolor sit amet, consectetur. <a>@bulmaio</a>. <a href="#">#css</a>
+          <a href="#">#responsive</a>
+          <br />
+          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-4by3" style="width: 100%; height: auto;">
+          <img
+            src="https://i.imgur.com/UGWtVLN.jpeg"
+            alt="Placeholder image"
+          />
+        </figure>
+      </div>
+      <div class="card-content" >
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img
+                src="https://i.imgur.com/jptS5Xq.jpeg"
+                alt="Placeholder image"
+              />
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4">John Smith</p>
+            <p class="subtitle is-6">@johnsmith</p>
+          </div>
+        </div>
+    
+        <div class="content">
+          Lorem ipsum dolor sit amet, consectetur. <a>@bulmaio</a>. <a href="#">#css</a>
+          <a href="#">#responsive</a>
+          <br />
+          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-4by3" style="width: 100%; height: auto;">
+          <img
+            src="https://i.imgur.com/q7UTIT9.jpeg"
+            alt="Placeholder image"
+          />
+        </figure>
+      </div>
+      <div class="card-content" >
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img
+                src="https://i.imgur.com/jptS5Xq.jpeg"
+                alt="Placeholder image"
+              />
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4">John Smith</p>
+            <p class="subtitle is-6">@johnsmith</p>
+          </div>
+        </div>
+    
+        <div class="content">
+          Lorem ipsum dolor sit amet, consectetur. <a>@bulmaio</a>. <a href="#">#css</a>
+          <a href="#">#responsive</a>
+          <br />
+          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-4by3" style="width: 100%; height: auto;">
+          <img
+            src="https://i.imgur.com/KexIsHT.jpeg"
+            alt="Placeholder image"
+          />
+        </figure>
+      </div>
+      <div class="card-content" >
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img
+                src="https://i.imgur.com/jptS5Xq.jpeg"
+                alt="Placeholder image"
+              />
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4">John Smith</p>
+            <p class="subtitle is-6">@johnsmith</p>
+          </div>
+        </div>
+    
+        <div class="content">
+          Lorem ipsum dolor sit amet, consectetur. <a>@bulmaio</a>. <a href="#">#css</a>
+          <a href="#">#responsive</a>
+          <br />
+          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-4by3" style="width: 100%; height: auto;">
+          <img
+            src="https://i.imgur.com/jptS5Xq.jpeg"
+            alt="Placeholder image"
+          />
+        </figure>
+      </div>
+      <div class="card-content" >
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img
+                src="https://i.imgur.com/jptS5Xq.jpeg"
+                alt="Placeholder image"
+              />
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4">John Smith</p>
+            <p class="subtitle is-6">@johnsmith</p>
+          </div>
+        </div>
+    
+        <div class="content">
+          Lorem ipsum dolor sit amet, consectetur. <a>@bulmaio</a>. <a href="#">#css</a>
+          <a href="#">#responsive</a>
+          <br />
+          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+   
+    
+
+    <!-- informacion -->
+    <footer class="footer has-background-dark has-text-white">
+
+      <div class="content has-text-centered">
+        <p>
+          <strong>Pull Requesteros Adopciones</strong> -  En Pull Requesteros nos comprometemos a facilitar la adopción responsable 
+          de mascotas, ayudando a aquellos animales que buscan un hogar a encontrar a 
+          sus nuevos dueños. Creemos en la importancia de ofrecer una segunda oportunidad 
+          a aquellos peludos que lo necesitan, y trabajamos para hacer de la adopción un 
+          proceso accesible, seguro y confiable.
+          Nuestra misión es conectar a las personas con refugios de animales y fomentar la 
+          adopción responsable, creando una comunidad solidaria en la que las mascotas puedan 
+          encontrar el hogar que merecen. A través de nuestra plataforma, buscamos ofrecer una
+          manera sencilla y directa para que los interesados en adoptar se pongan en contacto 
+          con refugios y organizaciones que cuidan a los animales. ¡Un hogar para cada mascota y 
+          una familia para cada amigo peludo!
+        </p>
+
+        <a class="footerMail" href="mailto:PetTracker@gmail.com"
         >PullRequesteros@gmail.com</a
         >
         | Teléfono: 0800-777-2354
       </p>
-  
+      </div>
     </footer>
-    <script src="main.js"></script>
+    
   </body>
+
 </html>
