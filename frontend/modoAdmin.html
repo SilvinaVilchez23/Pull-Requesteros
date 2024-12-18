@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+  
+<!-- Barra -->
+<head>
+  <title>Proyecto Pull Requesteros &#x1F3E1</title>
+  <meta name="description" content="This is my first HTML">
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="author" content="Pull Requesteros">
+  <meta viewport="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="public/logo2.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
+
+
+
+<body class="has-background-black">
+
+    <main>
+      <!-- Menu -->
+      <header>
+        <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+          <div class="navbar-end">
+            <a class="navbar-item" href="modoAdmin.html">
+                MODO ADMINISTRADOR 
+              <img src="https://e7.pngegg.com/pngimages/701/653/png-clipart-computer-icons-system-administrator-administrator-icon-silhouette-desktop-wallpaper.png" alt="Perrito y gatito">
+            </a>
+  
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+  
+          <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item" href="modoAdmin.html">
+                <p>CREAR ANIMAL</p>
+              </a>
+              <a class="navbar-item" href="modoAdmin.html">
+                <p>ELIMINAR ANIMAL</p>
+              </a>
+              <a class="navbar-item" href="modoAdmin.html">
+                <p>EDITAR ANIMAL</p>
+              </a>
+             
+              <div class="navbar-end">
+                <a class="navbar-item" href="index.html">
+                    <p>cerrar sesion <img src="public/huella.png" alt="huella"></p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+    </main>  
+
+    <div class="section has-text-centered">
+        <h1 class="title">Bienvenido al Panel de Administración</h1>
+        <p class="subtitle">Aquí puedes gestionar los datos y configuraciones de la página.</p>
+    </div>
+
+    <FONT COLOR="blue">ANIMALES </FONT>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>sexo</th>
+          <th>Tipo</th>
+          <th>Edad</th>
+          <th>Raza</th>
+        </tr>
+      </thead>
+      <tbody id="animales-data">            
+      </tbody>
+    </table>
+  </div>
+</body>
+
+
+
+<!-- 
+
+<a class="navbar-item" href="modoAdmin.html">
+    <button class="button is-danger" onclick="cerrarSesion()">Cerrar sesión</button>
+</a>
+ -->
+
+
+
+
+
+    <footer class="footer has-background-dark has-text-white">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+        <div class="content has-text-centered">
+          <p>
+            <strong>Pull Requesteros Adopciones</strong> -  En Pull Requesteros nos comprometemos a facilitar la adopción responsable 
+            de mascotas, ayudando a aquellos animales que buscan un hogar a encontrar a 
+            sus nuevos dueños. Creemos en la importancia de ofrecer una segunda oportunidad 
+            a aquellos peludos que lo necesitan, y trabajamos para hacer de la adopción un 
+            proceso accesible, seguro y confiable.
+            Nuestra misión es conectar a las personas con refugios de animales y fomentar la 
+            adopción responsable, creando una comunidad solidaria en la que las mascotas puedan 
+            encontrar el hogar que merecen. A través de nuestra plataforma, buscamos ofrecer una
+            manera sencilla y directa para que los interesados en adoptar se pongan en contacto 
+            con refugios y organizaciones que cuidan a los animales. ¡Un hogar para cada mascota y 
+            una familia para cada amigo peludo!
+          </p>
+    
+          <a class="footerMail" href="mailto:PetTracker@gmail.com"
+          >PullRequesteros@gmail.com</a
+          >
+          | <a href="https://www.instagram.com/pullrequesterosadopciones" target="_blank">
+            <i class="fab fa-instagram"></i> Síguenos en Instagram
+          </a>
+          | Teléfono: 0800-777-2354
+        </p>
+        </div>
+      </footer>
+
+    <script>
+        // Función para cerrar sesión y redirigir a la página de inicio de sesión
+        function cerrarSesion() {
+            window.location.href = "index.html";  // Redirige a la página de inicio (o login)
+        }
+
+
+        fetch('http://127.0.0.1:3000/api/v1/animales')
+            .then(Response => Response.json())
+            .then(animales => {
+                console.log(animales);
+                let tabla = document.getElementById('animales-data')
+                animales.forEach(animales => {
+                    let tr = document.createElement('tr');
+                    let id = document.createElement('th');
+                    id.textContent = animales.id;
+                    let nombre = document.createElement('th');
+                    nombre.textContent = animales.nombre;
+                    let sexo = document.createElement('th');
+                    sexo.textContent = animales.sexo;
+                    let tipo = document.createElement('th');
+                    tipo.textContent = animales.tipo;
+                    let edad = document.createElement('th');
+                    edad.textContent = animales.edad;
+                    let raza = document.createElement('th');
+                    raza.textContent = animales.raza;
+                    
+                               
+                    tr.appendChild(id);
+                    tr.appendChild(nombre);
+                    tr.appendChild(sexo);
+                    tr.appendChild(tipo);
+                    tr.appendChild(edad);
+                    tr.appendChild(raza);
+                    tabla.appendChild(tr);
+                });
+            })
+
+
+
+    </script>
+
+</html>

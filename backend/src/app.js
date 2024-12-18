@@ -45,12 +45,6 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontend/index.html'));
 });
 
-// Iniciar el servidor
-app.listen(port, () => {
-    console.log(`Servidor escuchando en http://localhost:${port}`);
-});
-
-
 app.get('/mas/preguntas_fre.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontend/mas/preguntas_fre.html'));
 });

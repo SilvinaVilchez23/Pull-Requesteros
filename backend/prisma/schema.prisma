@@ -17,7 +17,7 @@ datasource db {
 model Animal {
   id        Int    @id @default(autoincrement())
   nombre    String
-  sexo      String @default("No especificado")
+  sexo      String 
   tipo      String
   edad      Int
   raza      String
