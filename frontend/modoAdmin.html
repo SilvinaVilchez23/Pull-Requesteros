@@ -16,53 +16,54 @@
 
 <body class="has-background-black">
 
+
     <main>
-      <!-- Menu -->
-      <header>
-        <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-          <div class="navbar-end">
-            <a class="navbar-item" href="modoAdmin.html">
-                MODO ADMINISTRADOR 
-              <img src="https://e7.pngegg.com/pngimages/701/653/png-clipart-computer-icons-system-administrator-administrator-icon-silhouette-desktop-wallpaper.png" alt="Perrito y gatito">
-            </a>
-  
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </a>
-          </div>
-  
-          <div id="navbarBasicExample" class="navbar-menu">
+        <!-- Menu -->
+        <header>
+          <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
             <div class="navbar-start">
               <a class="navbar-item" href="modoAdmin.html">
-                <p>CREAR ANIMAL</p>
+                MODO ADMINISTRADOR
+                <img src="https://e7.pngegg.com/pngimages/701/653/png-clipart-computer-icons-system-administrator-administrator-icon-silhouette-desktop-wallpaper.png" alt="Perrito y gatito">
               </a>
-              <a class="navbar-item" href="modoAdmin.html">
-                <p>ELIMINAR ANIMAL</p>
+    
+              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
               </a>
-              <a class="navbar-item" href="modoAdmin.html">
-                <p>EDITAR ANIMAL</p>
-              </a>
-             
+            </div>
+    
+            <div id="navbarBasicExample" class="navbar-menu">
               <div class="navbar-end">
-                <a class="navbar-item" href="index.html">
-                    <p>cerrar sesion <img src="public/huella.png" alt="huella"></p>
+                <a class="navbar-item" href="modoAdmin.html">
+                  <p>CREAR ANIMAL</p>
                 </a>
+                <a class="navbar-item" href="modoAdmin.html">
+                  <p>EDITAR ANIMAL</p>
+                </a>
+                <a class="navbar-item" href="modoAdmin.html">
+                  <p>ELIMINAR ANIMAL</p>
+                </a>
+    
+                
               </div>
             </div>
-          </div>
-        </nav>
-      </header>
-    </main>  
+          </nav>
+        </header>
 
-    <div class="section has-text-centered">
-        <h1 class="title">Bienvenido al Panel de Administración</h1>
-        <p class="subtitle">Aquí puedes gestionar los datos y configuraciones de la página.</p>
-    </div>
 
-    <FONT COLOR="blue">ANIMALES </FONT>
+        <div class="section has-text-centered">
+          <h1 class="title">Bienvenido al Panel de Administración</h1>
+          <p class="subtitle">Aquí puedes gestionar los datos y configuraciones de la página.</p>
+        </div>
+    </main>
+
+    
+
+    <FONT COLOR="blue">INFORMACION DE NUESTROS ANIMALES DISPONIBLES </FONT>
+
 
     <table class="table">
       <thead>
@@ -79,18 +80,10 @@
       </tbody>
     </table>
   </div>
+
+  <button onclick="window.location.href='index.html'" class="button is-danger">Cerrar sesión</button>
+
 </body>
-
-
-
-<!-- 
-
-<a class="navbar-item" href="modoAdmin.html">
-    <button class="button is-danger" onclick="cerrarSesion()">Cerrar sesión</button>
-</a>
- -->
-
-
 
 
 
@@ -125,10 +118,7 @@
       </footer>
 
     <script>
-        // Función para cerrar sesión y redirigir a la página de inicio de sesión
-        function cerrarSesion() {
-            window.location.href = "index.html";  // Redirige a la página de inicio (o login)
-        }
+       
 
 
         fetch('http://127.0.0.1:3000/api/v1/animales')
@@ -167,3 +157,10 @@
     </script>
 
 </html>
+
+
+
+
+
+
+
