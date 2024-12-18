@@ -34,43 +34,41 @@
       </div>
     </div>
 
+
+
+    
     <div class="field">
-      <label class="label">Sexo</label>
+      <label class="label">Raza</label>
       <div class="control">
         <div class="select">
           <select>
-            <option>Masculino</option>
-            <option>Femenino</option>
           </select>
         </div>
       </div>
     </div>
 
     <script>
-      const breeds = ["Labrador", "Poodle", "Bulldog", "Beagle", "Chihuahua"];
-      const select = document.querySelector('.field .select select');
-      breeds.forEach(breed => {
-        const option = document.createElement('option');
-        option.value = breed;
-        option.textContent = breed;
-        select.appendChild(option);
-      });
-    </script>
+        const breeds = ["Labrador", "Poodle", "Bulldog", "Beagle", "Chihuahua"];
+        const select = document.querySelector('.field .select select');
+        breeds.forEach(breed => {
+          const option = document.createElement('option');
+          option.value = breed;
+          option.textContent = breed;
+          select.appendChild(option);
+        });
+      </script>
+
     <div class="field">
-      <label class="label">Raza</label>
-      <div class="control">
-        <div class="select">
-          <select>
-            
-
-
-
-
-            
-          </select>
+        <label class="label">Sexo</label>
+        <div class="control">
+          <div class="select">
+            <select>
+              <option>Masculino</option>
+              <option>Femenino</option>
+            </select>
+          </div>
         </div>
       </div>
-    </div>
     
 
     
@@ -107,12 +105,58 @@
     
     <div class="field is-grouped">
       <div class="control">
-        <button class="button is-link">Submit</button>
+        <button class="button is-link" onclick="submitForm()">Submit</button>
       </div>
       <div class="control">
-        <button class="button is-link is-light">Cancel</button>
+        <button class="button is-link is-light" onclick="resetForm()">Cancel</button>
       </div>
     </div>
+
+    <script>
+      function submitForm() {
+        const nombre = document.querySelector('input[type="text"]').value;
+        const edad = document.querySelector('input[type="number"]').value;
+        const raza = document.querySelector('.field .select select').value;
+        const sexo = document.querySelectorAll('.field .select select')[1].value;
+        const terms = document.querySelector('input[type="checkbox"]').checked;
+        //alert to debug data
+        alert(`Nombre: ${nombre}, Edad: ${edad}, Sexo: ${sexo}, Raza: ${raza}, Terms: ${terms}`);
+        if (!terms) {
+          alert('You must agree to the terms and conditions.');
+          return;
+        }
+
+        let data = { nombre:nombre, edad:parseInt(edad), raza:raza, sexo:sexo, tipo:"Perro"};
+
+        fetch('http://127.0.0.1:3000/api/v1/animales', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+          alert('Animal registered successfully!');
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('There was an error registering the animal.');
+        });
+      }
+
+      function resetForm() {
+        document.querySelector('input[type="text"]').value = '';
+        document.querySelector('input[type="number"]').value = '';
+        document.querySelector('.field .select select').value = 'Masculino';
+        document.querySelectorAll('.field .select select')[1].value = '';
+        document.querySelector('input[type="checkbox"]').checked = false;
+      }
+    </script>
+
+
+
   </div>
   <div class="modal">
     <div class="modal-background"></div>

@@ -49,3 +49,23 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor escuchando en http://localhost:${port}`);
 });
+
+
+app.get('/mas/preguntas_fre.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../frontend/mas/preguntas_fre.html'));
+});
+
+app.get('/mas/formu_pre.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../frontend/mas/formu_pre.html'));
+});
+
+app.get('/mas/sobre_nosotros.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../frontend/mas/sobre_nosotros.html'));
+});
+
+
+
+// Iniciar el servidor
+app.listen(port, () => {
+    console.log(`Servidor escuchando en http://localhost:${port}`);
+});
