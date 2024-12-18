@@ -14,7 +14,7 @@
 
 
 
-<body class="has-background-white">
+<body class="has-background-black">
 
     <main>
       <!-- Menu -->
@@ -45,7 +45,11 @@
               <a class="navbar-item" href="modoAdmin.html">
                 <p>EDITAR ANIMAL</p>
               </a>
-                </div>
+             
+              <div class="navbar-end">
+                <a class="navbar-item" href="index.html">
+                    <p>cerrar sesion <img src="public/huella.png" alt="huella"></p>
+                </a>
               </div>
             </div>
           </div>
@@ -56,17 +60,16 @@
     <div class="section has-text-centered">
         <h1 class="title">Bienvenido al Panel de Administración</h1>
         <p class="subtitle">Aquí puedes gestionar los datos y configuraciones de la página.</p>
-        <button class="button is-danger" onclick="cerrarSesion()">Cerrar sesión</button>
     </div>
 
-    <h1>Animales</h1>
+    <FONT COLOR="blue">ANIMALES </FONT>
 
     <table class="table">
       <thead>
         <tr>
           <th>ID</th>
           <th>Nombre</th>
-          <th>Especie</th>
+          <th>sexo</th>
           <th>Tipo</th>
           <th>Edad</th>
           <th>Raza</th>
@@ -80,9 +83,12 @@
 
 
 
+<!-- 
 
-
-
+<a class="navbar-item" href="modoAdmin.html">
+    <button class="button is-danger" onclick="cerrarSesion()">Cerrar sesión</button>
+</a>
+ -->
 
 
 
@@ -136,19 +142,19 @@
                     id.textContent = animales.id;
                     let nombre = document.createElement('th');
                     nombre.textContent = animales.nombre;
-                    let especie = document.createElement('th');
-                    especie.textContent = animales.especie;
+                    let sexo = document.createElement('th');
+                    sexo.textContent = animales.sexo;
                     let tipo = document.createElement('th');
                     tipo.textContent = animales.tipo;
                     let edad = document.createElement('th');
                     edad.textContent = animales.edad;
                     let raza = document.createElement('th');
                     raza.textContent = animales.raza;
-                    let imagen = document.createElement('th');
-                    imagen.href
+                    
+                               
                     tr.appendChild(id);
                     tr.appendChild(nombre);
-                    tr.appendChild(especie);
+                    tr.appendChild(sexo);
                     tr.appendChild(tipo);
                     tr.appendChild(edad);
                     tr.appendChild(raza);
