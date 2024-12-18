@@ -196,15 +196,17 @@
       refugios.forEach(refugio => {
         const card = document.createElement('div');
         card.className = 'card';
-
+        let imagen_refugio = Math.random() < 0.5 ? 'image_1.png' : 'image_2.png';
+        const imagenes_refugio = ['image_1.png', 'image_2.png', 'image_3.png', 'image_4.png'];
+        imagen_refugio = imagenes_refugio[Math.floor(Math.random() * imagenes_refugio.length)];
         card.innerHTML = `
-         <img src="./refugios/${refugio.imagenUrl}" alt="Foto de ${refugio.nombre}">            
+         <img src="./refugios/${imagen_refugio}" alt="Foto de ${refugio.nombre}">            
          <div class="card-content">
           <h3 class="title is-4">${refugio.nombre}</h3>
-          <p><strong>Ubicación:</strong> ${refugio.ubicacion}</p>
-          <p><strong>Capacidad:</strong> ${refugio.capacidad} animales</p>
-          <p><strong>Contacto:</strong> ${refugio.contacto}</p>
-          <button class="button is-link" onclick="mostrarDetalles(${refugio.id})">Ver más</button>
+          <p><strong>Ubicación:</strong> ${refugio.direccion}</p>
+          <p><strong>Capacidad:</strong> ${refugio.capacidad_maxima} animales</p>
+          <p><strong>Contacto:</strong> ${refugio.telefono}</p>
+          <button class="button is-link" onclick="mostrarDetalles(${refugio.id})">Registrar Perro</button>
          </div>`;
 
         contenedor.appendChild(card);
