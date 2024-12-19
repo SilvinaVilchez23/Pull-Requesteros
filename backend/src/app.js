@@ -7,9 +7,10 @@ const prisma = new PrismaClient();
 // Importar las rutas de API
 const animalesRoutes = require('./routes/animales');
 const refugiosRoutes = require('./routes/refugios');
-const adopteRoutes = require('./routes/adopte');
+const adopteRoutes = require('./routes/adoptantes');
 const refugioAnimalRoutes = require('./routes/animales_refugio');
 
+// Para parsear el cuerpo de las solicitudes como JSON
 
 const app = express();
 const port = 3000;
@@ -28,7 +29,7 @@ app.use(express.static(path.join(__dirname, '../../frontend')));
 // Rutas de la API
 app.use('/api/v1/animales', animalesRoutes);
 app.use('/api/v1/refugios', refugiosRoutes);
-app.use('/api/v1/adopte', adopteRoutes);
+app.use('/api/v1/adoptantes', adopteRoutes);
 
 
 
@@ -44,8 +45,8 @@ app.get('/refugios', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontend/refugios.html'));
 });
 
-app.get('/adopte', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontend/adopte.html'));
+app.get('/adoptantes', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../frontend/adoptantes.html'));
 });
 
 // Ruta por defecto (inicio) - puede ser opcional si tienes un index.html
@@ -57,7 +58,7 @@ app.get('/mas/preguntas_fre.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontend/mas/preguntas_fre.html'));
 });
 
- 
+
 app.get('/mas/sobre_nosotros.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontend/mas/sobre_nosotros.html'));
 });
@@ -70,3 +71,4 @@ app.get('/mas/sobre_nosotros.html', (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor escuchando en http://localhost:${port}`);
 });
+
