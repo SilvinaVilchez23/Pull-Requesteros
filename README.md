@@ -22,17 +22,18 @@ El siguiente proyecto es un servidor para gestionar la adopción de animales com
 Capturas de pantalla del proyecto.
 
 ### Página de inicio
-A continuación, se muestra la página principal del sitio donde los usuarios pueden ver los animales disponibles para adopción.
+A continuación, se muestra la página principal del sitio donde los usuarios pueden ver experiencias de clientes pasados.
 
 ![Página de inicio](./capturas_de_pantalla/1.png)
 
-### Carateristicas de un animal
-Esta es la página que muestra los detalles de un animal específico, como su nombre, especie, edad, etc.
+### Adoptar animal
+Esta es la página que muestra los los animales disponibles para adopción y sus características.
+A ella se accede por el apartado "Adopta" de la barra superior.
 
 ![Página de inicio](./capturas_de_pantalla/2.png)
 
 ### Formulario de solicitud de adopción
-Aquí está el formulario para que los usuarios puedan solicitar la adopción de un animal.
+Al presionar adoptar, se redirige al usuario hacie el formulario para que los usuarios puedan solicitar la adopción de un animal.
 
 ![Página de inicio](./capturas_de_pantalla/3.png)
 
