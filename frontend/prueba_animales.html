@@ -84,7 +84,7 @@
 
   <!-- Fondo oscuro cuando se muestra el formulario -->
   <div id="loginFormBackground" onclick="loguearse()"></div>
-
+  
   <div id="loginForm">
     <h3>Iniciar sesión como Superusuario</h3>
     <input type="text" id="username" placeholder="Usuario" required><br>
@@ -122,11 +122,11 @@
               <p>Más <img src="public/huella.png" alt="huella"></p>
             </a>
             <div class="navbar-dropdown is-right">
+              <a class="navbar-item" href="elegir_perro.html">
+                Adoptar
+              </a>
               <a class="navbar-item" href="mas/preguntas_fre.html">
                 Preguntas frecuentes
-              </a>
-              <a class="navbar-item" href="mas/formu_pre.html">
-                Formulario de pre-adopcion
               </a>
               <a class="navbar-item" href="mas/sobre_nosotros.html">
                 Sobre nosotros
@@ -139,13 +139,14 @@
   </header>
 
   <main>
+    <button class="button is-warning is-dark" onclick="loguearse()">Soy superusuario</button>
     <section>
       <div class="has-text-centered">
         <h1 class="title is-3" style="color: black;">Nuestros Animales</h1>
         <p style="color: black;">Adopta y cambia una vida</p>
       </div>
 
-      <button class="button is-warning is-dark" onclick="loguearse()">Soy superusuario</button>
+      
 
       <!-- Contenedor de tarjetas -->
       <section class="tarjetas-container" id="tarjetas"></section>
@@ -205,7 +206,7 @@
               <p><strong>Tipo:</strong> ${animal.tipo} </p>
               <p><strong>Edad:</strong> ${animal.edad} años</p>
               <p><strong>Raza:</strong> ${animal.raza}</p>
-              <button class="button is-link" onclick="mostrarDetalles(${animal.id})">Ver más</button>
+                <button class="button is-link" onclick="window.location.href='adoptar.html?id=${animal.id}'">Adoptar</button>
              </div>`;
 
           contenedor.appendChild(card);
