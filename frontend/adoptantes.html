@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- Barra -->
+
+<head>
+  <style>
+    .form {
+      margin: 1% 20% 5% 20%;
+    }
+
+    .terms {
+      font-size: 40px;
+    }
+
+    html,
+    body,
+    main {
+      margin: 0;
+      padding: 0;
+      height: 100%
+    }
+  </style>
+
+  <title>Proyecto Pull Requesteros &#x1F3E1</title>
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="author" content="Pull Requesteros">
+  <meta viewport="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="public/veterinario.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
+
+
+<body class="has-background-white">
+
+  <main>
+    <!-- Menu -->
+
+    <header>
+      <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+        <div class="navbar-start">
+          <a class="navbar-item" href="index.html">
+            Página Principal
+            <img src="public/veterinario.png" alt="Perrito y gatito">
+          </a>
+
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+            data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-end">
+            <a class="navbar-item" href="prueba_animales.html">
+              <p>Adopta <img src="public/huella.png" alt="huella"></p>
+            </a>
+            <a class="navbar-item" href="refugios.html">
+              <p>Refugios <img src="public/huella.png" alt="huella"></p>
+            </a>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                <p>Más <img src="public/huella.png" alt="huella"></p>
+              </a>
+              <div class="navbar-dropdown is-right">
+                <a class="navbar-item" href="mas/preguntas_fre.html">
+                  Preguntas frecuentes
+                </a>
+                <a class="navbar-item" href="mas/formu_pre.html">
+                  Formulario de pre-adopcion
+                </a>
+                <a class="navbar-item" href="mas/sobre_nosotros.html">
+                  Sobre nosotros
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="form">
+      <h1 class="terms" style="margin: 0 0 5% 0">Formulario de Adopción</h1>
+
+      <div class="field">
+        <label class="label">Animal a adoptar</label>
+        <div class="control">
+          <p id="animalName"></p>
+        </div>
+      </div>
+
+
+      <div class="field">
+        <label class="label">Nombre</label>
+        <div class="control">
+          <input class="input" type="text" id="nombre" placeholder="Nombre">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Apellido</label>
+        <div class="control">
+          <input class="input" type="text" id="apellido" placeholder="Apellido">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Edad</label>
+        <div class="control">
+          <input class="input" type="number" id="edad" min="18" placeholder="Edad">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Dirección</label>
+        <div class="control">
+          <input class="input" type="text" id="direccion" placeholder="Calle 123">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Teléfono</label>
+        <div class="control">
+          <input class="input" type="text" id="telefono" placeholder="123456789">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input class="input" type="email" id="email" placeholder="Email">
+        </div>
+      </div>
+
+      <script src="script_formulario.js" defer></script>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-link" onclick="guardarAdoptante()">Guardar</button>
+        </div>
+
+      </div>
+
+      <script>
+
+        // Obtener el ID del animal desde la URL
+        const params = new URLSearchParams(window.location.search);
+        const animalId = params.get('id'); // Obtiene el id del animal desde la URL
+
+        // Usar el ID para obtener los detalles del animal desde la API
+        fetch('http://127.0.0.1:3000/api/v1/animales/' + animalId)
+          .then(response => response.json())
+          .then(data => {
+            // Mostrar el nombre del animal en el formulario
+            document.getElementById('animalName').textContent = data.nombre + ' (' + animalId + ')';
+          })
+          .catch(error => {
+            console.error('Error fetching animal data:', error);
+          });
+
+        function guardarAdoptante() {
+          const nombre = document.querySelector('input[id="nombre"]').value;
+          if (nombre.trim() === '') {
+            alert('Nombre inválido.');
+            return;
+          }
+
+          const apellido = document.querySelector('input[id="apellido"]').value;
+          if (apellido.trim() === '') {
+            alert('Apellido inválido.');
+            return;
+          }
+
+          const edad = document.querySelector('input[id="edad"]').value;
+          if (edad.trim() === '' || edad < 18) { alert('Edad inválida.'); return; } const
+            direccion = document.querySelector('input[id="direccion" ]').value; if (direccion.trim() === '') {
+              alert('Dirección inválida.'); return;
+            } const telefono = document.querySelector('input[id = "telefono"]').value; if (isNaN(telefono)
+              || telefono < 0 || telefono.trim() === '') { alert('Teléfono inválido.'); return; } const
+                email = document.querySelector('input[id="email" ]').value; if (email.trim() === '' || !email.includes('@')) {
+                  alert('Email inválido.'); return;
+                } let data = {
+                  nombre: nombre, apellido: apellido, edad: parseInt(edad),
+                  direccion: direccion, telefono: parseInt(telefono), email: email
+                }; fetch('http://127.0.0.1:3000/api/v1/adoptantes',
+                  { method: 'POST', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify(data), })
+                  .then(response => response.json())
+                  .then(data => {
+                    console.log('Success:', data);
+                    alert('Adoptante registrado exitosamente.');
+                    window.location.href = "modoAdminAdoptantes.html";
+                  })
+                  .catch((error) => {
+                    console.error('Error:', error);
+                    alert('Hubo un error registrando el adoptante.');
+                  });
+        }
+      </script>
+
+  </main>
+</body>
+
+</html>

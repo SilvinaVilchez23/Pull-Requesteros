@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalles del Animal</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
+<body>
+  <main class="container">
+    <h1 class="title is-3">Detalles del Animal</h1>
+    <div id="animalDetails">
+      <img id="animalImage" src="" alt="Foto del animal" style="width:300px; height:auto;">
+      <h2 id="animalName"></h2>
+      <p id="animalEdad"></p>
+      <p id="animalRaza"></p>
+      <p id="animalSexo"></p>
+      <p id="animalTipo"></p>
+    </div>
+  </main>
+
+  <script>
+    // Obtener el ID del animal desde la URL
+    const params = new URLSearchParams(window.location.search);
+    const animalId = params.get('id');
+
+    // Hacer una solicitud al backend para obtener los detalles del animal
+    async function obtenerDetallesAnimal() {
+      try {
+        const response = await fetch(`http://127.0.0.1:3000/api/v1/animales/${animalId}`);
+        if (!response.ok) {
+          throw new Error('Animal no encontrado');
+        }
+        const animal = await response.json();
+
+        // Mostrar los detalles del animal
+        document.getElementById('animalImage').src = `./perros_gatos/${animal.imagenUrl}`;
+        document.getElementById('animalName').textContent = `Nombre: ${animal.nombre}`;
+        document.getElementById('animalEdad').textContent = `Edad: ${animal.edad}`;
+        document.getElementById('animalRaza').textContent = `Raza: ${animal.raza}`;
+        document.getElementById('animalSexo').textContent = `Sexo: ${animal.sexo}`;
+        document.getElementById('animalTipo').textContent = `Tipo: ${animal.tipo}`;
+      } catch (error) {
+        console.error("Error al obtener el detalle del animal:", error);
+        alert('Error al cargar los detalles del animal.');
+        window.location.href = 'index.html'; // Redirigir si no se encuentra el animal
+      }
+    }
+
+    obtenerDetallesAnimal();
+  </script>
+</body>
+</html>
