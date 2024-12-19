@@ -10,6 +10,7 @@ const refugiosRoutes = require('./routes/refugios');
 const adopteRoutes = require('./routes/adopte');
 const preAdopRoutes = require('./routes/pre_adop');  // Importamos la ruta de pre_adop
 const refugioAnimalRoutes = require('./routes/animales_refugio');
+const animalAdoptadosRoutes = require('./routes/animal_adoptados');
 
 const app = express();
 const port = 3000;
@@ -34,6 +35,7 @@ app.use('/api/v1/adopte', adopteRoutes);
 app.use('/pre-adopcion', preAdopRoutes);  // Usamos la ruta de pre_adop
 //rutas de las relaciones
 app.use('/api/v1/animales_refugio', refugioAnimalRoutes);
+app.use('/api/v1/animales_adoptante', animalAdoptadosRoutes);
 
 // Rutas para los archivos HTML de frontend
 app.get('/animales', (req, res) => {
