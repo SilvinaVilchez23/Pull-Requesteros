@@ -67,7 +67,7 @@ router.get('/', async (req,res) => {
   })
   
   //Para actualizar/editar un refugio_transito
-  router.put('/api/v1/refugios_transitos/:id', async (req,res) => {
+  router.put('/:id', async (req,res) => {
     let refugio_transito = await prisma.refugio_transito.findUnique({
       where: {
         id: parseInt(req.params.id)
