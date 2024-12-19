@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- Barra -->
+
+<head>
+    <title>Proyecto Pull Requesteros &#x1F3E1</title>
+    <meta name="description" content="This is my first HTML">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="Pull Requesteros">
+    <meta viewport="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="public/logo2.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
+
+
+
+<body class="has-background-black">
+    <main>
+
+        <!-- Menu -->
+        <header>
+
+            <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+
+                <div class="navbar-start">
+
+                    <a class="navbar-item" href="animales.html">
+
+                        MODO ADMINISTRADOR
+
+                        <img src="https://e7.pngegg.com/pngimages/701/653/png-clipart-computer-icons-system-administrator-administrator-icon-silhouette-desktop-wallpaper.png"
+                            alt="Perrito y gatito">
+                    </a>
+
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                        data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+
+
+                </div>
+
+                <div id="navbarBasicExample" class="navbar-menu">
+                    <div class="navbar-end">
+                        <a class="navbar-item" href="crearAnimal.html">
+                            <p>CREAR ANIMAL</p>
+                        </a>
+                        <a class="navbar-item" href="animales.html">
+                            <p>EDITAR ANIMAL</p>
+                        </a>
+
+                    </div>
+
+                </div>
+            </nav>
+        </header>
+
+
+        <div class="section has-text-centered">
+
+            <h1 class="title">Bienvenido al Panel de Administración</h1>
+            <p class="subtitle">Aquí puedes gestionar los datos y configuraciones de la página.</p>
+        </div>
+    </main>
+
+    <body>
+
+        <div class="form">
+            <h1 class="terms" style="margin: 0 0 1% 0">REGISTRA UN ANIMAL</h1>
+            <div class="field">
+
+                <label class="label">Nombre</label>
+                <div class="control">
+                    <input id="nombre" class="input" type="text" placeholder="Firulais">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Sexo</label>
+                <div class="control">
+                    <div id="sexo" class="select">
+                        <select required>
+                            <option>Masculino</option>
+                            <option>Femenino</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Tipo</label>
+                <div class="control">
+                    <div class="select">
+                        <select id="Tipo">
+                            <option>Perro</option>
+                            <option>Gato</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="field">
+                <label class="label">Edad</label>
+                <div class="control">
+                    <input id="edad" class="input" type="number" min="0" max="25" placeholder="0" required>
+                </div>
+            </div>
+
+
+
+
+            <div class="field">
+                <label class="label">Raza</label>
+                <div class="control">
+                    <input id="raza" class="input" type="text" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Imagen</label>
+                <div class="control">
+                    <input id="imagen" class="input" type="file" accept="image/*">
+                </div>
+            </div>
+
+
+
+            <div class="field">
+                <div class="control">
+                    <label class="checkbox">
+                        <input type="checkbox">
+                        Estoy de acuerdo con los <a href="#"><button class="js-modal-trigger"
+                                data-target="modal-js-example">
+                                términos y condiciones
+                            </button></a>
+                    </label>
+                </div>
+            </div>
+
+
+            <script src="script_formulario.js" defer></script>
+            <div id="modal-js-example" class="modal">
+                <div class="modal-background"></div>
+                <div class="modal-content">
+                    <div class="box">
+                        <div class="terms">
+                            <p><strong>TÉRMINO Y CONDICIÓN:</strong> NO MALTRATAR A LOS ANIMALES</p>
+                        </div>
+                        <img src="https://i.imgur.com/jptS5Xq.jpeg" width="90%">
+                        <!-- Your content -->
+                    </div>
+                </div>
+
+                <button class="modal-close is-large" aria-label="close"></button>
+            </div>
+
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <!-- Cambiado a la función guardarAnimal() -->
+                    <button class="button is-link" onclick="guardarAnimal()">Guardar</button>
+                </div>
+                <div class="control">
+                    <button class="button is-link is-light" onclick="reseteoFormulario()">Limpiar</button>
+                </div>
+            </div>
+
+
+            <script>
+
+                function guardarAnimal() {
+                    const animalId = localStorage.getItem('animalId'); // Obtiene el ID del animal desde localStorage
+                    const nombre = document.getElementById('nombre').value;
+                    const sexo = document.querySelector('#sexo select').value;
+                    const tipo = document.querySelector('#Tipo').value;
+                    const edad = document.getElementById('edad').value;
+                    const raza = document.getElementById('raza').value;
+
+                    // Crear un objeto con los datos
+                    const data = { nombre, sexo, tipo, edad: parseInt(edad), raza };
+
+                    if (animalId) {
+                        // Si existe un animalId, es que estamos actualizando un animal
+                        actualizarAnimal(animalId, data);
+                    } else {
+                        // Si no existe un animalId, estamos creando un nuevo animal
+                        crearAnimal(data);
+                    }
+                }
+                function crearAnimal() {
+                    // Obtener valores de los campos
+                    const nombre = document.getElementById('nombre').value;
+                    const sexo = document.querySelector('#sexo select').value; // Cambiado a querySelector
+                    const tipo = document.querySelector('#Tipo').value; // Cambiado a querySelector
+                    const edad = document.getElementById('edad').value;
+                    const raza = document.getElementById('raza').value;
+                    const imagenInput = document.getElementById('imagen');
+                    const terms = document.querySelector('input[type="checkbox"]').checked;
+
+                    // Validación de términos y condiciones
+                    if (!terms) {
+                        alert('Debes aceptar los términos y condiciones.');
+                        return;
+                    }
+
+                    // Verificar que los campos obligatorios estén llenos
+                    if (!nombre || !sexo || !tipo || !edad || !raza) {
+                        alert('Por favor, completa todos los campos obligatorios.');
+                        return;
+                    }
+
+                    // Obtener la imagen seleccionada
+                    let imagen = '';
+                    if (imagenInput.files.length > 0) {
+                        imagen = imagenInput.files[0].name; // Solo obtengo el nombre del archivo
+                    } else {
+                        alert('Por favor, sube una imagen.');
+                        return;
+                    }
+
+                    // Datos para enviar al servidor
+                    const data = {
+                        nombre: nombre,
+                        sexo: sexo,
+                        tipo: tipo,
+                        edad: parseInt(edad),
+                        raza: raza,
+                        imagen: imagen, // Enviar solo el nombre de la imagen
+                    };
+
+                    // Realizar la solicitud POST
+                    fetch('http://127.0.0.1:3000/api/v1/animales', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    })
+                        .then(response => {
+                            if (response.status == 201) {
+                                alert('¡Animal registrado con éxito!');
+                                reseteoFormulario(); // Limpiar el formulario después del registro
+                            }
+                            else {
+                                alert('Hubo un error al registrar el animal.');
+
+                            }
+                        });
+
+                }
+
+                function reseteoFormulario() {
+                    document.getElementById('nombre').value = '';
+                    document.getElementById('sexo').querySelector('select').value = '';
+                    document.getElementById('Tipo').querySelector('select').value = '';
+                    document.getElementById('edad').value = '';
+                    document.getElementById('raza').value = '';
+                    document.getElementById('imagen').value = ''; // Limpiar el campo de archivo
+                    document.querySelector('input[type="checkbox"]').checked = false; // Desmarcar términos
+                }
+
+
+                document.addEventListener("DOMContentLoaded", function () {
+                    const animalId = localStorage.getItem('animalId'); // Recupera el ID almacenado
+                    if (animalId) {
+                        fetch(`http://127.0.0.1:3000/api/v1/animales/${animalId}`)
+                            .then(response => response.json())
+                            .then(animal => {
+                                document.getElementById('nombre').value = animal.nombre;
+                                document.querySelector('#sexo select').value = animal.sexo;
+                                document.querySelector('#Tipo').value = animal.tipo;
+                                document.getElementById('edad').value = animal.edad;
+                                document.getElementById('raza').value = animal.raza;
+                            })
+                            .catch(error => console.error('Error al obtener el animal:', error));
+                    }
+                });
+
+                function actualizarAnimal() {
+                    const animalId = localStorage.getItem('animalId'); // Verifica si hay un ID
+                    const nombre = document.getElementById('nombre').value;
+                    const sexo = document.querySelector('#sexo select').value;
+                    const tipo = document.querySelector('#Tipo').value;
+                    const edad = document.getElementById('edad').value;
+                    const raza = document.getElementById('raza').value;
+
+                    const data = { nombre, sexo, tipo, edad: parseInt(edad), raza };
+
+                    fetch(`http://127.0.0.1:3000/api/v1/animales/${animalId}`, {  // Actualiza el animal con el ID
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data),
+                    })
+                        .then(response => response.json())
+                        .then(() => {
+                            alert('¡Animal actualizado con éxito!');
+                            localStorage.removeItem('animalId'); // Limpia el ID almacenado
+                            window.location.href = 'animales.html'; // Redirige a la página de listado
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
+
+
+            </script>
+
+
+
+        </div>
+        <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <p class="image is-4by3">
+                    <img src="https://bulma.io/assets/images/placeholders/1280x960.png" alt="">
+                </p>
+            </div>
+            <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+
+
+
+    </body>
+
+    <footer class="footer has-background-dark has-text-white">
+
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+        <div class="content has-text-centered">
+
+            <p>
+
+                <strong>Pull Requesteros Adopciones</strong> - En Pull Requesteros nos comprometemos a facilitar la
+                adopción responsable
+                de mascotas, ayudando a aquellos animales que buscan un hogar a encontrar a
+                sus nuevos dueños. Creemos en la importancia de ofrecer una segunda oportunidad
+                a aquellos peludos que lo necesitan, y trabajamos para hacer de la adopción un
+                proceso accesible, seguro y confiable.
+                Nuestra misión es conectar a las personas con refugios de animales y fomentar la
+                adopción responsable, creando una comunidad solidaria en la que las mascotas puedan
+                encontrar el hogar que merecen. A través de nuestra plataforma, buscamos ofrecer una
+                manera sencilla y directa para que los interesados en adoptar se pongan en contacto
+                con refugios y organizaciones que cuidan a los animales. ¡Un hogar para cada mascota y
+                una familia para cada amigo peludo!
+            </p>
+
+            <a class="footerMail" href="mailto:PetTracker@gmail.com">PullRequesteros@gmail.com</a>
+            | <a href="https://www.instagram.com/pullrequesterosadopciones" target="_blank">
+                <i class="fab fa-instagram"></i> Síguenos en Instagram
+            </a>
+            | Teléfono: 0800-777-2354
+            </p>
+        </div>
+    </footer>
+
+
+</html>
