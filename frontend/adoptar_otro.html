@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
-  
+
 <!-- Barra -->
+
 <head>
   <style>
-  .form {
-    margin: 1% 20% 5% 20%;
-  }
-  .terms {
-    font-size: 40px;
-  }
-    html, body, main {
+    .form {
+      margin: 1% 20% 5% 20%;
+    }
+
+    .terms {
+      font-size: 70px;
+      color: black;
+    }
+
+    html,
+    body,
+    main {
       margin: 0;
       padding: 0;
       height: 100%
     }
-    
   </style>
-  
+
   <title>Proyecto Pull Requesteros &#x1F3E1</title>
   <meta name="keywords" content="HTML, CSS, JavaScript">
   <meta name="author" content="Pull Requesteros">
@@ -27,155 +32,186 @@
 </head>
 
 
-<body class="has-background-white">
+<body class="has-background-white"
+  background="https://media.istockphoto.com/id/1197978961/es/vector/patr%C3%B3n-sin-costuras-con-huellas-de-patas-de-mascota-rosa-y-corazones.jpg?s=612x612&w=0&k=20&c=GvFO9yIetpP6Q6ez-tjXQrkFZu_9dQPAQOlcN5F6gxU=">
 
   <main>
-  <!-- Menu -->
-   
-  <header>
-    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-    <div class="navbar-start">
-      <a class="navbar-item" href="index.html">
-      Página Principal
-      <img src="public/veterinario.png" alt="Perrito y gatito">
-      </a>
+    <!-- Menu -->
 
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      </a>
-    </div>
+    <header>
+      <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+        <div class="navbar-start">
+          <a class="navbar-item" href="index.html">
+            Página Principal
+            <img src="public/veterinario.png" alt="Perrito y gatito">
+          </a>
 
-    <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-end">
-      <a class="navbar-item" href="prueba_animales.html">
-        <p>Adopta <img src="public/huella.png" alt="huella"></p>
-      </a>
-      <a class="navbar-item" href="refugios.html">
-        <p>Refugios <img src="public/huella.png" alt="huella"></p>
-      </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-        <p>Más <img src="public/huella.png" alt="huella"></p>
-        </a>
-        <div class="navbar-dropdown is-right">
-        <a class="navbar-item" href="mas/preguntas_fre.html">
-          Preguntas frecuentes
-        </a>
-        <a class="navbar-item" href="mas/formu_pre.html">
-          Formulario de pre-adopcion
-        </a>
-        <a class="navbar-item" href="mas/sobre_nosotros.html">
-          Sobre nosotros
-        </a>
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+            data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
         </div>
-      </div>
-      </div>
-    </div>
-    </nav>
-  </header>
-    
-  <div class="form">
-    <h1 class="terms" style="margin: 0 0 5% 0">Formulario de Adopción</h1>
-    
+
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-end">
+            <a class="navbar-item" href="prueba_animales.html">
+              <p>Adopta <img src="public/huella.png" alt="huella"></p>
+            </a>
+            <a class="navbar-item" href="refugios.html">
+              <p>Refugios <img src="public/huella.png" alt="huella"></p>
+            </a>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                <p>Más <img src="public/huella.png" alt="huella"></p>
+              </a>
+              <div class="navbar-dropdown is-right">
+                <a class="navbar-item" href="mas/preguntas_fre.html">
+                  Preguntas frecuentes
+                </a>
+                <a class="navbar-item" href="mas/formu_pre.html">
+                  Formulario de pre-adopcion
+                </a>
+                <a class="navbar-item" href="mas/sobre_nosotros.html">
+                  Sobre nosotros
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="form">
+      <h1 class="terms" style="margin: 0 0 5% 0">Formulario de Adopción </h1>
 
 
-    <div class="field">
+
+
+      <!-- <div class="field">
       <label class="label">Animal a adoptar</label>
       <div class="control">
       <p id="animalName"></p>
       </div>
-    </div>
-    <script>
-      // Obtener el ID del animal desde la URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const animalId = urlParams.get('id');
-      console.log('Animal ID:', animalId);
-      fetch('http://127.0.0.1:3000/api/v1/animales/' + animalId)
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById('animalName').textContent = data.nombre + ' (' + animalId + ')';
-        })
-        .catch(error => {
-          console.error('Error fetching animal data:', error);
-        });
-    </script>
+    </div> -->
+      <script>
+        // Obtener el ID del animal desde la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const animalId = urlParams.get('id');
+        console.log('Animal ID:', animalId);
+        fetch('http://127.0.0.1:3000/api/v1/animales/' + animalId)
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('animalName').textContent = data.nombre + ' (' + animalId + ')';
+          })
+          .catch(error => {
+            console.error('Error fetching animal data:', error);
+          });
+      </script>
 
-    <div class="field">
-      <label class="label">Seleccionar Dueño</label>
-      <div class="control">
-        <div class="select">
-          <select id="ownerSelect">
-            <option value="">Seleccione un dueño</option>
-          </select>
+      <div class="field">
+        <label style="color: black;" class="label">Seleccionar Dueño</label>
+        <div class="control">
+          <div class="select">
+            <select id="ownerSelect">
+              <option value="">Seleccione un dueño</option>
+            </select>
+          </div>
         </div>
       </div>
-    </div>
-    <script>
-      fetch('http://127.0.0.1:3000/api/v1/adopte')
-        .then(response => response.json())
-        .then(data => {
-          const ownerSelect = document.getElementById('ownerSelect');
-          data.forEach(owner => {
-            const option = document.createElement('option');
-            option.value = owner.id;
-            option.textContent = `${owner.nombre} ${owner.apellido}`;
-            ownerSelect.appendChild(option);
+
+
+      <script>
+        fetch('http://127.0.0.1:3000/api/v1/adopte')
+          .then(response => response.json())
+          .then(data => {
+            const ownerSelect = document.getElementById('ownerSelect');
+            data.forEach(owner => {
+              const option = document.createElement('option');
+              option.value = owner.id;
+              option.textContent = `${owner.nombre} ${owner.apellido}`;
+              ownerSelect.appendChild(option);
+            });
+          })
+          .catch(error => {
+            console.error('Error fetching owners data:', error);
           });
-        })
-        .catch(error => {
-          console.error('Error fetching owners data:', error);
-        });
-    </script>
+      </script>
 
-    <div class="field is-grouped">
-      <div class="control">
-        <button class="button is-link" onclick="submitForm()">Submit</button>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-link" onclick="submitForm()">Seleccionar</button>
+        </div>
       </div>
-    </div>
 
-    <script>
-      function submitForm() {
-        const ownerId = document.getElementById('ownerSelect').value;
-        if (ownerId === '') {
-          alert('Seleccione un dueño.');
-          return;
+      <script>
+        function submitForm() {
+          const ownerId = document.getElementById('ownerSelect').value;
+          if (ownerId === '') {
+            alert('Seleccione un dueño.');
+            return;
+          }
+
+          const animalId = new URLSearchParams(window.location.search).get('id');
+
+          let data = {
+            adoptante_id: parseInt(ownerId),
+            animal_id: parseInt(animalId)
+          };
+
+          fetch('http://127.0.0.1:3000/api/v1/animales_adoptante', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log('Success:', data);
+              alert('Adopción registrada exitosamente.');
+              window.location.href = "dueños.html";
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+              alert('Hubo un error registrando la adopción.');
+            });
         }
-
-        const animalId = new URLSearchParams(window.location.search).get('id');
-
-        let data = { 
-          adoptante_id: parseInt(ownerId), 
-          animal_id: parseInt(animalId) 
-        };
-        
-        fetch('http://127.0.0.1:3000/api/v1/animales_adoptante', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Success:', data);
-          alert('Adopción registrada exitosamente.');
-          window.location.href = "dueños.html";
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-          alert('Hubo un error registrando la adopción.');
-        });
-      }
-    </script>
-  </div>
+      </script>
+    </div>
   </main>
-  </body>
-  </html>
-  
+</body>
 
+<footer class="footer has-background-dark has-text-white">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
+  <div class="content has-text-centered">
+    <p>
+      <strong>Pull Requesteros Adopciones</strong> - En Pull Requesteros nos comprometemos a facilitar la adopción
+      responsable
+      de mascotas, ayudando a aquellos animales que buscan un hogar a encontrar a
+      sus nuevos dueños. Creemos en la importancia de ofrecer una segunda oportunidad
+      a aquellos peludos que lo necesitan, y trabajamos para hacer de la adopción un
+      proceso accesible, seguro y confiable.
+      Nuestra misión es conectar a las personas con refugios de animales y fomentar la
+      adopción responsable, creando una comunidad solidaria en la que las mascotas puedan
+      encontrar el hogar que merecen. A través de nuestra plataforma, buscamos ofrecer una
+      manera sencilla y directa para que los interesados en adoptar se pongan en contacto
+      con refugios y organizaciones que cuidan a los animales. ¡Un hogar para cada mascota y
+      una familia para cada amigo peludo!
+    </p>
+
+    <a class="footerMail" href="mailto:PetTracker@gmail.com">PullRequesteros@gmail.com</a>
+    | <a href="https://www.instagram.com/pullrequesterosadopciones" target="_blank">
+      <i class="fab fa-instagram"></i> Síguenos en Instagram
+    </a>
+    | Teléfono: 0800-777-2354
+    </p>
+  </div>
+</footer>
+
+</html>

@@ -1,23 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
-  
+
 <!-- Barra -->
+
 <head>
   <style>
-  .form {
-    margin: 1% 20% 5% 20%;
-  }
-  .terms {
-    font-size: 40px;
-  }
-    html, body, main {
+    body {
+      color: black;
+    }
+
+    .form,
+    .form input,
+    .form label,
+    .form p {
+      color: black;
+    }
+
+    .form {
+      margin: 1% 20% 5% 20%;
+      color: black;
+    }
+
+    .terms {
+      font-size: 40px;
+      color: black;
+    }
+
+    html,
+    body,
+    main {
       margin: 0;
       padding: 0;
       height: 100%
     }
-    
   </style>
-  
+
   <title>Proyecto Pull Requesteros &#x1F3E1</title>
   <meta name="keywords" content="HTML, CSS, JavaScript">
   <meta name="author" content="Pull Requesteros">
@@ -27,233 +44,262 @@
 </head>
 
 
-<body class="has-background-white">
+<body class="has-background-white"
+  background="https://media.istockphoto.com/id/1197978961/es/vector/patr%C3%B3n-sin-costuras-con-huellas-de-patas-de-mascota-rosa-y-corazones.jpg?s=612x612&w=0&k=20&c=GvFO9yIetpP6Q6ez-tjXQrkFZu_9dQPAQOlcN5F6gxU=">
 
   <main>
-  <!-- Menu -->
-   
-  <header>
-    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-      <div class="navbar-start">
-        <a class="navbar-item" href="index.html">
-          Página Principal
-          <img src="public/veterinario.png" alt="Perrito y gatito">
-        </a>
+    <!-- Menu -->
 
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
-
-      <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-end">
-          <a class="navbar-item" href="prueba_animales.html">
-            <p>Adopta <img src="public/huella.png" alt="huella"></p>
-          </a>
-          <a class="navbar-item" href="refugios.html">
-            <p>Refugios <img src="public/huella.png" alt="huella"></p>
+    <header>
+      <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+        <div class="navbar-start">
+          <a class="navbar-item" href="index.html">
+            Página Principal
+            <img src="public/veterinario.png" alt="Perrito y gatito">
           </a>
 
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              <p>Más <img src="public/huella.png" alt="huella"></p>
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+            data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-end">
+            <a class="navbar-item" href="prueba_animales.html">
+              <p>Adopta <img src="public/huella.png" alt="huella"></p>
             </a>
-            <div class="navbar-dropdown is-right">
-              <a class="navbar-item" href="elegir_perro.html">
-                Adoptar
+            <a class="navbar-item" href="refugios.html">
+              <p>Refugios <img src="public/huella.png" alt="huella"></p>
+            </a>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                <p>Más <img src="public/huella.png" alt="huella"></p>
               </a>
-              <a class="navbar-item" href="mas/preguntas_fre.html">
-                Preguntas frecuentes
-              </a>
-              <a class="navbar-item" href="mas/sobre_nosotros.html">
-                Sobre nosotros
-              </a>
+              <div class="navbar-dropdown is-right">
+                <a class="navbar-item" href="elegir_perro.html">
+                  Adoptar
+                </a>
+                <a class="navbar-item" href="mas/preguntas_fre.html">
+                  Preguntas frecuentes
+                </a>
+                <a class="navbar-item" href="mas/sobre_nosotros.html">
+                  Sobre nosotros
+                </a>
+              </div>
             </div>
           </div>
         </div>
+      </nav>
+    </header>
+
+    <div class="form">
+      <h1 class="terms" style="margin: 0 0 5% 0">Formulario de Adopción</h1>
+
+      <div style="margin: 5% 5% 5% 0%">
+        <p>¿Ya eres dueño? <a id="adoptarOtroLink" href="#">Click aquí</a></p>
       </div>
-    </nav>
-  </header>
-    
-  <div class="form">
-    <h1 class="terms" style="margin: 0 0 5% 0">Formulario de Adopción</h1>
-    
-    <div style="margin: 5% 5% 5% 0%">
-      <p>¿Ya eres dueño? <a id="adoptarOtroLink" href="#">Click aquí</a></p>
-    </div>
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const urlParams = new URLSearchParams(window.location.search);
+          const animalId = urlParams.get('id');
+          const adoptarOtroLink = document.getElementById('adoptarOtroLink');
+          adoptarOtroLink.href = `adoptar_otro.html?id=${animalId}`;
+        });
+      </script>
+
+      <div class="field">
+        <label class="label">Animal a adoptar</label>
+        <div class="control">
+          <p id="animalName"></p>
+        </div>
+      </div>
+      <script>
+        // Obtener el ID del animal desde la URL
         const urlParams = new URLSearchParams(window.location.search);
         const animalId = urlParams.get('id');
-        const adoptarOtroLink = document.getElementById('adoptarOtroLink');
-        adoptarOtroLink.href = `adoptar_otro.html?id=${animalId}`;
-      });
-    </script>
+        fetch('http://127.0.0.1:3000/api/v1/animales/' + animalId)
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('animalName').textContent = data.nombre + ' (' + animalId + ')';
+          })
+          .catch(error => {
+            console.error('Error fetching animal data:', error);
+          });
+      </script>
 
-    <div class="field">
-      <label class="label">Animal a adoptar</label>
-      <div class="control">
-      <p id="animalName"></p>
+
+      <div class="field" style="color: black;">
+        <label class="label">Nombre</label>
+        <div class="control">
+          <input class="input" type="text" id="nombre" placeholder="Nombre">
+        </div>
       </div>
-    </div>
-    <script>
-      // Obtener el ID del animal desde la URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const animalId = urlParams.get('id');
-      fetch('http://127.0.0.1:3000/api/v1/animales/' + animalId)
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById('animalName').textContent = data.nombre + ' (' + animalId + ')';
-        })
-        .catch(error => {
-          console.error('Error fetching animal data:', error);
-        });
-    </script>
 
+      <div class="field">
+        <label class="label">Apellido</label>
+        <div class="control">
+          <input class="input" type="text" id="apellido" placeholder="Apellido">
+        </div>
+      </div>
 
-<div class="field">
-  <label class="label">Nombre</label>
-  <div class="control">
-    <input class="input" type="text" id="nombre" placeholder="Nombre">
-  </div>
-</div>
+      <div class="field">
+        <label class="label">Edad</label>
+        <div class="control">
+          <input class="input" type="number" id="edad" min="18" placeholder="Edad">
+        </div>
+      </div>
 
-<div class="field">
-  <label class="label">Apellido</label>
-  <div class="control">
-    <input class="input" type="text" id="apellido" placeholder="Apellido">
-  </div>
-</div>
+      <div class="field">
+        <label class="label">Dirección</label>
+        <div class="control">
+          <input class="input" type="text" id="direccion" placeholder="Calle 123">
+        </div>
+      </div>
 
-<div class="field">
-  <label class="label">Edad</label>
-  <div class="control">
-    <input class="input" type="number" id="edad" min="18" placeholder="Edad">
-  </div>
-</div>
+      <div class="field">
+        <label class="label">Teléfono</label>
+        <div class="control">
+          <input class="input" type="text" id="telefono" placeholder="123456789">
+        </div>
+      </div>
 
-<div class="field">
-  <label class="label">Dirección</label>
-  <div class="control">
-    <input class="input" type="text" id="direccion" placeholder="Calle 123">
-  </div>
-</div>
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input class="input" type="email" id="email" placeholder="Email">
+        </div>
+      </div>
 
-<div class="field">
-  <label class="label">Teléfono</label>
-  <div class="control">
-    <input class="input" type="text" id="telefono" placeholder="123456789">
-  </div>
-</div>
+      <script src="script_formulario.js" defer></script>
 
-<div class="field">
-  <label class="label">Email</label>
-  <div class="control">
-    <input class="input" type="email" id="email" placeholder="Email">
-  </div>
-</div>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-link" onclick="submitForm()">Guardar</button>
+        </div>
 
-<script src="script_formulario.js" defer></script>
+      </div>
 
-<div class="field is-grouped">
-  <div class="control">
-    <button class="button is-link" onclick="submitForm()">Submit</button>
-  </div>
+      <script>
+        function submitForm() {
+          const nombre = document.querySelector('input[id="nombre"]').value;
+          if (nombre.trim() === '') {
+            alert('Nombre inválido.');
+            return;
+          }
 
-</div>
+          const apellido = document.querySelector('input[id="apellido"]').value;
+          if (apellido.trim() === '') {
+            alert('Apellido inválido.');
+            return;
+          }
 
-<script>
-  function submitForm() {
-    const nombre = document.querySelector('input[id="nombre"]').value;
-    if (nombre.trim() === '') {
-      alert('Nombre inválido.');
-      return;
-    }
+          const edad = document.querySelector('input[id="edad"]').value;
+          if (edad.trim() === '' || edad < 18) {
+            alert('Edad inválida.');
+            return;
+          }
 
-    const apellido = document.querySelector('input[id="apellido"]').value;
-    if (apellido.trim() === '') {
-      alert('Apellido inválido.');
-      return;
-    }
+          const direccion = document.querySelector('input[id="direccion"]').value;
+          if (direccion.trim() === '') {
+            alert('Dirección inválida.');
+            return;
+          }
 
-    const edad = document.querySelector('input[id="edad"]').value;
-    if (edad.trim() === '' || edad < 18) {
-      alert('Edad inválida.');
-      return;
-    }
+          const telefono = document.querySelector('input[id="telefono"]').value;
+          if (isNaN(telefono) || telefono < 0 || telefono.trim() === '') {
+            alert('Teléfono inválido.');
+            return;
+          }
 
-    const direccion = document.querySelector('input[id="direccion"]').value;
-    if (direccion.trim() === '') {
-      alert('Dirección inválida.');
-      return;
-    }
+          const email = document.querySelector('input[id="email"]').value;
+          if (email.trim() === '' || !email.includes('@')) {
+            alert('Email inválido.');
+            return;
+          }
 
-    const telefono = document.querySelector('input[id="telefono"]').value;
-    if (isNaN(telefono) || telefono < 0 || telefono.trim() === '') {
-      alert('Teléfono inválido.');
-      return;
-    }
+          let data = {
+            nombre: nombre,
+            apellido: apellido,
+            edad: parseInt(edad),
+            direccion: direccion,
+            telefono: parseInt(telefono),
+            email: email
+          };
 
-    const email = document.querySelector('input[id="email"]').value;
-    if (email.trim() === '' || !email.includes('@')) {
-      alert('Email inválido.');
-      return;
-    }
+          fetch('http://127.0.0.1:3000/api/v1/adopte', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          })
+            .then(response => response.json())
+            .then(data => {
+              const ownerId = data.id;
+              const animalId = new URLSearchParams(window.location.search).get('id');
+              let data2 = {
+                adoptante_id: parseInt(ownerId),
+                animal_id: parseInt(animalId)
+              };
 
-    let data = { 
-      nombre: nombre, 
-      apellido: apellido, 
-      edad: parseInt(edad), 
-      direccion: direccion, 
-      telefono: parseInt(telefono),
-      email: email 
-    };
+              fetch('http://127.0.0.1:3000/api/v1/animales_adoptante', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data2),
+              })
+                .then(response => response.json())
+                .then(data => {
+                  alert('Formulario enviado con éxito.');
+                  window.location.href = "dueños.html";
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                });
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
 
-    fetch('http://127.0.0.1:3000/api/v1/adopte', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-    .then(response => response.json())
-    .then(data => {
-      const ownerId = data.id;
-      const animalId = new URLSearchParams(window.location.search).get('id');
-        let data2 = { 
-          adoptante_id: parseInt(ownerId), 
-          animal_id: parseInt(animalId)
-        };
-
-      fetch('http://127.0.0.1:3000/api/v1/animales_adoptante', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data2),
-      })
-      .then(response => response.json())
-      .then(data => {
-        alert('Formulario enviado con éxito.');
-        window.location.href = "dueños.html";
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-        })
-        .catch(error => {
-      console.error('Error:', error);
-        });
-      
-  }
-</script>
+        }
+      </script>
   </main>
-  </body>
-  </html>
-  
 
+</body>
 
+<footer class="footer has-background-dark has-text-white">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <div class="content has-text-centered">
+    <p>
+      <strong>Pull Requesteros Adopciones</strong> - En Pull Requesteros nos comprometemos a facilitar la adopción
+      responsable
+      de mascotas, ayudando a aquellos animales que buscan un hogar a encontrar a
+      sus nuevos dueños. Creemos en la importancia de ofrecer una segunda oportunidad
+      a aquellos peludos que lo necesitan, y trabajamos para hacer de la adopción un
+      proceso accesible, seguro y confiable.
+      Nuestra misión es conectar a las personas con refugios de animales y fomentar la
+      adopción responsable, creando una comunidad solidaria en la que las mascotas puedan
+      encontrar el hogar que merecen. A través de nuestra plataforma, buscamos ofrecer una
+      manera sencilla y directa para que los interesados en adoptar se pongan en contacto
+      con refugios y organizaciones que cuidan a los animales. ¡Un hogar para cada mascota y
+      una familia para cada amigo peludo!
+    </p>
+
+    <a class="footerMail" href="mailto:PetTracker@gmail.com">PullRequesteros@gmail.com</a>
+    | <a href="https://www.instagram.com/pullrequesterosadopciones" target="_blank">
+      <i class="fab fa-instagram"></i> Síguenos en Instagram
+    </a>
+    | Teléfono: 0800-777-2354
+    </p>
+  </div>
+</footer>
+
+</html>
