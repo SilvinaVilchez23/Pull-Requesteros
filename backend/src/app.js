@@ -9,6 +9,7 @@ const animalesRoutes = require('./routes/animales');
 const refugiosRoutes = require('./routes/refugios');
 const adopteRoutes = require('./routes/adopte');
 const refugioAnimalRoutes = require('./routes/animales_refugio');
+const animalAdoptadosRoutes = require('./routes/animal_adoptados');
 
 
 const app = express();
@@ -34,6 +35,7 @@ app.use('/api/v1/adopte', adopteRoutes);
 
 //rutas de las relaciones
 app.use('/api/v1/animales_refugio', refugioAnimalRoutes);
+app.use('/api/v1/animales_adoptante', animalAdoptadosRoutes);
 
 // Rutas para los archivos HTML de frontend
 app.get('/animales', (req, res) => {

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registered Adoptantes</title>
+    <meta viewport="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="public/logo2.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <style>
         table {
             width: 100%;
@@ -19,7 +19,137 @@
     </style>
 </head>
 <body>
-    <h1>Registered Adoptantes and their Animales</h1>
-    
+    <header>
+        <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+          <div class="navbar-start">
+            <a class="navbar-item" href="index.html">
+              Página Principal
+              <img src="public/veterinario.png" alt="Perrito y gatito">
+            </a>
+  
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+  
+          <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-end">
+              <a class="navbar-item" href="prueba_animales.html">
+                <p>Adopta <img src="public/huella.png" alt="huella"></p>
+              </a>
+              <a class="navbar-item" href="refugios.html">
+                <p>Refugios <img src="public/huella.png" alt="huella"></p>
+              </a>
+  
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  <p>Más <img src="public/huella.png" alt="huella"></p>
+                </a>
+                <div class="navbar-dropdown is-right">
+                  <a class="navbar-item" href="elegir_perro.html">
+                    Adoptar
+                  </a>
+                  <a class="navbar-item" href="mas/preguntas_fre.html">
+                    Preguntas frecuentes
+                  </a>
+                  <a class="navbar-item" href="mas/sobre_nosotros.html">
+                    Sobre nosotros
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+    <div class="has-text-centered" style="margin-bottom: 20px;">
+        <font color="white">ADOPTANTES</font>
+    </div>
+    <table class="table" style="margin-left: auto; margin-right: auto;">
+        <thead>
+            <tr>
+                <th>Dueño</th>
+                <th>Mascota(s)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be populated here -->
+        </tbody>
+    </table>
+
+    <script>
+        fetch('http://127.0.0.1:3000/api/v1/animales_adoptante')
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.querySelector('tbody');
+                console.log(data);
+
+                // Group data by owner
+                const owners = {};
+                data.forEach(adoptante => {
+                    if (!owners[adoptante.adoptante_id]) {
+                        owners[adoptante.adoptante_id] = {
+                            ownerName: '',
+                            dogs: []
+                        };
+                    }
+                    owners[adoptante.adoptante_id].dogs.push(adoptante.animal_id);
+                });
+
+                // Fetch owner names and dog names
+                const ownerPromises = Object.keys(owners).map(ownerId => {
+                    return fetch(`http://127.0.0.1:3000/api/v1/adopte/` + ownerId)
+                        .then(response => response.json())
+                        .then(ownerData => {
+                            owners[ownerId].ownerName = ownerData.nombre;
+                        });
+                });
+
+                Promise.all(ownerPromises).then(() => {
+                    const dogPromises = [];
+                    Object.keys(owners).forEach(ownerId => {
+                        owners[ownerId].dogs.forEach(dogId => {
+                            dogPromises.push(
+                                fetch(`http://127.0.0.1:3000/api/v1/animales/` + dogId)
+                                    .then(response => response.json())
+                                    .then(dogData => {
+                                        owners[ownerId].dogs = owners[ownerId].dogs.map(dog => {
+                                            return dog === dogId ? dogData.nombre : dog;
+                                        });
+                                    })
+                            );
+                        });
+                    });
+
+                    Promise.all(dogPromises).then(() => {
+                        Object.keys(owners).forEach(ownerId => {
+                            const row = document.createElement('tr');
+                            const ownerCell = document.createElement('td');
+                            ownerCell.textContent = owners[ownerId].ownerName;
+                            ownerCell.rowSpan = owners[ownerId].dogs.length;
+                            row.appendChild(ownerCell);
+
+                            owners[ownerId].dogs.forEach((dogName, index) => {
+                                if (index > 0) {
+                                    const newRow = document.createElement('tr');
+                                    const dogCell = document.createElement('td');
+                                    dogCell.textContent = dogName;
+                                    newRow.appendChild(dogCell);
+                                    tbody.appendChild(newRow);
+                                } else {
+                                    const dogCell = document.createElement('td');
+                                    dogCell.textContent = dogName;
+                                    row.appendChild(dogCell);
+                                    tbody.appendChild(row);
+                                }
+                            });
+                        });
+                    });
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
 </body>
 </html>
