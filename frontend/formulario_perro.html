@@ -136,6 +136,12 @@
     </div>
 
     <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const refugioId = urlParams.get('refugioId');
+      console.log('Refugio ID:', refugioId);
+    </script>
+
+    <script>
       function submitForm() {
         const nombre = document.querySelector('input[type="text"]').value;
         const edad = document.querySelector('input[type="number"]').value;
@@ -145,6 +151,7 @@
           return;
         }
         const sexo = document.querySelector('input[name="sexo"]:checked').value;
+        const tipo = document.querySelector('.field .select .tipo').value;
         const terms = document.querySelector('input[type="checkbox"]').checked;
         //alert to debug data
         //alert(`Nombre: ${nombre}, Edad: ${edad}, Sexo: ${sexo}, Raza: ${raza}, Terms: ${terms}`);
@@ -153,8 +160,8 @@
           return;
         }
 
-
-        let data = { nombre:nombre, edad:parseInt(edad), raza:raza, sexo:sexo, tipo:"Perro"};
+        //FIX DATA!!
+        let data = { nombre:nombre, edad:parseInt(edad), raza:raza, sexo:sexo, tipo:tipo};
 
         fetch('http://127.0.0.1:3000/api/v1/animales', {
           method: 'POST',
@@ -165,9 +172,30 @@
         })
         .then(response => response.json())
         .then(data => {
-          console.log('Success:', data);
-          alert('Animal registrado correctamente!');
-          window.top.location.href = 'prueba_animales.html';
+          console.log('Refugio ID:', refugioId);
+          console.log('Animal ID:', data.id);
+          const animalRefugioData = {
+            refugio_id: refugioId,
+            animal_id: data.id
+          };
+
+          fetch('http://127.0.0.1:3000/api/v1/animales_refugio', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(animalRefugioData),
+          })
+          .then(response => response.json())
+          .then(data => {
+            alert('Animal registrado correctamente!');
+            window.top.location.href = 'prueba_animales.html';
+          })
+          .catch((error) => {
+            alert('Se registró el animal pero no se pudo asociar al refugio.');
+            window.top.location.href = 'prueba_animales.html';
+          });
+          
         })
         .catch((error) => {
           console.error('Error:', error);

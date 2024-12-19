@@ -11,7 +11,7 @@ router.get('/', async (req,res) => {
   
   //Para buscar un adoptante en especifico
   router.get('/:id', async (req,res) => {
-    const animal = await prisma.animal_en_refugio_transito.findUnique({
+    const animal_refugio_transito = await prisma.animal_en_refugio_transito.findUnique({
       where: {
         id:parseInt(req.params.id)
       }, 
@@ -20,7 +20,7 @@ router.get('/', async (req,res) => {
       }
     })
     
-    if (animal === null) {
+    if (animal_refugio_transito === null) {
       res.sendStatus(404)
       return
     }
@@ -31,13 +31,17 @@ router.get('/', async (req,res) => {
   
   //Para crear un adoptante
   router.post('/', async (req,res) => {
-    const animal = await prisma.animal_en_refugio_transito.create({
+    const refugioId = parseInt(req.body.refugio_id)
+    const refugio = await prisma.refugio_transito.findUnique({
+        where: { id: refugioId }
+    });
+    const animal_refugio_transito = await prisma.animal_en_refugio_transito.create({
       data: {
-        refugio_id: req.body.refugio_id,
+        refugio_id: parseInt(req.body.refugio_id),
         animal_id: req.body.animal_id,
       }
     })
-    res.status(201).send(animal)
+    res.status(201).send(animal_refugio_transito)
   
   })
   
@@ -45,7 +49,7 @@ router.get('/', async (req,res) => {
   
   //Para eliminar un adoptante
   router.delete('/:id', async (req,res) => {
-    const animal = await prisma.animal_en_refugio_transito.findUnique({
+    const animal_refugio_transito = await prisma.animal_en_refugio_transito.findUnique({
       where: {
         id:parseInt(req.params.id)
       }
