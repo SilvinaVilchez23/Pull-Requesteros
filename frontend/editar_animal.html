@@ -101,10 +101,17 @@
             </div>
 
             <div class="field">
-            <label class="label">Especie</label>
-            <div class="control">
-            <input class="input" type="text" id="especie" placeholder="Especie">
-            </div>
+              <label class="label">Tipo</label>
+              <div class="control">
+                <label class="radio"></label>
+                <input type="radio" name="tipo" value="Perro">
+                Perro
+                </label>
+                <label class="radio">
+                <input type="radio" name="tipo" value="Gato">
+                Gato
+                </label>
+              </div>
             </div>
 
             <div class="field"></div>
@@ -123,11 +130,11 @@
             <label class="label">Sexo</label>
             <div class="control">
               <label class="radio"></label>
-              <input type="radio" name="sexo" value="macho">
+              <input type="radio" name="sexo" value="Macho">
               Macho
               </label>
               <label class="radio">
-              <input type="radio" name="sexo" value="hembra">
+              <input type="radio" name="sexo" value="Hembra">
               Hembra
               </label>
             </div>
@@ -152,9 +159,9 @@
           return;
             }
 
-            const especie = document.querySelector('input[id="especie"]').value;
-            if (especie.trim() === '') {
-          alert('Especie inválida.');
+            const tipo = document.querySelector('input[name="tipo"]:checked');
+            if (!tipo) {
+          alert('Tipo inválido.');
           return;
             }
 
@@ -177,7 +184,7 @@
             }
 
             const id = document.querySelector('.id').value;
-            let data = { nombre: nombre, especie: especie, raza: raza, edad: parseInt(edad), sexo: sexo.value };
+            let data = { nombre: nombre, tipo: tipo.value, raza: raza, edad: parseInt(edad), sexo: sexo.value };
 
             fetch('http://127.0.0.1:3000/api/v1/animales/' + id, {
           method: 'PUT',
