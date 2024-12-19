@@ -20,6 +20,19 @@
     
     <div class="form">
     <h1 class="terms" style="margin: 0 0 5% 0">Registra a un animal</h1>
+
+    <div class="field">
+      <label class="label">Animal</label>
+      <div class="control">
+        <div class="select">
+          <select id="tipo">
+            <option value="Perro">Perro</option>
+            <option value="Gato">Gato</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
     <div class="field">
       <label class="label">Nombre</label>
       <div class="control">
@@ -30,44 +43,45 @@
     <div class="field">
       <label class="label">Edad</label>
       <div class="control">
-        <input class="input" type="number" min="0" max="25" placeholder="0">
+        <input class="input" type="number" min="0" max="25" placeholder="Años">
       </div>
     </div>
 
 
-
+    
     
     <div class="field">
       <label class="label">Raza</label>
       <div class="control">
         <div class="select">
-          <select>
+          <select class="raza">
           </select>
         </div>
       </div>
     </div>
 
     <script>
-        const breeds = ["Labrador", "Poodle", "Bulldog", "Beagle", "Chihuahua"];
-        const select = document.querySelector('.field .select select');
-        breeds.forEach(breed => {
-          const option = document.createElement('option');
-          option.value = breed;
-          option.textContent = breed;
-          select.appendChild(option);
-        });
-      </script>
+      const breeds = ["Labrador", "Poodle", "Bulldog", "Beagle", "Chihuahua"];
+      const select = document.querySelector('.field .select .raza');
+      breeds.forEach(breed => {
+        const option = document.createElement('option');
+        option.value = breed;
+        option.textContent = breed;
+        select.appendChild(option);
+      });
+    </script>
 
     <div class="field">
-        <label class="label">Sexo</label>
-        <div class="control">
-          <div class="select">
-            <select>
-              <option>Masculino</option>
-              <option>Femenino</option>
-            </select>
-          </div>
-        </div>
+      <div class="control">
+        <label class="radio">
+        <input type="radio" name="sexo" value="Masculino">
+        Macho
+        </label>
+        <label class="radio">
+        <input type="radio" name="sexo" value="Femenino">
+        Hembra
+        </label>
+      </div>
       </div>
     
 
@@ -116,15 +130,20 @@
       function submitForm() {
         const nombre = document.querySelector('input[type="text"]').value;
         const edad = document.querySelector('input[type="number"]').value;
-        const raza = document.querySelector('.field .select select').value;
-        const sexo = document.querySelectorAll('.field .select select')[1].value;
+        const raza = document.querySelector('.field .select .raza').value;
+        if (edad.trim() === '' || edad < 0 || edad > 25) {
+          alert('Edad inválida.');
+          return;
+        }
+        const sexo = document.querySelector('input[name="sexo"]:checked').value;
         const terms = document.querySelector('input[type="checkbox"]').checked;
         //alert to debug data
-        alert(`Nombre: ${nombre}, Edad: ${edad}, Sexo: ${sexo}, Raza: ${raza}, Terms: ${terms}`);
+        //alert(`Nombre: ${nombre}, Edad: ${edad}, Sexo: ${sexo}, Raza: ${raza}, Terms: ${terms}`);
         if (!terms) {
           alert('You must agree to the terms and conditions.');
           return;
         }
+
 
         let data = { nombre:nombre, edad:parseInt(edad), raza:raza, sexo:sexo, tipo:"Perro"};
 
@@ -138,11 +157,11 @@
         .then(response => response.json())
         .then(data => {
           console.log('Success:', data);
-          alert('Animal registered successfully!');
+          alert('Animal registrado correctamente!');
         })
         .catch((error) => {
           console.error('Error:', error);
-          alert('There was an error registering the animal.');
+          alert('Hubo un error registrando el animal.');
         });
       }
 
