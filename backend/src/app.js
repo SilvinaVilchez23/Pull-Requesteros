@@ -8,6 +8,7 @@ const prisma = new PrismaClient();
 const animalesRoutes = require('./routes/animales');
 const refugiosRoutes = require('./routes/refugios');
 const adopteRoutes = require('./routes/adopte');
+const refugioAnimalRoutes = require('./routes/animales_refugio');
 
 const app = express();
 const port = 3000;
@@ -26,6 +27,8 @@ app.use(express.static(path.join(__dirname, '../../frontend')));
 app.use('/api/v1/animales', animalesRoutes);
 app.use('/api/v1/refugios', refugiosRoutes);
 app.use('/api/v1/adopte', adopteRoutes);
+//rutas de las relaciones
+app.use('/api/v1/animales_refugio', refugioAnimalRoutes);
 
 // Rutas para los archivos HTML de frontend
 app.get('/animales', (req, res) => {
