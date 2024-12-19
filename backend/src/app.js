@@ -8,7 +8,6 @@ const prisma = new PrismaClient();
 const animalesRoutes = require('./routes/animales');
 const refugiosRoutes = require('./routes/refugios');
 const adopteRoutes = require('./routes/adopte');
-const preAdopRoutes = require('./routes/pre_adop');  // Importamos la ruta de pre_adop
 const refugioAnimalRoutes = require('./routes/animales_refugio');
 
 
@@ -30,10 +29,9 @@ app.use(express.static(path.join(__dirname, '../../frontend')));
 app.use('/api/v1/animales', animalesRoutes);
 app.use('/api/v1/refugios', refugiosRoutes);
 app.use('/api/v1/adopte', adopteRoutes);
-app.use('/api/v1/formu_pre', preAdopRoutes);
 
-// Rutas para el formulario de pre-adopción
-app.use('/pre-adopcion', preAdopRoutes);  // Usamos la ruta de pre_adop
+
+
 //rutas de las relaciones
 app.use('/api/v1/animales_refugio', refugioAnimalRoutes);
 
@@ -59,10 +57,7 @@ app.get('/mas/preguntas_fre.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontend/mas/preguntas_fre.html'));
 });
 
-app.get('/mas/formu_pre.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontend/mas/formu_pre.html'));
-});
-
+ 
 app.get('/mas/sobre_nosotros.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontend/mas/sobre_nosotros.html'));
 });
