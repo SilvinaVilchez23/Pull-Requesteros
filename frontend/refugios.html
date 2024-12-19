@@ -96,7 +96,7 @@
     <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
       <div class="navbar-start">
         <a class="navbar-item" href="index.html">
-          Pull Requesteros Adopciones
+          Página Principal
           <img src="public/veterinario.png" alt="Perrito y gatito">
         </a>
 
@@ -140,12 +140,12 @@
 
   <main>
     <section>
+      <button class="button is-warning is-dark" onclick="loguearse()">Soy superusuario</button>
       <div class="has-text-centered">
-        <h1 class="title is-3" style="color: black;">Nuestros Animales</h1>
-        <p style="color: black;">Adopta y cambia una vida</p>
+        <h1 class="title is-3" style="color: black;margin:5% 0 0 0">Nuestros refugios</h1>
       </div>
 
-      <button class="button is-warning is-dark" onclick="loguearse()">Soy superusuario</button>
+      
 
       <!-- Contenedor de tarjetas -->
       <section class="tarjetas-container" id="tarjetas"></section>
@@ -178,7 +178,7 @@
       // Verificar si las credenciales son correctas
       if (username === correctUsername && password === correctPassword) {
         // Redirigir a otra página si las credenciales son correctas
-        window.location.href = "modoAdmin.html";  // Cambia esta URL a la que desees
+        window.location.href = "modoAdminRefugios.html";  // Cambia esta URL a la que desees
       } else {
         // Mostrar un mensaje de alerta si las credenciales son incorrectas
         alert("Datos incorrectos. Por favor, intente de nuevo.");

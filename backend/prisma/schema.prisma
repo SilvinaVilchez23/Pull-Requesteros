@@ -56,18 +56,18 @@ model refugio_transito {
 //Tabla de relaciones entre el refugio/transito y el animal
 model animal_en_refugio_transito {
   id               Int              @id @default(autoincrement())
-  refugio_transito refugio_transito @relation(fields: [refugio_id], references: [id])
+  refugio_transito refugio_transito @relation(fields: [refugio_id], references: [id], onDelete: Cascade)
   refugio_id       Int
-  animales         Animal           @relation(fields: [animal_id], references: [id])
+  animales         Animal           @relation(fields: [animal_id], references: [id], onDelete: Cascade)
   animal_id        Int
 }
 
 //Tabla de relaciones entre el adoptante y el animal 
 model animal_adoptados {
   id           Int       @id @default(autoincrement())
-  adoptante    Adoptante @relation(fields: [adoptante_id], references: [id])
+  adoptante    Adoptante @relation(fields: [adoptante_id], references: [id], onDelete: Cascade)
   adoptante_id Int
-  animales     Animal    @relation(fields: [animal_id], references: [id])
+  animales     Animal    @relation(fields: [animal_id], references: [id], onDelete: Cascade)
   animal_id    Int
 }
 
