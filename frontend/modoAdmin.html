@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html class="has-background-black" lang="es">
   
 <!-- Barra -->
 <head>
@@ -14,7 +14,7 @@
 
 
 
-<body class="has-background-black">
+<body >
 
     <main>
       <!-- Menu -->
@@ -36,13 +36,8 @@
   
           <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-              <a class="navbar-item" href="modoAdmin.html">
-                <p>CREAR ANIMAL</p>
-              </a>
-              <a class="navbar-item" href="modoAdmin.html">
-                <p>ELIMINAR ANIMAL</p>
-              </a>
-              <a class="navbar-item" href="modoAdmin.html">
+
+              <a class="navbar-item" href="editar_animal.html">
                 <p>EDITAR ANIMAL</p>
               </a>
              
@@ -62,108 +57,87 @@
         <p class="subtitle">Aquí puedes gestionar los datos y configuraciones de la página.</p>
     </div>
 
-    <FONT COLOR="blue">ANIMALES </FONT>
 
-    <table class="table">
+    <div class="has-text-centered" style="margin-bottom: 20px;">
+      <font color="white">ANIMALES</font>
+    </div>
+    <table class="table" style="margin-left: auto; margin-right: auto;">
+      
       <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>sexo</th>
-          <th>Tipo</th>
-          <th>Edad</th>
-          <th>Raza</th>
-        </tr>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Especie</th>
+        <th>Raza</th>
+        <th>Edad</th>
+        <th>Refugio</th>
+        <th>ELIMINAR</th>
+      </tr>
       </thead>
-      <tbody id="animales-data">            
+      <tbody id="animal-data">            
       </tbody>
     </table>
-  </div>
-</body>
-
-
-
-<!-- 
-
-<a class="navbar-item" href="modoAdmin.html">
-    <button class="button is-danger" onclick="cerrarSesion()">Cerrar sesión</button>
-</a>
- -->
-
-
-
-
-
-    <footer class="footer has-background-dark has-text-white">
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    
-        <div class="content has-text-centered">
-          <p>
-            <strong>Pull Requesteros Adopciones</strong> -  En Pull Requesteros nos comprometemos a facilitar la adopción responsable 
-            de mascotas, ayudando a aquellos animales que buscan un hogar a encontrar a 
-            sus nuevos dueños. Creemos en la importancia de ofrecer una segunda oportunidad 
-            a aquellos peludos que lo necesitan, y trabajamos para hacer de la adopción un 
-            proceso accesible, seguro y confiable.
-            Nuestra misión es conectar a las personas con refugios de animales y fomentar la 
-            adopción responsable, creando una comunidad solidaria en la que las mascotas puedan 
-            encontrar el hogar que merecen. A través de nuestra plataforma, buscamos ofrecer una
-            manera sencilla y directa para que los interesados en adoptar se pongan en contacto 
-            con refugios y organizaciones que cuidan a los animales. ¡Un hogar para cada mascota y 
-            una familia para cada amigo peludo!
-          </p>
-    
-          <a class="footerMail" href="mailto:PetTracker@gmail.com"
-          >PullRequesteros@gmail.com</a
-          >
-          | <a href="https://www.instagram.com/pullrequesterosadopciones" target="_blank">
-            <i class="fab fa-instagram"></i> Síguenos en Instagram
-          </a>
-          | Teléfono: 0800-777-2354
-        </p>
-        </div>
-      </footer>
+    </div>
+  </body>
 
     <script>
-        // Función para cerrar sesión y redirigir a la página de inicio de sesión
-        function cerrarSesion() {
-            window.location.href = "index.html";  // Redirige a la página de inicio (o login)
-        }
+      // Función para cerrar sesión y redirigir a la página de inicio de sesión
+      function cerrarSesion() {
+        window.location.href = "index.html";  // Redirige a la página de inicio (o login)
+      }
 
+      fetch('http://127.0.0.1:3000/api/v1/animales')
+        .then(Response => Response.json())
+        .then(animales => {
+          console.log(animales);
+          let tabla = document.getElementById('animal-data')
+          animales.forEach(animal => {
+            let tr = document.createElement('tr');
+            let id = document.createElement('th');
+            id.textContent = animal.id;
+            let nombre = document.createElement('th');
+            nombre.textContent = animal.nombre;
+            let especie = document.createElement('th');
+            especie.textContent = animal.especie;
+            let raza = document.createElement('th');
+            raza.textContent = animal.raza;
+            let edad = document.createElement('th');
+            edad.textContent = animal.edad;
+            let refugio = document.createElement('th');
+            refugio.textContent = animal.refugio;
+            
+            tr.appendChild(id);
+            tr.appendChild(nombre);
+            tr.appendChild(especie);
+            tr.appendChild(raza);
+            tr.appendChild(edad);
+            tr.appendChild(refugio);
+            
+            let eliminar = document.createElement('th');
+            let boton = document.createElement('button');
+            boton.textContent = 'Eliminar';
+            boton.className = 'button is-danger';
+            boton.onclick = function() {
+              fetch('http://127.0.0.1:3000/api/v1/animales/' + animal.id , {
+              method: 'DELETE'
+              })                        
+              .then(response => response.json())
+              .then(data => {
+                console.log('Success:', data);
+                window.location.reload();
+                
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+                alert('Hubo un error eliminando el animal.');
+              });
+            }
+            eliminar.appendChild(boton);
+            tr.appendChild(eliminar);
 
-        fetch('http://127.0.0.1:3000/api/v1/animales')
-            .then(Response => Response.json())
-            .then(animales => {
-                console.log(animales);
-                let tabla = document.getElementById('animales-data')
-                animales.forEach(animales => {
-                    let tr = document.createElement('tr');
-                    let id = document.createElement('th');
-                    id.textContent = animales.id;
-                    let nombre = document.createElement('th');
-                    nombre.textContent = animales.nombre;
-                    let sexo = document.createElement('th');
-                    sexo.textContent = animales.sexo;
-                    let tipo = document.createElement('th');
-                    tipo.textContent = animales.tipo;
-                    let edad = document.createElement('th');
-                    edad.textContent = animales.edad;
-                    let raza = document.createElement('th');
-                    raza.textContent = animales.raza;
-                    
-                               
-                    tr.appendChild(id);
-                    tr.appendChild(nombre);
-                    tr.appendChild(sexo);
-                    tr.appendChild(tipo);
-                    tr.appendChild(edad);
-                    tr.appendChild(raza);
-                    tabla.appendChild(tr);
-                });
-            })
-
-
-
+            tabla.appendChild(tr);
+          });
+        })
     </script>
 
-</html>
+  </html>
