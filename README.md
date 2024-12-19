@@ -24,17 +24,17 @@ Capturas de pantalla del proyecto.
 ### Página de inicio
 A continuación, se muestra la página principal del sitio donde los usuarios pueden ver los animales disponibles para adopción.
 
-//agregar imagen//
+![Página de inicio](./capturas_de_pantalla/1.png)
 
 ### Carateristicas de un animal
 Esta es la página que muestra los detalles de un animal específico, como su nombre, especie, edad, etc.
 
-//agregar imagen//
+![Página de inicio](./capturas_de_pantalla/2.png)
 
 ### Formulario de solicitud de adopción
 Aquí está el formulario para que los usuarios puedan solicitar la adopción de un animal.
 
-//agregar imagen//
+![Página de inicio](./capturas_de_pantalla/3.png)
 
 
 ## Requisitos
