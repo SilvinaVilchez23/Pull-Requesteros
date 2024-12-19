@@ -8,6 +8,8 @@ const prisma = new PrismaClient();
 const animalesRoutes = require('./routes/animales');
 const refugiosRoutes = require('./routes/refugios');
 const adopteRoutes = require('./routes/adopte');
+const preAdopRoutes = require('./routes/pre_adop');  // Importamos la ruta de pre_adop
+const refugioAnimalRoutes = require('./routes/animales_refugio');
 
 const app = express();
 const port = 3000;
@@ -15,6 +17,7 @@ const port = 3000;
 // Middleware
 app.use(express.json());
 app.use(cors());  // Asegúrate de tener CORS habilitado si el frontend está en otro dominio o puerto
+app.use(express.urlencoded({ extended: true })); // Para poder procesar formularios HTML
 
 // Middleware para servir archivos estáticos desde la carpeta "public" dentro de frontend
 app.use(express.static(path.join(__dirname, '../frontend/public')));
@@ -26,6 +29,11 @@ app.use(express.static(path.join(__dirname, '../../frontend')));
 app.use('/api/v1/animales', animalesRoutes);
 app.use('/api/v1/refugios', refugiosRoutes);
 app.use('/api/v1/adopte', adopteRoutes);
+
+// Rutas para el formulario de pre-adopción
+app.use('/pre-adopcion', preAdopRoutes);  // Usamos la ruta de pre_adop
+//rutas de las relaciones
+app.use('/api/v1/animales_refugio', refugioAnimalRoutes);
 
 // Rutas para los archivos HTML de frontend
 app.get('/animales', (req, res) => {
@@ -56,6 +64,8 @@ app.get('/mas/formu_pre.html', (req, res) => {
 app.get('/mas/sobre_nosotros.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontend/mas/sobre_nosotros.html'));
 });
+
+
 
 
 

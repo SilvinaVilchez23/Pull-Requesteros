@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html class="has-background-black" lang="es">
+  
+<!-- Barra -->
+<head>
+  <title>Proyecto Pull Requesteros &#x1F3E1</title>
+  <meta name="description" content="This is my first HTML">
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="author" content="Pull Requesteros">
+  <meta viewport="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="public/logo2.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
+
+<body></body>
+
+  <main>
+    <!-- Menu -->
+    <header>
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+      <div class="navbar-end">
+      <a class="navbar-item" href="modoAdminAdoptantes.html">
+        MODO ADMINISTRADOR 
+        <img src="https://e7.pngegg.com/pngimages/701/653/png-clipart-computer-icons-system-administrator-administrator-icon-silhouette-desktop-wallpaper.png" alt="Perrito y gatito">
+      </a>
+  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+      </div>
+  
+      <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="añadir_adoptante.html">
+        <p>AÑADIR ADOPTANTE</p>
+        </a>
+        <a class="navbar-item" href="editar_adoptante.html">
+        <p>EDITAR ADOPTANTE</p>
+        </a>
+       
+        <div class="navbar-end">
+        <a class="navbar-item" href="index.html">
+          <p>cerrar sesion <img src="public/huella.png" alt="huella"></p>
+        </a>
+        </div>
+      </div>
+      </div>
+    </nav>
+    </header>
+  </main>  
+
+  <div class="section has-text-centered">
+    <h1 class="title">Bienvenido al Panel de Administración</h1>
+    <p class="subtitle">Aquí puedes gestionar los datos y configuraciones de la página.</p>
+  </div>
+
+  <div class="has-text-centered" style="margin-bottom: 20px;">
+    <font color="white">ADOPTANTES</font>
+  </div>
+  <table class="table" style="margin-left: auto; margin-right: auto;">
+    
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Email</th>
+      <th>Telefono</th>
+      <th>Direccion</th>
+      <th>ELIMINAR</th>
+    </tr>
+    </thead>
+    <tbody id="adoptante-data">            
+    </tbody>
+  </table>
+  </div>
+</body>
+
+  <script>
+    // Función para cerrar sesión y redirigir a la página de inicio de sesión
+    function cerrarSesion() {
+      window.location.href = "index.html";  // Redirige a la página de inicio (o login)
+    }
+
+    fetch('http://127.0.0.1:3000/api/v1/adopte')
+      .then(Response => Response.json())
+      .then(adoptantes => {
+        console.log(adoptantes);
+        let tabla = document.getElementById('adoptante-data')
+        adoptantes.forEach(adoptante => {
+          let tr = document.createElement('tr');
+          let id = document.createElement('th');
+          id.textContent = adoptante.id;
+          let nombre = document.createElement('th');
+          nombre.textContent = adoptante.nombre;
+          let apellido = document.createElement('th');
+          apellido.textContent = adoptante.apellido;
+          let email = document.createElement('th');
+          email.textContent = adoptante.email;
+          let telefono = document.createElement('th');
+          telefono.textContent = adoptante.telefono;
+          let direccion = document.createElement('th');
+          direccion.textContent = adoptante.direccion;
+          
+          tr.appendChild(id);
+          tr.appendChild(nombre);
+          tr.appendChild(apellido);
+          tr.appendChild(email);
+          tr.appendChild(telefono);
+          tr.appendChild(direccion);
+          
+          let eliminar = document.createElement('th');
+          let boton = document.createElement('button');
+          boton.textContent = 'Eliminar';
+          boton.className = 'button is-danger';
+          boton.onclick = function() {
+            fetch('http://127.0.0.1:3000/api/v1/adopte/' + adoptante.id , {
+            method: 'DELETE'
+            })                        
+            .then(response => response.json())
+            .then(data => {
+              console.log('Success:', data);
+              window.location.reload();
+              
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+              alert('Hubo un error eliminando el adoptante.');
+            });
+          }
+          eliminar.appendChild(boton);
+          tr.appendChild(eliminar);
+
+          tabla.appendChild(tr);
+        });
+      })
+  </script>
+
+</html>

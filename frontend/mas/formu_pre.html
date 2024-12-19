@@ -13,7 +13,7 @@
 
 
 
-<body class="has-background-white">
+<body class="background-image">
 
     <main>
       <!-- Menu -->
@@ -65,9 +65,140 @@
     </main>  
 
 
+    <div class="column" style="background-color: #e4e4e4dd; color: rgb(141, 141, 141); text-align: left; font-size: 35px; position: relative; top: 0px; font-family: 'Modak', sans-serif; font-weight: 700;">
+      <p> <img src="../public/patita.png" alt="patita" style="width: 50px; height: 50px; vertical-align: middle;" > Formulario Pre-adopción</p>
+  </div>
+
+  <div class="container has-text-centered">
+    <form action="/procesar-formulario" method="POST" class="formulario">
+      <!-- Correo Electrónico -->
+      <div class="field">
+        <div class="field-body">
+          <div class="field is-fullwidth">
+            <p class="control has-icons-left">
+              <input class="input is-fullwidth" type="email" placeholder="Correo electrónico" name="email" required>
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Fecha de Nacimiento -->
+      <div class="field">
+        <div class="field-body">
+          <div class="field is-fullwidth">
+            <div class="control">
+              <input class="input is-fullwidth" type="date" name="fecha_nacimiento" required>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Teléfono -->
+      <div class="field is-horizontal">
+        <div class="field-body">
+          <div class="field is-expanded">
+            <div class="field has-addons">
+              <p class="control">
+                <a class="button is-static">
+                  +11
+                </a>
+              </p>
+              <p class="control is-expanded">
+                <input class="input is-fullwidth" type="telefono" placeholder="Tu número de teléfono" name="telefono" required>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Selección de Mascota -->
+      <div class="field">
+        <div class="field-body">
+          <div class="field is-fullwidth">
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select name="mascota" required>
+                  <option>Perro</option>
+                  <option>Gato</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Pregunta -->
+      <div class="field">
+        <div class="field-body">
+          <div class="field is-fullwidth">
+            <div class="control">
+              <textarea class="textarea is-fullwidth" placeholder="Escribe el motivo por el que deseas adoptar una mascota" name="pregunta" required></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Botón de Enviar -->
+      <div class="field">
+        <div class="field-body">
+          <div class="field is-fullwidth">
+            <div class="control">
+              <button class="button is-primary is-fullwidth" type="submit">
+                Enviar solicitud
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  
 
 
 
+  <!--Fondo-->
+  <style>
+    .background-image {
+        background-image: url('../public/fondito.png'); 
+        background-repeat: no-repeat; 
+        background-size: cover;
+        background-position: center center; 
+    }
+    </style>
+
+    <style>
+      .formulario {
+        margin-top: 100px;
+        margin-bottom: 100px;
+      }
+
+    </style>
+
+<style>
+
+  /* Estilo del botón de envío */
+  .button.is-primary {
+    background-color: #3273dc;
+    border-color: #3273dc;
+    color: white;
+  }
+
+  .button.is-primary:hover {
+    background-color: #275a8a;
+    border-color: #275a8a;
+  }
+</style>
+  
+<style>
+  /* Asegura que el formulario sea más estrecho */
+  .container {
+    max-width: 400px; /* Limita el ancho del formulario a 600px */
+    margin: 0 auto; /* Centra el formulario horizontalmente */
+  }
+</style>
 
     
 
@@ -104,5 +235,8 @@
             </p>
         </div>
     </footer>
+
+    <script src="pre_adop.js"></script>
+
 </body>
 </html>

@@ -4,14 +4,14 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 //Para mostrar todos los refugios_transitos 
-router.get('/api/v1/refugios_transitos', async (req,res) => {
+router.get('/', async (req,res) => {
     const refugios_transitos = await prisma.refugio_transito.findMany()
     res.json(refugios_transitos)
   
   })
   
   //Para buscar un refugio_transito en especifico
-  router.get('/api/v1/refugios_transitos/:id', async (req,res) => {
+  router.get('/:id', async (req,res) => {
     const refugio_transito = await prisma.refugio_transito.findUnique({
       where: {
         id:parseInt(req.params.id)
@@ -30,7 +30,7 @@ router.get('/api/v1/refugios_transitos', async (req,res) => {
   })
   
   //Para crear un refugio_transito
-  router.post('/api/v1/refugios_transitos', async (req,res) => {
+  router.post('/', async (req,res) => {
     const refugio_transito = await prisma.refugio_transito.create({
       data: {
         nombre: req.body.nombre,
@@ -45,7 +45,7 @@ router.get('/api/v1/refugios_transitos', async (req,res) => {
   })
   
   //Para eliminar un refugio_transito
-  router.delete('/api/v1/refugios_transitos/:id', async (req,res) => {
+  router.delete('/:id', async (req,res) => {
     const refugio_transito = await prisma.refugio_transito.findUnique({
       where: {
         id:parseInt(req.params.id)
@@ -67,7 +67,7 @@ router.get('/api/v1/refugios_transitos', async (req,res) => {
   })
   
   //Para actualizar/editar un refugio_transito
-  router.put('/api/v1/refugios_transitos/:id', async (req,res) => {
+  router.put('/:id', async (req,res) => {
     let refugio_transito = await prisma.refugio_transito.findUnique({
       where: {
         id: parseInt(req.params.id)

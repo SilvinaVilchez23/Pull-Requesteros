@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+  
+<!-- Barra -->
+<head>
+  <title>Proyecto Pull Requesteros &#x1F3E1</title>
+  <meta name="description" content="This is my first HTML">
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="author" content="Pull Requesteros">
+  <meta viewport="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="public/logo2.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <style>
+    #loginFormBackground {
+      display: none; /* Oculto por defecto */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+      z-index: 100; /* Asegúrate de que esté por encima del contenido pero debajo del formulario */
+    }
+    #loginForm {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 200; /* Asegúrate de que el formulario esté por encima del fondo oscuro */
+    }
+
+    #loginForm input, #loginForm button {
+      width: 200px;
+      margin: 10px 0;
+      padding: 8px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="loginFormBackground" onclick="loguearse()"></div>
+  
+  <div id="loginForm">
+    <h3>Iniciar sesión como Superusuario</h3>
+    <input type="text" id="username" placeholder="Usuario" required><br>
+    <input type="password" id="password" placeholder="Contraseña" required><br>
+    <button onclick="validarCredenciales()">Iniciar sesión</button>
+  </div>
+  <button class="button is-warning is-dark" onclick="loguearse()">Soy superusuario</button>
+  
+  <div class="section has-text-centered">
+  <h1 class="title">Bienvenido al Panel de Adopción</h1>
+  <p class="subtitle">Aquí puedes elegir un animal de la lista para adoptarlo.</p>
+  </div>
+
+  <div class="has-text-centered" style="margin-bottom: 20px;">
+  </div>
+  <table class="table" style="margin-left: auto; margin-right: auto;">
+    
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Especie</th>
+    <th>Raza</th>
+    <th>Edad</th>
+    <th>Refugio</th>
+    <th>SELECCIONAR</th>
+  </tr>
+  </thead>
+  <tbody id="animal-data">            
+  </tbody>
+  </table>
+  </div>
+</body>
+  
+  <script>
+  // Función para cerrar sesión y redirigir a la página de inicio de sesión
+  function cerrarSesion() {
+    window.location.href = "index.html";  // Redirige a la página de inicio (o login)
+  }
+
+  fetch('http://127.0.0.1:3000/api/v1/animales')
+    .then(Response => Response.json())
+    .then(animales => {
+    console.log(animales);
+    let tabla = document.getElementById('animal-data')
+    animales.forEach(animal => {
+      let tr = document.createElement('tr');
+      let id = document.createElement('th');
+      id.textContent = animal.id;
+      let nombre = document.createElement('th');
+      nombre.textContent = animal.nombre;
+      let especie = document.createElement('th');
+      especie.textContent = animal.especie;
+      let raza = document.createElement('th');
+      raza.textContent = animal.raza;
+      let edad = document.createElement('th');
+      edad.textContent = animal.edad;
+      let refugio = document.createElement('th');
+      refugio.textContent = animal.refugio;
+      
+      tr.appendChild(id);
+      tr.appendChild(nombre);
+      tr.appendChild(especie);
+      tr.appendChild(raza);
+      tr.appendChild(edad);
+      tr.appendChild(refugio);
+      
+      let seleccionar = document.createElement('th');
+      let boton = document.createElement('button');
+      boton.textContent = 'Seleccionar';
+      boton.className = 'button is-primary';
+      boton.onclick = function() {
+      window.location.href = 'adoptar.html?id=' + animal.id;
+      }
+      seleccionar.appendChild(boton);
+      tr.appendChild(seleccionar);
+
+      tabla.appendChild(tr);
+    });
+    })
+    // Mostrar y ocultar el formulario al hacer clic en el botón
+    function loguearse() {
+      const form = document.getElementById("loginForm");
+      const formBackground = document.getElementById("loginFormBackground");
+      if (form.style.display === "none" || form.style.display === "") {
+        form.style.display = "block"; // Muestra el formulario
+        formBackground.style.display = "block"; // Muestra el fondo oscuro
+      } else {
+        form.style.display = "none"; // Lo oculta si ya está visible
+        formBackground.style.display = "none"; // Oculta el fondo oscuro
+      }
+    }
+
+    // Función para validar las credenciales
+    function validarCredenciales() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      // Credenciales correctas
+      const correctUsername = "intro";
+      const correctPassword = "contraseña_segura";
+
+      // Verificar si las credenciales son correctas
+      if (username === correctUsername && password === correctPassword) {
+        // Redirigir a otra página si las credenciales son correctas
+        window.location.href = "modoAdminAdoptantes.html";  // Cambia esta URL a la que desees
+      } else {
+        // Mostrar un mensaje de alerta si las credenciales son incorrectas
+        alert("Datos incorrectos. Por favor, intente de nuevo.");
+      }
+    }
+  </script>
+
+</html>

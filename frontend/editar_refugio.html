@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html class="has-background-black" lang="es">
+  
+<!-- Barra -->
+<head>
+  <style>
+    .form {
+        margin: 1% 20% 5% 20%;
+    }
+    .terms {
+        font-size: 40px;
+    }
+        html, body, main {
+          margin: 0;
+          padding: 0;
+          height: 50%
+        }
+        
+  </style>
+  <title>Proyecto Pull Requesteros &#x1F3E1</title>
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="author" content="Pull Requesteros">
+  <meta viewport="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="public/logo2.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
+
+
+
+<body class="has-background-black">
+
+  <main>
+    <!-- Menu -->
+    <header>
+      <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+        <div class="navbar-end">
+          <a class="navbar-item" href="modoAdminRefugios.html">
+              MODO ADMINISTRADOR 
+            <img src="https://e7.pngegg.com/pngimages/701/653/png-clipart-computer-icons-system-administrator-administrator-icon-silhouette-desktop-wallpaper.png" alt="Perrito y gatito">
+          </a>
+
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="añadir_refugio.html">
+              <p>AÑADIR REFUGIO</p>
+            </a>
+            <a class="navbar-item" href="editar_refugio.html">
+              <p>EDITAR REFUGIO</p>
+            </a>
+           
+            <div class="navbar-end">
+              <a class="navbar-item" href="index.html">
+                  <p>cerrar sesion <img src="public/huella.png" alt="huella"></p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+  </main>    
+
+  <div class="form">
+    <h1 class="terms" style="margin: 0 0 5% 0">Editar un refugio</h1>
+
+    <div class="field"></div>
+      <label class="label">ID Refugio</label>
+      <div class="control">
+        <div class="select">
+          <select class="id" id="id_refugio">
+            <!-- Options will be populated dynamically -->
+          </select>
+        </div>
+      </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        fetch('http://127.0.0.1:3000/api/v1/refugios')
+          .then(response => response.json())
+          .then(data => {
+            const select = document.getElementById('id_refugio');
+            data.forEach(refugio => {
+              const option = document.createElement('option');
+              option.value = refugio.id;
+              option.textContent = refugio.id;
+              select.appendChild(option);
+            });
+          })
+          .catch(error => console.error('Error fetching refugios:', error));
+      });
+    </script>
+
+    <div class="field">
+      <label class="label">Tipo</label>
+      <div class="control">
+        <div class="select">
+          <select class="tipo" id="tipo">
+            <option value="Refugio">Refugio</option>
+            <option selected value="Santuario">Santuario</option>
+            <option value="Protectora">Protectora</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Nombre</label>
+      <div class="control">
+        <input class="input" type="text" id="nombre" placeholder="Refugio">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Capacidad</label>
+      <div class="control">
+        <input class="input" type="number" id="capacidad" min="1" placeholder="20">
+      </div>
+    </div>
+
+
+    
+    
+    <div class="field">
+      <label class="label">Dirección</label>
+      <div class="control">
+        <input class="input" type="text" id="direccion" placeholder="Calle 123">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Teléfono</label>
+      <div class="control">
+        <input class="input" type="text" id="telefono" placeholder="123456789">
+      </div>
+    
+    
+    <script src="script_formulario.js" defer></script>
+    
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    
+    
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-link" onclick="submitForm()">Submit</button>
+      </div>
+      <div class="control">
+        <button class="button is-link is-light" onclick="resetForm()">Cancel</button>
+      </div>
+    </div>
+
+
+    <script>
+      function submitForm() {
+        const nombre = document.querySelector('input[id="nombre"]').value;
+        if (nombre.trim() === '') {
+          alert('Nombre inválido.');
+          return;
+        }
+        
+        
+        const capacidad = document.querySelector('input[id="capacidad"]').value;
+        if (capacidad.trim() === '' || capacidad < 0) {
+          alert('Capacidad inválida.');
+          return;
+        }
+
+        const tipo = document.querySelector('.field .select .tipo').value;
+        
+        const direccion = document.querySelector('input[id="direccion"]').value;
+        if (direccion.trim() === '') {
+          alert('Dirección inválida.');
+          return;
+        }
+        const telefono = document.querySelector('input[id="telefono"]').value;
+        
+        if (isNaN(telefono) || telefono < 0 || telefono.trim() === '') {
+          alert('Teléfono inválido.');
+          return;
+        }
+
+        const id = document.querySelector('.id').value;
+        let data = { nombre:nombre, capacidad_maxima:parseInt(capacidad), direccion:direccion, telefono:parseInt(telefono), tipo:tipo};
+
+        fetch('http://127.0.0.1:3000/api/v1/refugios/' + id, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Refugio ID:', id);
+          console.log('Refugio ID:', data.id);
+          //go to modoAdminRefugios.html
+          window.location.href = "modoAdminRefugios.html";
+          
+        })
+        .catch(error => console.error('Error updating refugio:', error));
+
+      }
+
+    </script>
+  
+
+</body>
+
+
+
+<!-- 
+
+<a class="navbar-item" href="modoAdmin.html">
+    <button class="button is-danger" onclick="cerrarSesion()">Cerrar sesión</button>
+</a>
+ -->
+
+
+
+    <script>
+        // Función para cerrar sesión y redirigir a la página de inicio de sesión
+        function cerrarSesion() {
+            window.location.href = "index.html";  // Redirige a la página de inicio (o login)
+        }
+    </script>
+
+</html>

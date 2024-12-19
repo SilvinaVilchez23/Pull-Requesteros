@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="has-background-black" lang="es">
+  
+<!-- Barra -->
+<head>
+  <title>Proyecto Pull Requesteros &#x1F3E1</title>
+  <meta name="description" content="This is my first HTML">
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="author" content="Pull Requesteros">
+  <meta viewport="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="public/logo2.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
+
+
+
+<body >
+
+    <main>
+      <!-- Menu -->
+      <header>
+        <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+          <div class="navbar-end">
+            <a class="navbar-item" href="modoAdminRefugios.html">
+                MODO ADMINISTRADOR 
+              <img src="https://e7.pngegg.com/pngimages/701/653/png-clipart-computer-icons-system-administrator-administrator-icon-silhouette-desktop-wallpaper.png" alt="Perrito y gatito">
+            </a>
+  
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+  
+          <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item" href="añadir_refugio.html">
+                <p>AÑADIR REFUGIO</p>
+              </a>
+              <a class="navbar-item" href="editar_refugio.html">
+                <p>EDITAR REFUGIO</p>
+              </a>
+             
+              <div class="navbar-end">
+                <a class="navbar-item" href="index.html">
+                    <p>cerrar sesion <img src="public/huella.png" alt="huella"></p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+    </main>  
+
+    <div class="section has-text-centered">
+        <h1 class="title">Bienvenido al Panel de Administración</h1>
+        <p class="subtitle">Aquí puedes gestionar los datos y configuraciones de la página.</p>
+    </div>
+
+
+    <div class="has-text-centered" style="margin-bottom: 20px;">
+      <font color="white">REFUGIOS</font>
+    </div>
+    <table class="table" style="margin-left: auto; margin-right: auto;">
+      
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>direccion</th>
+          <th>capacidad_maxima</th>
+          <th>telefono</th>
+          <th>tipo</th>
+          <th>ELIMINAR</th>
+        </tr>
+      </thead>
+      <tbody id="refugio_transito-data">            
+      </tbody>
+    </table>
+  </div>
+</body>
+
+
+
+<!-- 
+
+<a class="navbar-item" href="modoAdmin.html">
+    <button class="button is-danger" onclick="cerrarSesion()">Cerrar sesión</button>
+</a>
+ -->
+
+
+
+    <script>
+        // Función para cerrar sesión y redirigir a la página de inicio de sesión
+        function cerrarSesion() {
+            window.location.href = "index.html";  // Redirige a la página de inicio (o login)
+        }
+
+
+        fetch('http://127.0.0.1:3000/api/v1/refugios')
+            .then(Response => Response.json())
+            .then(refugio_transito => {
+                console.log(refugio_transito);
+                let tabla = document.getElementById('refugio_transito-data')
+                refugio_transito.forEach(refugio_transito => {
+                    let tr = document.createElement('tr');
+                    let id = document.createElement('th');
+                    id.textContent = refugio_transito.id;
+                    let nombre = document.createElement('th');
+                    nombre.textContent = refugio_transito.nombre;
+                    let direccion = document.createElement('th');
+                    direccion.textContent = refugio_transito.direccion;
+                    let capacidad_maxima = document.createElement('th');
+                    capacidad_maxima.textContent = refugio_transito.capacidad_maxima;
+                    let telefono = document.createElement('th');
+                    telefono.textContent = refugio_transito.telefono;
+                    let tipo = document.createElement('th');
+                    tipo.textContent = refugio_transito.tipo;
+                    
+                               
+                    tr.appendChild(id);
+                    tr.appendChild(nombre);
+                    tr.appendChild(direccion);
+                    tr.appendChild(capacidad_maxima);
+                    tr.appendChild(telefono);
+                    tr.appendChild(tipo);
+                    
+                    let eliminar = document.createElement('th');
+                    let boton = document.createElement('button');
+                    boton.textContent = 'Eliminar';
+                    boton.className = 'button is-danger';
+                    boton.onclick = function() {
+                        fetch('http://127.0.0.1:3000/api/v1/refugios/' + refugio_transito.id , {
+                        method: 'DELETE'
+                      })                        
+                        .then(response => response.json())
+                        .then(data => {
+                          console.log('Success:', data);
+                          window.location.reload();
+                          
+                        })
+                        .catch((error) => {
+                          console.error('Error:', error);
+                          alert('Hubo un error eliminando el refugio.');
+                        });
+                    }
+                    eliminar.appendChild(boton);
+                    tr.appendChild(eliminar);
+
+
+                    tabla.appendChild(tr);
+                });
+            })
+
+
+
+    </script>
+
+</html>
