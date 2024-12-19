@@ -28,6 +28,11 @@ app.get('/refugios', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'refugio.html'));
 });
 
+// Ruta para el formulario pre adopc
+app.get('/pre_adop', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'mas/formu_pre'));
+});
+
 
 // Iniciar el servidor
 app.listen(port, () => {

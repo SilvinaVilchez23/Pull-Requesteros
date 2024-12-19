@@ -73,3 +73,13 @@ model animal_adoptado {
   animales     Animal  @relation(fields: [animal_id], references: [id])
   animal_id    Int
 }
+
+//Tabla formulario pre adopcion
+model preadop {   
+  id          Int      @id @default(autoincrement())
+  email       String @unique
+  date        DateTime
+  telefono    String @unique
+  mascota     String
+  pregunta    String
+}
