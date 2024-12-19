@@ -15,9 +15,7 @@
           padding: 0;
           height: 100%
         }
-        iframe {
-          display: block; /* Elimina el espacio en línea */
-        }
+        
     </style>
   
   <title>Proyecto Pull Requesteros &#x1F3E1</title>
@@ -223,7 +221,6 @@
             return;
           }
   
-          //FIX DATA!!
           let data = { nombre:nombre, edad:parseInt(edad), raza:raza, sexo:sexo, tipo:tipo};
   
           fetch('http://127.0.0.1:3000/api/v1/animales', {
