@@ -16,6 +16,7 @@ El siguiente proyecto es un servidor para gestionar la adopción de animales com
 - **Control de versiones**: Git
 
 
+
 ## Funcionamiento
 
 Capturas de pantalla del proyecto.
@@ -52,9 +53,15 @@ Antes de ejecutar este proyecto, asegúrate de tener instalados los siguientes p
 ### 1. Clonar el repositorio
 Clona el repositorio del proyecto:
 ```bash
+
+Para levantar la parte del backend vamos a la terminal y entramos a la carpeta del backend, ahi dentro escribimos docker compose up -d, lo que hara esto es levantar un contenedor y si no lo tiene lo creara descargando todo. luego escribimos npm install para descargar las dependencias necesarias y luego 'npx prisma migrate' para ejecutar las migraciones de todo el proyecto. La ultima parte es hacer 'npm run dev', el adentro de dev esta 'nodemon src/app.js',esto inicia el servidor y si detecta cambios se reinicia automaticamente. 
+
+Para levantar la parte del frontend:
+Primero se debe entrar en la carpeta del 'frontend' y luego escribir en terminal npm install serve, es una dependecia que permite levantar servideores, luego ponemos 'npm run start' para iniciar y levantar nuestro servidor. 
+
 git clone https://github.com/SilvinaVilchez23/Pull-Requesteros.git
-```
 
-## Licencia
-
+### Licencia
 Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](./LICENSE) para más detalles.
+
+
