@@ -71,11 +71,3 @@ model animal_adoptados {
   animal_id    Int
 }
 
-//Tabla formulario pre adopcion
-model formu_pre {   
-  id          Int      @id @default(autoincrement())
-  email       String @unique
-  date        DateTime
-  telefono    String @unique
-  mascota     String
-}
