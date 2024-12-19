@@ -55,6 +55,16 @@ Clona el repositorio del proyecto:
 git clone https://github.com/SilvinaVilchez23/Pull-Requesteros.git
 ```
 
+## Start
+### Local
+```sh
+docker compose up -d
+npm install
+npx prisma migrate dev
+npm run dev
+```
+
+
 ## Licencia
 
 Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](./LICENSE) para más detalles.
