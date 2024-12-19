@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalles del Animal</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+  <h1>Detalles del Animal</h1>
+  
+  <!-- Información básica del animal -->
+  <div>
+    <h2 id="nombre"></h2>
+    <p><strong>Sexo:</strong> <span id="sexo"></span></p>
+    <p><strong>Tipo:</strong> <span id="tipo"></span></p>
+    <p><strong>Edad:</strong> <span id="edad"></span></p>
+    <p><strong>Raza:</strong> <span id="raza"></span></p>
+  </div>
+
+  <!-- Tablas de relaciones -->
+  <div>
+    <h3>Relaciones del Animal</h3>
+
+    <!-- Tabla de refugio en tránsito -->
+    <h4>Refugio en Tránsito</h4>
+    <table id="refugio-transito">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Fecha de Inicio</th>
+          <th>Fecha de Fin</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Aquí se agregarán las filas dinámicamente -->
+      </tbody>
+    </table>
+
+    <!-- Tabla de adopciones -->
+    <h4>Adopciones</h4>
+    <table id="animal-adoptados">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Fecha de Adopción</th>
+          <th>Adoptante</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Aquí se agregarán las filas dinámicamente -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Función para cargar los detalles del animal con sus relaciones
+    function cargarAnimal(id) {
+      fetch(`http://127.0.0.1:3000/api/v1/animales/${id}`)
+        .then(response => response.json())
+        .then(animal => {
+          // Mostrar los detalles del animal
+          document.getElementById('nombre').textContent = animal.nombre;
+          document.getElementById('sexo').textContent = animal.sexo;
+          document.getElementById('tipo').textContent = animal.tipo;
+          document.getElementById('edad').textContent = animal.edad;
+          document.getElementById('raza').textContent = animal.raza;
+
+          // Mostrar las relaciones
+          mostrarRelaciones(animal);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Función para mostrar las relaciones
+    function mostrarRelaciones(animal) {
+      const refugioTable = document.getElementById('refugio-transito').getElementsByTagName('tbody')[0];
+      const adoptadosTable = document.getElementById('animal-adoptados').getElementsByTagName('tbody')[0];
+
+      // Mostrar información de 'animal_en_refugio_transito'
+      if (animal.animal_en_refugio_transito && animal.animal_en_refugio_transito.length > 0) {
+        animal.animal_en_refugio_transito.forEach(refugio => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${refugio.id}</td>
+            <td>${refugio.fecha_inicio}</td>
+            <td>${refugio.fecha_fin}</td>
+          `;
+          refugioTable.appendChild(tr);
+        });
+      } else {
+        refugioTable.innerHTML = '<tr><td colspan="3">No hay registros de refugio en tránsito.</td></tr>';
+      }
+
+      // Mostrar información de 'animal_adoptados'
+      if (animal.animal_adoptados && animal.animal_adoptados.length > 0) {
+        animal.animal_adoptados.forEach(adoptado => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${adoptado.id}</td>
+            <td>${adoptado.fecha_adopcion}</td>
+            <td>${adoptado.adoptante}</td>
+          `;
+          adoptadosTable.appendChild(tr);
+        });
+      } else {
+        adoptadosTable.innerHTML = '<tr><td colspan="3">Este animal no ha sido adoptado aún.</td></tr>';
+      }
+    }
+
+    // Llamar a la función con el ID del animal que quieres cargar
+    // Aquí solo pones el ID de prueba, por ejemplo: cargarAnimal(1);
+    cargarAnimal(1); // Cambia el ID según el animal que quieras cargar
+  </script>
+</body>
+</html>
