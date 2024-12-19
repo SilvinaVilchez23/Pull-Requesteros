@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- Barra -->
+
+<head>
+    <title>Proyecto Pull Requesteros &#x1F3E1</title>
+    <meta name="description" content="This is my first HTML">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="Pull Requesteros">
+    <meta viewport="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="public/logo2.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
+
+
+
+<body class="has-background-black">
+    <main>
+
+        <!-- Menu -->
+        <header>
+
+            <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+
+                <div class="navbar-start">
+
+                    <a class="navbar-item" href="animales.html">
+
+                        MODO ADMINISTRADOR
+
+                        <img src="https://e7.pngegg.com/pngimages/701/653/png-clipart-computer-icons-system-administrator-administrator-icon-silhouette-desktop-wallpaper.png"
+                            alt="Perrito y gatito">
+                    </a>
+
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                        data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+
+
+                </div>
+
+                <div id="navbarBasicExample" class="navbar-menu">
+                    <div class="navbar-end">
+                        <a class="navbar-item" href="crearAnimal.html">
+                            <p>CREAR ANIMAL</p>
+                        </a>
+                        <a class="navbar-item" href="animales.html">
+                            <p>EDITAR ANIMAL</p>
+                        </a>
+
+                    </div>
+
+                </div>
+            </nav>
+        </header>
+
+
+        <div class="section has-text-centered">
+
+            <h1 class="title">Bienvenido al Panel de Administración</h1>
+            <p class="subtitle">Aquí puedes gestionar los datos y configuraciones de la página.</p>
+        </div>
+    </main>
+
+
+    <FONT COLOR="blue">INFORMACION DE NUESTROS ANIMALES DISPONIBLES </FONT>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>sexo</th>
+                <th>Tipo</th>
+                <th>Edad</th>
+                <th>Raza</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody id="animales-data">
+        </tbody>
+    </table>
+
+    <button onclick="window.location.href='index.html'" class="button is-warning">Cerrar sesión</button>
+
+    <script>
+
+        window.onload = function () {
+
+            mostrarAnimales();
+        }
+
+
+
+        mostrarAnimales = function () {
+            fetch('http://127.0.0.1:3000/api/v1/animales')
+                .then(response => response.json())
+                .then(animales => {
+
+                    let tabla = document.getElementById('animales-data');
+                    tabla.innerHTML = ''; // Limpia la tabla antes de llenarla
+
+                    animales.forEach(animal => {
+
+                        let tr = document.createElement('tr'); // Crea una fila para el animal
+                        tr.id = 'animal-' + animal.id; // Establece un ID único para la fila
+
+                        // Creamos las celdas para cada atributo del animal
+                        let id = document.createElement('td');
+                        id.textContent = animal.id;
+                        let nombre = document.createElement('td');
+                        nombre.textContent = animal.nombre;
+                        let sexo = document.createElement('td');
+                        sexo.textContent = animal.sexo;
+                        let tipo = document.createElement('td');
+                        tipo.textContent = animal.tipo;
+                        let edad = document.createElement('td');
+                        edad.textContent = animal.edad;
+                        let raza = document.createElement('td');
+                        raza.textContent = animal.raza;
+
+                        // Creamos la celda para el botón "Editar"
+                        let editar = document.createElement('td');
+                        let boton = document.createElement('button'); // Cambiado a 'button' en vez de 'boton'
+                        boton.textContent = "Editar";
+                        boton.className = 'button is-link is-small';
+                        boton.onclick = function () { prepararFormularioEdicion(animal.id); }; // Llamada a la función que redirige
+
+                        editar.appendChild(boton); // Agregamos el botón a la celda de edición
+
+                        // Agregamos todas las celdas a la fila
+                        tr.appendChild(id);
+                        tr.appendChild(nombre);
+                        tr.appendChild(sexo);
+                        tr.appendChild(tipo);
+                        tr.appendChild(edad);
+                        tr.appendChild(raza);
+                        tr.appendChild(editar);
+
+                        // Agregamos la fila a la tabla
+                        tabla.appendChild(tr);
+                    });
+                });
+        }
+
+
+        function prepararFormularioEdicion(id) {
+            // Guardar el ID en el almacenamiento local
+            localStorage.setItem('animalId', id);
+
+            // Redirigir a la página de edición
+            window.location.href = 'crearAnimal.html';
+        }
+
+
+
+
+
+
+    </script>
