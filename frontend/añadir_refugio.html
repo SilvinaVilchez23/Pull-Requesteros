@@ -51,9 +51,6 @@
             <a class="navbar-item" href="añadir_refugio.html">
               <p>AÑADIR REFUGIO</p>
             </a>
-            <a class="navbar-item" href="eliminar_refugio.html">
-              <p>ELIMINAR REFUGIO</p>
-            </a>
             <a class="navbar-item" href="editar_refugio.html">
               <p>EDITAR REFUGIO</p>
             </a>
@@ -116,7 +113,7 @@
       </div>
     
     
-    <script src="../script_formulario.js" defer></script>
+    <script src="script_formulario.js" defer></script>
     <div id="modal-js-example" class="modal">
       <div class="modal-background"></div>
       <div class="modal-content">
@@ -146,19 +143,35 @@
     <script>
       function submitForm() {
         const nombre = document.querySelector('input[id="nombre"]').value;
-        const capacidad = document.querySelector('input[id="capacidad"]').value;
-        const tipo = document.querySelector('.field .select .tipo').value;
+        if (nombre.trim() === '') {
+          alert('Nombre inválido.');
+          return;
+        }
         
+        
+        const capacidad = document.querySelector('input[id="capacidad"]').value;
         if (capacidad.trim() === '' || capacidad < 0) {
           alert('Capacidad inválida.');
           return;
         }
+
+        const tipo = document.querySelector('.field .select .tipo').value;
+        
+        
         const direccion = document.querySelector('input[id="direccion"]').value;
+        if (direccion.trim() === '') {
+          alert('Dirección inválida.');
+          return;
+        }
         const telefono = document.querySelector('input[id="telefono"]').value;
         
-        //debug alert
-        //alert(`Nombre: ${nombre}, Capacidad: ${capacidad}, Tipo: ${tipo}, Direccion: ${direccion}, Telefono: ${telefono}`);
+        if (isNaN(telefono) || telefono < 0 || telefono.trim() === '') {
+          alert('Teléfono inválido.');
+          return;
+        }
 
+
+       
         let data = { nombre:nombre, capacidad_maxima:parseInt(capacidad), direccion:direccion, telefono:parseInt(telefono), tipo:tipo};
 
         fetch('http://127.0.0.1:3000/api/v1/refugios', {
