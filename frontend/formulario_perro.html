@@ -61,14 +61,23 @@
     </div>
 
     <script>
-      const breeds = ["Labrador", "Poodle", "Bulldog", "Beagle", "Chihuahua"];
-      const select = document.querySelector('.field .select .raza');
-      breeds.forEach(breed => {
-        const option = document.createElement('option');
-        option.value = breed;
-        option.textContent = breed;
-        select.appendChild(option);
+      const dogBreeds = ["Labrador", "Bulldog", "Beagle", "Chihuahua"];
+      const catBreeds = ["Persa", "Siamés", "Tigre"];
+      
+      document.getElementById('tipo').addEventListener('change', function() {
+        const select = document.querySelector('.field .select .raza');
+        select.innerHTML = ''; // Clear previous options
+        const breeds = this.value === 'Perro' ? dogBreeds : catBreeds;
+        breeds.forEach(breed => {
+          const option = document.createElement('option');
+          option.value = breed;
+          option.textContent = breed;
+          select.appendChild(option);
+        });
       });
+
+      // Trigger change event to populate breeds on page load
+      document.getElementById('tipo').dispatchEvent(new Event('change'));
     </script>
 
     <div class="field">
