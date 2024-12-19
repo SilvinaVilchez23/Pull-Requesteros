@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" >
 <head>
   <title>Nuestros animales &#x1F3E1</title>
   <meta name="description" content="This is my first HTML">
@@ -189,33 +189,44 @@
     // Función para obtener datos de la API y mostrarlos
     async function obtenerMascotas() {
       try {
-        const response = await fetch('http://127.0.0.1:3000/api/v1/animales'); 
-        const animales = await response.json();
+      const response = await fetch('http://127.0.0.1:3000/api/v1/animales'); 
+      const animales = await response.json();
 
-        const contenedor = document.getElementById('tarjetas');
+      const contenedor = document.getElementById('tarjetas');
+      const imagenesPerros = ['image_1.png', 'image_2.png', 'image_3.png', 'image_4.png']; // Lista de imágenes de perros
+      const imagenesGatos = ['image_1.png', 'image_2.png', 'image_3.png', 'image_4.png']; // Lista de imágenes de gatos
 
-        animales.forEach(animal => {
-          const card = document.createElement('div');
-          card.className = 'card';
+      animales.forEach(animal => {
+        const card = document.createElement('div');
+        card.className = 'card';
 
-          card.innerHTML = `
-             <img src="./perros_gatos/${animal.imagenUrl}" alt="Foto de ${animal.nombre}">            
-             <div class="card-content">
-              <h3 class="title is-4">${animal.nombre}</h3>
-              <p><strong>Sexo:</strong> ${animal.sexo}</p>
-              <p><strong>Tipo:</strong> ${animal.tipo} </p>
-              <p><strong>Edad:</strong> ${animal.edad} años</p>
-              <p><strong>Raza:</strong> ${animal.raza}</p>
-                <button class="button is-link" onclick="window.location.href='adoptar.html?id=${animal.id}'">Adoptar</button>
-             </div>`;
+        // Seleccionar una imagen aleatoria según el tipo de animal
+        let imagenAleatoria;
+        if (animal.tipo === 'Perro') {
+        imagenAleatoria = imagenesPerros[Math.floor(Math.random() * imagenesPerros.length)];
+        } else if (animal.tipo === 'Gato') {
+        imagenAleatoria = imagenesGatos[Math.floor(Math.random() * imagenesGatos.length)];
+        }
 
-          contenedor.appendChild(card);
-        });
+        card.innerHTML = `
+         <img src="./${animal.tipo.toLowerCase()}s_fotos/${imagenAleatoria}" alt="Foto de ${animal.nombre}">            
+         <div class="card-content">
+        <h3 class="title is-4">${animal.nombre}</h3>
+        <p><strong>Sexo:</strong> ${animal.sexo}</p>
+        <p><strong>Tipo:</strong> ${animal.tipo} </p>
+        <p><strong>Edad:</strong> ${animal.edad} años</p>
+        <p><strong>Raza:</strong> ${animal.raza}</p>
+        <button class="button is-link" onclick="window.location.href='adoptar.html?id=${animal.id}'">Adoptar</button>
+         </div>`;
+
+        contenedor.appendChild(card);
+      });
 
       } catch (error) {
-        console.error("Error al obtener los datos de la API:", error);
+      console.error("Error al obtener los datos de la API:", error);
       }
     }
+
 
     // Cargar las mascotas al cargar la página
     window.onload = obtenerMascotas;
