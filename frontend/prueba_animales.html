@@ -191,14 +191,22 @@
       try {
       const response = await fetch('http://127.0.0.1:3000/api/v1/animales'); 
       const animales = await response.json();
+      const responseAdoptante = await fetch(`http://127.0.0.1:3000/api/v1/animales_adoptante`);
+      const animal_adoptante = await responseAdoptante.json();
 
       const contenedor = document.getElementById('tarjetas');
       const imagenesPerros = ['image_1.png', 'image_2.png', 'image_3.png', 'image_4.png']; // Lista de imágenes de perros
       const imagenesGatos = ['image_1.png', 'image_2.png', 'image_3.png', 'image_4.png']; // Lista de imágenes de gatos
-
+      let button = "si";
       animales.forEach(animal => {
-        const card = document.createElement('div');
-        card.className = 'card';
+          button = "si";
+        
+          
+          const card = document.createElement('div');
+          card.className = 'card';
+          
+          
+        
 
         // Seleccionar una imagen aleatoria según el tipo de animal
         let imagenAleatoria;
@@ -207,8 +215,12 @@
         } else if (animal.tipo === 'Gato') {
         imagenAleatoria = imagenesGatos[Math.floor(Math.random() * imagenesGatos.length)];
         }
-
-        card.innerHTML = `
+        animal_adoptante.forEach(adoptante => {
+            if (animal.id === adoptante.animal_id) {
+              button = "no";
+            }
+          });
+        if (button === "si"){card.innerHTML = `
          <img src="./${animal.tipo.toLowerCase()}s_fotos/${imagenAleatoria}" alt="Foto de ${animal.nombre}">            
          <div class="card-content">
         <h3 class="title is-4">${animal.nombre}</h3>
@@ -217,7 +229,17 @@
         <p><strong>Edad:</strong> ${animal.edad} años</p>
         <p><strong>Raza:</strong> ${animal.raza}</p>
         <button class="button is-link" onclick="window.location.href='adoptar.html?id=${animal.id}'">Adoptar</button>
-         </div>`;
+         </div>`;} else
+         {card.innerHTML = `
+         <img src="./${animal.tipo.toLowerCase()}s_fotos/${imagenAleatoria}" alt="Foto de ${animal.nombre}">            
+         <div class="card-content">
+        <h3 class="title is-4">${animal.nombre}</h3>
+        <p><strong>Sexo:</strong> ${animal.sexo}</p>
+        <p><strong>Tipo:</strong> ${animal.tipo} </p>
+        <p><strong>Edad:</strong> ${animal.edad} años</p>
+        <p><strong>Raza:</strong> ${animal.raza}</p>
+        
+         </div>`;}
 
         contenedor.appendChild(card);
       });
