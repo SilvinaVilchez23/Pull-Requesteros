@@ -211,6 +211,7 @@
           <p><strong>Capacidad:</strong> ${refugio.capacidad_maxima} animales</p>
           <p><strong>Contacto:</strong> ${refugio.telefono}</p>
           <button class="button is-link" onclick="registrarAnimal(${refugio.id})">Registrar Animal</button>
+          <button class="button is-link" style="margin-top:3%" onclick="window.location.href='animales_refugio.html?refugioId=${refugio.id}'">Animales del refugio</button>
         </div>`;
 
         contenedor.appendChild(card);
