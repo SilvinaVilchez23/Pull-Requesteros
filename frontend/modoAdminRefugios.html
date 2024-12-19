@@ -130,22 +130,20 @@
                     tr.appendChild(capacidad_maxima);
                     tr.appendChild(telefono);
                     tr.appendChild(tipo);
-
+                    
                     let eliminar = document.createElement('th');
                     let boton = document.createElement('button');
                     boton.textContent = 'Eliminar';
                     boton.className = 'button is-danger';
                     boton.onclick = function() {
-                        fetch(`http://127.0.0.1:3000/api/v1/refugios/${refugio_transito.id}`, {
-                        method: 'DELETE',
-                        headers: {
-                          'Content-Type': 'application/json',
-                        },
+                        fetch('http://127.0.0.1:3000/api/v1/refugios/' + refugio_transito.id , {
+                        method: 'DELETE'
                       })                        
                         .then(response => response.json())
                         .then(data => {
                           console.log('Success:', data);
-                          alert('Refugio eliminado exitosamente.');
+                          window.location.reload();
+                          
                         })
                         .catch((error) => {
                           console.error('Error:', error);
