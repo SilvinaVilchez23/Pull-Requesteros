@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html class="has-background-black" lang="es">
+  
+<!-- Barra -->
+<head>
+  <style>
+    .form {
+        margin: 1% 20% 5% 20%;
+    }
+    .terms {
+        font-size: 40px;
+    }
+        html, body, main {
+          margin: 0;
+          padding: 0;
+          height: 50%
+        }
+        
+  </style>
+  <title>Proyecto Pull Requesteros &#x1F3E1</title>
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="author" content="Pull Requesteros">
+  <meta viewport="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="public/logo2.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+</head>
+
+
+
+<body class="has-background-black">
+
+  <main>
+    <!-- Menu -->
+    <header>
+      <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+        <div class="navbar-end">
+          <a class="navbar-item" href="modoAdminAdoptantes.html">
+              MODO ADMINISTRADOR 
+            <img src="https://e7.pngegg.com/pngimages/701/653/png-clipart-computer-icons-system-administrator-administrator-icon-silhouette-desktop-wallpaper.png" alt="Perrito y gatito">
+          </a>
+
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="añadir_adoptante.html">
+              <p>AÑADIR ADOPTANTE</p>
+            </a>
+            <a class="navbar-item" href="editar_adoptante.html">
+              <p>EDITAR ADOPTANTE</p>
+            </a>
+           
+            <div class="navbar-end">
+              <a class="navbar-item" href="index.html">
+                  <p>cerrar sesion <img src="public/huella.png" alt="huella"></p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+  </main>   
+  <div class="form">
+    <h1 class="terms" style="margin: 0 0 5% 0">Editar un adoptante</h1>
+
+    <div class="field">
+      <label class="label">ID Adoptante</label>
+      <div class="control">
+        <div class="select">
+          <select class="id" id="id_adoptante">
+            <!-- Options will be populated dynamically -->
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        fetch('http://127.0.0.1:3000/api/v1/adopte')
+          .then(response => response.json())
+          .then(data => {
+            const select = document.getElementById('id_adoptante');
+            data.forEach(adoptante => {
+              const option = document.createElement('option');
+              option.value = adoptante.id;
+              option.textContent = adoptante.id;
+              select.appendChild(option);
+            });
+          })
+          .catch(error => console.error('Error fetching adoptantes:', error));
+      });
+    </script>
+
+    <div class="field">
+      <label class="label">Nombre</label>
+      <div class="control">
+      <input class="input" type="text" id="nombre" placeholder="Nombre">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Apellido</label>
+      <div class="control">
+      <input class="input" type="text" id="apellido" placeholder="Apellido">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Dirección</label>
+      <div class="control">
+      <input class="input" type="text" id="direccion" placeholder="Calle 123">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Teléfono</label>
+      <div class="control">
+      <input class="input" type="text" id="telefono" placeholder="123456789">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Edad</label>
+      <div class="control">
+      <input class="input" type="number" id="edad" placeholder="Edad">
+      </div>
+    </div>
+
+    <script src="script_formulario.js" defer></script>
+
+    <div class="field is-grouped">
+      <div class="control">
+      <button class="button is-link" onclick="submitForm()">Submit</button>
+      </div>
+      <div class="control">
+      <button class="button is-link is-light" onclick="resetForm()">Cancel</button>
+      </div>
+    </div>
+    </div>
+
+    <script>
+      function submitForm() {
+      const nombre = document.querySelector('input[id="nombre"]').value;
+      if (nombre.trim() === '') {
+        alert('Nombre inválido.');
+        return;
+      }
+
+      const apellido = document.querySelector('input[id="apellido"]').value;
+      if (apellido.trim() === '') {
+        alert('Apellido inválido.');
+        return;
+      }
+
+      const direccion = document.querySelector('input[id="direccion"]').value;
+      if (direccion.trim() === '') {
+        alert('Dirección inválida.');
+        return;
+      }
+
+      const telefono = document.querySelector('input[id="telefono"]').value;
+      if (isNaN(telefono) || telefono < 0 || telefono.trim() === '') {
+        alert('Teléfono inválido.');
+        return;
+      }
+
+      const edad = document.querySelector('input[id="edad"]').value;
+      if (isNaN(edad) || edad < 0 || edad.trim() === '') {
+        alert('Edad inválida.');
+        return;
+      }
+
+      const id = document.querySelector('.id').value;
+      let data = { nombre: nombre, apellido: apellido, direccion: direccion, telefono: parseInt(telefono), edad: parseInt(edad) };
+
+      fetch('http://127.0.0.1:3000/api/v1/adopte/' + id, {
+        method: 'PUT',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Adoptante ID:', id);
+        console.log('Adoptante ID:', data.id);
+        //go to modoAdminAdoptantes.html
+        window.location.href = "modoAdminAdoptantes.html";
+      })
+      .catch(error => console.error('Error updating adoptante:', error));
+      }
+    </script>
+  </div>
+
+
+
+
+    <script>
+        // Función para cerrar sesión y redirigir a la página de inicio de sesión
+        function cerrarSesion() {
+            window.location.href = "index.html";  // Redirige a la página de inicio (o login)
+        }
+    </script>
+
+</html>

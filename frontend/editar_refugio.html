@@ -15,6 +15,7 @@
           padding: 0;
           height: 50%
         }
+        
   </style>
   <title>Proyecto Pull Requesteros &#x1F3E1</title>
   <meta name="keywords" content="HTML, CSS, JavaScript">
@@ -67,21 +68,47 @@
   </main>    
 
   <div class="form">
-    <h1 class="terms" style="margin: 0 0 5% 0">Registra un refugio</h1>
+    <h1 class="terms" style="margin: 0 0 5% 0">Editar un refugio</h1>
+
+    <div class="field"></div>
+      <label class="label">ID Refugio</label>
+      <div class="control">
+        <div class="select">
+          <select class="id" id="id_refugio">
+            <!-- Options will be populated dynamically -->
+          </select>
+        </div>
+      </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        fetch('http://127.0.0.1:3000/api/v1/refugios')
+          .then(response => response.json())
+          .then(data => {
+            const select = document.getElementById('id_refugio');
+            data.forEach(refugio => {
+              const option = document.createElement('option');
+              option.value = refugio.id;
+              option.textContent = refugio.id;
+              select.appendChild(option);
+            });
+          })
+          .catch(error => console.error('Error fetching refugios:', error));
+      });
+    </script>
 
     <div class="field">
       <label class="label">Tipo</label>
       <div class="control">
         <div class="select">
           <select class="tipo" id="tipo">
-            <option value="Protectora">Refugio</option>
+            <option value="Refugio">Refugio</option>
             <option selected value="Santuario">Santuario</option>
             <option value="Protectora">Protectora</option>
           </select>
         </div>
       </div>
     </div>
-
     <div class="field">
       <label class="label">Nombre</label>
       <div class="control">
@@ -146,7 +173,6 @@
 
         const tipo = document.querySelector('.field .select .tipo').value;
         
-        
         const direccion = document.querySelector('input[id="direccion"]').value;
         if (direccion.trim() === '') {
           alert('Dirección inválida.');
@@ -159,12 +185,11 @@
           return;
         }
 
-
-       
+        const id = document.querySelector('.id').value;
         let data = { nombre:nombre, capacidad_maxima:parseInt(capacidad), direccion:direccion, telefono:parseInt(telefono), tipo:tipo};
 
-        fetch('http://127.0.0.1:3000/api/v1/refugios', {
-          method: 'POST',
+        fetch('http://127.0.0.1:3000/api/v1/refugios/' + id, {
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
           },
@@ -172,18 +197,18 @@
         })
         .then(response => response.json())
         .then(data => {
-          console.log('Success:', data);
-          alert('Refugio registrado exitosamente.');
+          console.log('Refugio ID:', id);
+          console.log('Refugio ID:', data.id);
+          //go to modoAdminRefugios.html
           window.location.href = "modoAdminRefugios.html";
+          
         })
-        .catch((error) => {
-          console.error('Error:', error);
-          alert('Hubo un error registrando el refugio.');
-        });
+        .catch(error => console.error('Error updating refugio:', error));
+
       }
 
     </script>
-
+  
 
 </body>
 

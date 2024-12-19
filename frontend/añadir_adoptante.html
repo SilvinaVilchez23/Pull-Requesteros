@@ -33,7 +33,7 @@
     <header>
       <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
         <div class="navbar-end">
-          <a class="navbar-item" href="modoAdminRefugios.html">
+          <a class="navbar-item" href="modoAdminAdoptantes.html">
               MODO ADMINISTRADOR 
             <img src="https://e7.pngegg.com/pngimages/701/653/png-clipart-computer-icons-system-administrator-administrator-icon-silhouette-desktop-wallpaper.png" alt="Perrito y gatito">
           </a>
@@ -48,11 +48,11 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
-            <a class="navbar-item" href="añadir_refugio.html">
-              <p>AÑADIR REFUGIO</p>
+            <a class="navbar-item" href="añadir_adoptante.html">
+              <p>AÑADIR ADOPTANTE</p>
             </a>
-            <a class="navbar-item" href="editar_refugio.html">
-              <p>EDITAR REFUGIO</p>
+            <a class="navbar-item" href="editar_adoptante.html">
+              <p>EDITAR ADOPTANTE</p>
             </a>
            
             <div class="navbar-end">
@@ -67,38 +67,29 @@
   </main>    
 
   <div class="form">
-    <h1 class="terms" style="margin: 0 0 5% 0">Registra un refugio</h1>
-
-    <div class="field">
-      <label class="label">Tipo</label>
-      <div class="control">
-        <div class="select">
-          <select class="tipo" id="tipo">
-            <option value="Protectora">Refugio</option>
-            <option selected value="Santuario">Santuario</option>
-            <option value="Protectora">Protectora</option>
-          </select>
-        </div>
-      </div>
-    </div>
+    <h1 class="terms" style="margin: 0 0 5% 0">Registra un adoptante</h1>
 
     <div class="field">
       <label class="label">Nombre</label>
       <div class="control">
-        <input class="input" type="text" id="nombre" placeholder="Refugio">
+        <input class="input" type="text" id="nombre" placeholder="Nombre">
       </div>
     </div>
 
     <div class="field">
-      <label class="label">Capacidad</label>
+      <label class="label">Apellido</label>
       <div class="control">
-        <input class="input" type="number" id="capacidad" min="1" placeholder="20">
+        <input class="input" type="text" id="apellido" placeholder="Apellido">
       </div>
     </div>
 
+    <div class="field">
+      <label class="label">Edad</label>
+      <div class="control">
+        <input class="input" type="number" id="edad" min="18" placeholder="Edad">
+      </div>
+    </div>
 
-    
-    
     <div class="field">
       <label class="label">Dirección</label>
       <div class="control">
@@ -111,13 +102,16 @@
       <div class="control">
         <input class="input" type="text" id="telefono" placeholder="123456789">
       </div>
-    
-    
-    <script src="script_formulario.js" defer></script>
-    
-      <button class="modal-close is-large" aria-label="close"></button>
     </div>
-    
+
+    <div class="field">
+      <label class="label">Email</label>
+      <div class="control">
+        <input class="input" type="email" id="email" placeholder="Email">
+      </div>
+    </div>
+
+    <script src="script_formulario.js" defer></script>
     
     <div class="field is-grouped">
       <div class="control">
@@ -128,7 +122,6 @@
       </div>
     </div>
 
-
     <script>
       function submitForm() {
         const nombre = document.querySelector('input[id="nombre"]').value;
@@ -136,34 +129,47 @@
           alert('Nombre inválido.');
           return;
         }
-        
-        
-        const capacidad = document.querySelector('input[id="capacidad"]').value;
-        if (capacidad.trim() === '' || capacidad < 0) {
-          alert('Capacidad inválida.');
+
+        const apellido = document.querySelector('input[id="apellido"]').value;
+        if (apellido.trim() === '') {
+          alert('Apellido inválido.');
           return;
         }
 
-        const tipo = document.querySelector('.field .select .tipo').value;
-        
-        
+        const edad = document.querySelector('input[id="edad"]').value;
+        if (edad.trim() === '' || edad < 18) {
+          alert('Edad inválida.');
+          return;
+        }
+
         const direccion = document.querySelector('input[id="direccion"]').value;
         if (direccion.trim() === '') {
           alert('Dirección inválida.');
           return;
         }
+
         const telefono = document.querySelector('input[id="telefono"]').value;
-        
         if (isNaN(telefono) || telefono < 0 || telefono.trim() === '') {
           alert('Teléfono inválido.');
           return;
         }
 
+        const email = document.querySelector('input[id="email"]').value;
+        if (email.trim() === '' || !email.includes('@')) {
+          alert('Email inválido.');
+          return;
+        }
 
-       
-        let data = { nombre:nombre, capacidad_maxima:parseInt(capacidad), direccion:direccion, telefono:parseInt(telefono), tipo:tipo};
+        let data = { 
+          nombre: nombre, 
+          apellido: apellido, 
+          edad: parseInt(edad), 
+          direccion: direccion, 
+          telefono: parseInt(telefono),
+          email: email 
+        };
 
-        fetch('http://127.0.0.1:3000/api/v1/refugios', {
+        fetch('http://127.0.0.1:3000/api/v1/adopte', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -173,18 +179,16 @@
         .then(response => response.json())
         .then(data => {
           console.log('Success:', data);
-          alert('Refugio registrado exitosamente.');
-          window.location.href = "modoAdminRefugios.html";
+          alert('Adoptante registrado exitosamente.');
+          window.location.href = "modoAdminAdoptantes.html";
         })
         .catch((error) => {
           console.error('Error:', error);
-          alert('Hubo un error registrando el refugio.');
+          alert('Hubo un error registrando el adoptante.');
         });
       }
-
     </script>
-
-
+  </div>
 </body>
 
 
