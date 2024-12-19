@@ -34,47 +34,47 @@
    
   <header>
     <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-    <div class="navbar-start">
-      <a class="navbar-item" href="index.html">
-      Página Principal
-      <img src="public/veterinario.png" alt="Perrito y gatito">
-      </a>
+      <div class="navbar-start">
+        <a class="navbar-item" href="index.html">
+          Página Principal
+          <img src="public/veterinario.png" alt="Perrito y gatito">
+        </a>
 
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      </a>
-    </div>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-end">
-      <a class="navbar-item" href="prueba_animales.html">
-        <p>Adopta <img src="public/huella.png" alt="huella"></p>
-      </a>
-      <a class="navbar-item" href="refugios.html">
-        <p>Refugios <img src="public/huella.png" alt="huella"></p>
-      </a>
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="prueba_animales.html">
+            <p>Adopta <img src="public/huella.png" alt="huella"></p>
+          </a>
+          <a class="navbar-item" href="refugios.html">
+            <p>Refugios <img src="public/huella.png" alt="huella"></p>
+          </a>
 
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-        <p>Más <img src="public/huella.png" alt="huella"></p>
-        </a>
-        <div class="navbar-dropdown is-right">
-        <a class="navbar-item" href="mas/preguntas_fre.html">
-          Preguntas frecuentes
-        </a>
-        <a class="navbar-item" href="mas/formu_pre.html">
-          Formulario de pre-adopcion
-        </a>
-        <a class="navbar-item" href="mas/sobre_nosotros.html">
-          Sobre nosotros
-        </a>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              <p>Más <img src="public/huella.png" alt="huella"></p>
+            </a>
+            <div class="navbar-dropdown is-right">
+              <a class="navbar-item" href="elegir_perro.html">
+                Adoptar
+              </a>
+              <a class="navbar-item" href="mas/preguntas_fre.html">
+                Preguntas frecuentes
+              </a>
+              <a class="navbar-item" href="mas/sobre_nosotros.html">
+                Sobre nosotros
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-      </div>
-    </div>
     </nav>
   </header>
     
@@ -221,14 +221,33 @@
     })
     .then(response => response.json())
     .then(data => {
-      console.log('Success:', data);
-      alert('Adoptante registrado exitosamente.');
-      window.location.href = "dueños.html";
-    })
-    .catch((error) => {
+      const ownerId = data.id;
+      const animalId = new URLSearchParams(window.location.search).get('id');
+        let data2 = { 
+          adoptante_id: parseInt(ownerId), 
+          animal_id: parseInt(animalId)
+        };
+
+      fetch('http://127.0.0.1:3000/api/v1/animales_adoptante', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data2),
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('Formulario enviado con éxito.');
+        window.location.href = "dueños.html";
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+        })
+        .catch(error => {
       console.error('Error:', error);
-      alert('Hubo un error registrando el adoptante.');
-    });
+        });
+      
   }
 </script>
   </main>
