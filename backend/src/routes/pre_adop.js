@@ -1,58 +1,105 @@
+// backend/routes/pre_adop.js
 const express = require('express');
+const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-const router = express.Router(); // Usa el router, no app
 
-// Ruta para procesar el formulario de pre-adopción
-router.post('/procesar-formulario', async (req, res) => {
-  // Recoger los datos del formulario enviados desde req.body
-  const { email, date, telefono, mascota } = req.body;
+// Para mostrar todos los formularios de pre-adopción
+router.get('/', async (req, res) => {
+  const formularios = await prisma.preadop.findMany();
+  res.json(formularios);
+});
 
-  console.log('Formulario recibido:', req.body);  // Verifica que los datos llegan correctamente
+// Para buscar un formulario de pre-adopción en específico
+router.get('/:id', async (req, res) => {
+  const formulario = await prisma.preadop.findUnique({
+    where: {
+      id: parseInt(req.params.id),
+    },
+  });
 
-  // Intentar verificar si el correo electrónico o teléfono ya están registrados
+  if (formulario === null) {
+    res.sendStatus(404);
+    return;
+  }
+
+  res.json(formulario);
+});
+
+// Para crear un formulario de pre-adopción
+router.post('/', async (req, res) => {
+  const { email, date, telefono, mascota, pregunta } = req.body;
+
   try {
-    // Verificar si el correo electrónico ya está registrado
-    const existingEmail = await prisma.preadop.findUnique({
-      where: {
-        email: email,
-      },
-    });
-
-    if (existingEmail) {
-      return res.status(400).send('<h1>El correo electrónico ya está registrado</h1>');
-    }
-
-    // Verificar si el teléfono ya está registrado
-    const existingPhone = await prisma.preadop.findUnique({
-      where: {
-        telefono: telefono,
-      },
-    });
-
-    if (existingPhone) {
-      return res.status(400).send('<h1>El teléfono ya está registrado</h1>');
-    }
-
-    // Intentamos guardar los datos en la base de datos si no hay duplicados
     const formu_pre = await prisma.preadop.create({
-      data: {
-        email,       // Email recibido desde el formulario
-        date,        // Fecha de nacimiento recibida
-        telefono,    // Teléfono recibido
-        mascota,     // Tipo de mascota recibido
-      },
+      data: { email, date, telefono, mascota, pregunta },
     });
 
-    console.log('Formulario guardado en la base de datos:', formu_pre);
-
-    // Responder con éxito
-    res.send('<h1>Formulario enviado con éxito</h1>');
+    res.status(201).send(formu_pre);
   } catch (error) {
     console.error('Error al guardar los datos:', error);
-    res.status(500).send('<h1>Error al guardar los datos</h1>');
+    res.status(500).send('Error al guardar los datos');
   }
+});
+
+// Para eliminar un formulario de pre-adopción
+router.delete('/:id', async (req, res) => {
+  const formulario = await prisma.preadop.findUnique({
+    where: {
+      id: parseInt(req.params.id),
+    },
+  });
+
+  if (formulario === null) {
+    res.sendStatus(404);
+    return;
+  }
+
+  await prisma.preadop.delete({
+    where: {
+      id: parseInt(req.params.id),
+    },
+  });
+
+  res.send(formulario);
+});
+
+// Para actualizar/editar un formulario de pre-adopción
+router.put('/:id', async (req, res) => {
+  let formulario = await prisma.preadop.findUnique({
+    where: {
+      id: parseInt(req.params.id),
+    },
+  });
+
+  if (formulario === null) {
+    res.sendStatus(404);
+    return;
+  }
+
+  formulario = await prisma.preadop.update({
+    where: {
+      id: formulario.id,
+    },
+    data: {
+      email: req.body.email,
+      date: req.body.date,
+      telefono: req.body.telefono,
+      mascota: req.body.mascota,
+      pregunta: req.body.pregunta,
+    },
+  });
+
+  fetch('http://localhost:3000/api/v1/formu_pre', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(datosFormulario)
+  })
+
+  res.send(formulario);
 });
 
 module.exports = router; // Exporta el router correctamente
